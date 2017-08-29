@@ -1,0 +1,75 @@
+body, html {
+  height: 100%;
+}
+
+body {
+  background: #000;
+}
+
+#background {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: -1000;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  background: url('../img/background2.jpg');
+  background-size: cover;
+  opacity: 0.1;
+}
+
+#login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  #login-container {
+    @media only screen and (max-width: 760px), only screen and (max-device-width: 760px) {
+      padding: 20px;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.6);
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    #logo {
+      margin-bottom: 20px;
+
+      img {
+        margin: 0 auto;
+        max-height: 20vh;
+      }
+    }
+
+    #login-form {
+      background: rgba(255, 255, 255, 0.6);
+      padding: 20px;
+      margin: 20px;
+      width: 40vw;
+      border-radius: 5px;
+
+      @media only screen and (max-width: 760px), only screen and (max-device-width: 760px) {
+        width: 100%;
+      }
+
+      #login-errors {
+        margin: 10px 0;
+        text-align: center;
+        color: #bf0400;
+        font-weight: bolder;
+      }
+    }
+
+    #kdym-ad {
+      img {
+        margin: 20px auto;
+        max-height: 10vh;
+      }
+    }
+  }
+}

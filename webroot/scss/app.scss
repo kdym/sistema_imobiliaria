@@ -1,0 +1,42 @@
+.main-header {
+  .logo {
+    .logo-lg {
+      height: 100%;
+
+      img {
+        height: 100%;
+        padding: 2px;
+      }
+    }
+
+    .logo-mini {
+      height: 100%;
+
+      img {
+        height: 100%;
+        padding: 2px;
+      }
+    }
+  }
+}
+
+.main-sidebar {
+  .user-panel {
+    .info {
+      position: relative;
+      left: 0;
+    }
+  }
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+  height: auto;
+}
+
+.main-footer a {
+  color: #1a1a1a;
+
+  &:hover {
+    color: #4d8f97;
+  }
+}
