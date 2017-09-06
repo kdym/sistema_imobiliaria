@@ -1,116 +1,117 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  * @var \App\Model\Entity\User $user
-  */
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
+ */
+
+use \App\Model\Table\UsersTable;
+
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="users view large-9 medium-8 columns content">
-    <h3><?= h($user->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Nome') ?></th>
-            <td><?= h($user->nome) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Username') ?></th>
-            <td><?= h($user->username) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Password') ?></th>
-            <td><?= h($user->password) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Email') ?></th>
-            <td><?= h($user->email) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Endereco') ?></th>
-            <td><?= h($user->endereco) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Numero') ?></th>
-            <td><?= h($user->numero) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Complemento') ?></th>
-            <td><?= h($user->complemento) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Bairro') ?></th>
-            <td><?= h($user->bairro) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Cidade') ?></th>
-            <td><?= h($user->cidade) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Uf') ?></th>
-            <td><?= h($user->uf) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Cep') ?></th>
-            <td><?= h($user->cep) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Identidade') ?></th>
-            <td><?= h($user->identidade) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Cpf Cnpj') ?></th>
-            <td><?= h($user->cpf_cnpj) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Telefone 1') ?></th>
-            <td><?= h($user->telefone_1) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Telefone 2') ?></th>
-            <td><?= h($user->telefone_2) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Telefone 3') ?></th>
-            <td><?= h($user->telefone_3) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Telefone 4') ?></th>
-            <td><?= h($user->telefone_4) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Avatar') ?></th>
-            <td><?= h($user->avatar) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($user->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Role') ?></th>
-            <td><?= $this->Number->format($user->role) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Estado Civil') ?></th>
-            <td><?= $this->Number->format($user->estado_civil) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($user->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Data Nascimento') ?></th>
-            <td><?= h($user->data_nascimento) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Deleted') ?></th>
-            <td><?= $user->deleted ? __('Yes') : __('No'); ?></td>
-        </tr>
-    </table>
-</div>
+
+<section class="content-header">
+    <h1>Usuários</h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Dados Pessoais</h3>
+
+                    <div class="box-tools pull-right">
+                        <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['action' => 'form', $user['id']], ['escape' => false]) ?>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div class="icon-view-list">
+                        <div class="item">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+
+                            <div class="value">
+                                <h1><?php echo $this->Users->getUsername($user) ?></h1>
+
+                                <h2><?php echo $user['nome'] ?></h2>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="icon">
+                                <i class="fa fa-sitemap"></i>
+                            </div>
+
+                            <div class="value">
+                                <h1>Perfil</h1>
+
+                                <h2><?php echo $this->Users->getRole($user) ?></h2>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="icon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+
+                            <div class="value">
+                                <h1>Criado em</h1>
+
+                                <h2><?php echo $user['created']->format('d/m/Y') ?></h2>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="icon">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+
+                            <div class="value">
+                                <h1>E-mail</h1>
+
+                                <h2><?php echo $user['email'] ?></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Endereço e Contato</h3>
+
+                    <div class="box-tools pull-right">
+                        <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['action' => 'form', $user['id']], ['escape' => false]) ?>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div class="icon-view-list">
+                        <div class="item">
+                            <div class="icon">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+
+                            <div class="value">
+                                <?php if (!$this->Users->hasAddress($user)) { ?>
+                                    <h2>Nenhum endereço cadastrado</h2>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="vertical-icon-list">
+                        <?php for ($i = 1; $i <= UsersTable::MAX_PHONE_NUMBERS; $i++) { ?>
+                            <?php if (!empty($user["telefone_$i"])) { ?>
+                                <li><i class="fa fa-phone"></i> <?php echo $user["telefone_$i"] ?></li>
+                            <?php } ?>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

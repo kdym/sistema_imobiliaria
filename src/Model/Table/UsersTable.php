@@ -2,6 +2,7 @@
 
 namespace App\Model\Table;
 
+use App\View\Helper\ValidationHelper;
 use ArrayObject;
 use Cake\Auth\DefaultPasswordHasher;
 use Cake\Datasource\EntityInterface;
@@ -39,6 +40,8 @@ class UsersTable extends Table
         self::ROLE_TENANT => 'Locatário',
     ];
 
+    const MAX_PHONE_NUMBERS = 4;
+
     /**
      * Initialize method
      *
@@ -73,9 +76,29 @@ class UsersTable extends Table
             ]
         ]);
 
+        $validator->notEmpty('role');
+
         $validator->notEmpty('username');
 
         $validator->notEmpty('password');
+
+        $validator->notEmpty('new_password', 'Campo Obrigatório', function ($context) {
+            return !empty($context['data']['change_password']) && $context['data']['change_password'] == true;
+        });
+
+        $validator->notEmpty('telefone_1');
+        $validator->add('telefone_1', 'validPhone', [
+            'rule' => ['custom', ValidationHelper::PHONE_DDD_EXPRESSION],
+            'message' => 'Telefone inválido'
+        ]);
+
+        for ($i = 2; $i <= self::MAX_PHONE_NUMBERS; $i++) {
+            $validator->allowEmpty("telefone_$i");
+            $validator->add("telefone_$i", 'validPhone', [
+                'rule' => ['custom', ValidationHelper::PHONE_DDD_EXPRESSION],
+                'message' => 'Telefone inválido'
+            ]);
+        }
 
         return $validator;
     }
@@ -89,16 +112,21 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['username']));
-        $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->isUnique(['username'], 'Usuário já cadastrado com esse nome'));
+        $rules->add($rules->isUnique(['email'], 'E-mail já cadastrado'));
 
         return $rules;
     }
 
     public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
-        if (!empty($entity['password'])) {
+
+        if (!empty($entity['password']) && empty($entity['id'])) {
             $entity->set('password', (new DefaultPasswordHasher)->hash($entity['password']));
+        }
+
+        if (!empty($entity['change_password']) && $entity['change_password'] == true) {
+            $entity->set('password', (new DefaultPasswordHasher)->hash($entity['new_password']));
         }
 
         return true;

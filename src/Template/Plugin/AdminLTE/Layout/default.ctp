@@ -19,6 +19,10 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
         folder instead of downloading all of them to reduce the load. -->
     <?php echo $this->Html->css('AdminLTE.skins/skin-' . Configure::read('Theme.skin') . '.min'); ?>
+
+    <?php echo $this->Html->css('//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css'); ?>
+    <?php echo $this->Html->css('https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css'); ?>
+
     <?php echo $this->Html->css('app.min'); ?>
 
     <?php echo $this->fetch('css'); ?>
@@ -80,6 +84,14 @@
 <?php echo $this->Html->script('AdminLTE./plugins/slimScroll/jquery.slimscroll.min'); ?>
 <!-- FastClick -->
 <?php echo $this->Html->script('AdminLTE./plugins/fastclick/fastclick'); ?>
+
+<?php echo $this->Html->script('//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js'); ?>
+<?php echo $this->Html->script('https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js'); ?>
+<?php echo $this->Html->script('initializers/datatables.min'); ?>
+
+<?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js'); ?>
+<?php echo $this->Html->script('initializers/maskedinput.min'); ?>
+
 <!-- AdminLTE App -->
 <?php echo $this->Html->script('AdminLTE./js/app.min'); ?>
 <!-- AdminLTE for demo purposes -->

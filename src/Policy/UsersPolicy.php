@@ -21,7 +21,7 @@ class UsersPolicy
             case "logout":
             case "notAuthorized":
             case "profile":
-            case "show":
+            case "view":
                 return true;
             case 'delete':
                 return $user['role'] == UsersTable::ROLE_ADMIN && $user['id'] != $element['id'] && $element['deleted'] == false;
