@@ -258,4 +258,23 @@ class UsersController extends AppController
             $this->redirect("/");
         }
     }
+
+    public function profile()
+    {
+        $user = $this->Users->get($this->Auth->user('id'));
+
+        if ($this->request->is(['post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+
+            if ($this->Users->save($user)) {
+                $this->Flash->success('Salvo com sucesso');
+
+                return $this->redirect(['action' => 'profile']);
+            } else {
+                $this->Flash->error('Existem erros no formulário, favor verificar');
+            }
+        }
+
+        $this->set(compact('user'));
+    }
 }
