@@ -5,7 +5,31 @@
  */
 
 use \App\Model\Table\UsersTable;
+use App\Policy\BrokersPolicy;
+use App\Policy\UsersPolicy;
 
+$editLink = '';
+
+
+if (UsersPolicy::isAuthorized('form', $loggedUser, $user)) {
+    $editLink = ['controller' => 'users', 'action' => 'form', $user['id']];
+}
+
+//if (LocatorsPolicy::isAuthorized('form', $loggedUser, $user)) {
+//    $editLink = ['controller' => 'locators', 'action' => 'form', $user['id']];
+//}
+//
+//if (TenantsPolicy::isAuthorized('form', $loggedUser, $user)) {
+//    $editLink = ['controller' => 'tenants', 'action' => 'form', $user['id']];
+//}
+
+if (BrokersPolicy::isAuthorized('form', $loggedUser, $user)) {
+    $editLink = ['controller' => 'brokers', 'action' => 'form', $user['id']];
+}
+
+if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
+    $editLink = ['controller' => 'users', 'action' => 'profile'];
+}
 ?>
 
 <section class="content-header">
@@ -13,6 +37,13 @@ use \App\Model\Table\UsersTable;
 </section>
 
 <section class="content">
+    <?php if ($user['deleted'] != null) { ?>
+        <div class="alert alert-warning">
+            <i class="fa fa-exclamation-triangle"></i> Esse usuário foi excluído
+            em <?php echo $user['deleted']->format('d/m/Y') ?>
+        </div>
+    <?php } ?>
+
     <div class="row">
         <div class="col-md-6">
             <div class="box">
@@ -20,7 +51,7 @@ use \App\Model\Table\UsersTable;
                     <h3 class="box-title">Dados Pessoais</h3>
 
                     <div class="box-tools pull-right">
-                        <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['action' => 'form', $user['id']], ['escape' => false]) ?>
+                        <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
                     </div>
                 </div>
 
@@ -62,6 +93,20 @@ use \App\Model\Table\UsersTable;
                             </div>
                         </div>
 
+                        <?php if (!empty($user['broker'])) { ?>
+                            <div class="item">
+                                <div class="icon">
+                                    <i class="fa fa-percent"></i>
+                                </div>
+
+                                <div class="value">
+                                    <h1>Comissão</h1>
+
+                                    <h2><?php echo $this->Brokers->getComission($user['broker']) ?></h2>
+                                </div>
+                            </div>
+                        <?php } ?>
+
                         <div class="item">
                             <div class="icon">
                                 <i class="fa fa-envelope"></i>
@@ -84,7 +129,7 @@ use \App\Model\Table\UsersTable;
                     <h3 class="box-title">Endereço e Contato</h3>
 
                     <div class="box-tools pull-right">
-                        <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['action' => 'form', $user['id']], ['escape' => false]) ?>
+                        <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
                     </div>
                 </div>
 
@@ -98,6 +143,24 @@ use \App\Model\Table\UsersTable;
                             <div class="value">
                                 <?php if (!$this->Users->hasAddress($user)) { ?>
                                     <h2>Nenhum endereço cadastrado</h2>
+                                <?php } else { ?>
+                                    <h2>
+                                        <?php echo implode(', ', array_filter([
+                                            $user['endereco'],
+                                            $user['numero'],
+                                            $user['complemento'],
+                                        ])) ?>
+                                    </h2>
+
+                                    <h3>
+                                        <?php echo implode(', ', [
+                                            $user['bairro'],
+                                            $user['cidade'],
+                                            $user['uf'],
+                                        ]) ?>
+                                    </h3>
+
+                                    <h4><?php echo $user['cep'] ?></h4>
                                 <?php } ?>
                             </div>
                         </div>

@@ -17,6 +17,10 @@ use App\Policy\UsersPolicy;
             <?php echo $this->Html->link('<i class="fa fa-plus"></i> Novo', ['action' => 'form'], ['escape' => false, 'class' => 'btn btn-app']) ?>
         </nav>
 
+        <ul class="circles-legend">
+            <li><i class="fa fa-circle-o muted"></i> Excluídos</li>
+        </ul>
+
         <div class="box">
             <div class="box-body">
                 <table class="table table-hover" id="users-list">
@@ -38,7 +42,9 @@ use App\Policy\UsersPolicy;
                             <td><?php echo $this->Users->getRole($user) ?></td>
                             <td class="to-center">
                                 <div class="actions-list">
-                                    <?php echo $this->Html->link('Editar', ['action' => 'form', $user['id']]) ?>
+                                    <?php if (UsersPolicy::isAuthorized('form', $loggedUser, $user)) { ?>
+                                        <?php echo $this->Html->link('Editar', ['action' => 'form', $user['id']]) ?>
+                                    <?php } ?>
 
                                     <?php if (UsersPolicy::isAuthorized('delete', $loggedUser, $user)) { ?>
                                         <?php echo $this->Form->postLink('Excluir', ['action' => 'delete', $user['id']], ['confirm' => 'Tem certeza que deseja excluir?', 'method' => 'delete']) ?>

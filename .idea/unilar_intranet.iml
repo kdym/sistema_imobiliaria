@@ -25,6 +25,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/maiconpinto/cakephp-adminlte-theme" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mobiledetect/mobiledetectlib" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/pgbi/cakephp3-soft-delete" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psy/psysh" />
@@ -69,6 +70,7 @@
           <root url="file://$MODULE_DIR$/vendor/maiconpinto/cakephp-adminlte-theme" />
           <root url="file://$MODULE_DIR$/vendor/mobiledetect/mobiledetectlib" />
           <root url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
+          <root url="file://$MODULE_DIR$/vendor/pgbi/cakephp3-soft-delete" />
           <root url="file://$MODULE_DIR$/vendor/psr/http-message" />
           <root url="file://$MODULE_DIR$/vendor/psr/log" />
           <root url="file://$MODULE_DIR$/vendor/psy/psysh" />
@@ -109,6 +111,7 @@
           <root url="file://$MODULE_DIR$/vendor/maiconpinto/cakephp-adminlte-theme" />
           <root url="file://$MODULE_DIR$/vendor/mobiledetect/mobiledetectlib" />
           <root url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
+          <root url="file://$MODULE_DIR$/vendor/pgbi/cakephp3-soft-delete" />
           <root url="file://$MODULE_DIR$/vendor/psr/http-message" />
           <root url="file://$MODULE_DIR$/vendor/psr/log" />
           <root url="file://$MODULE_DIR$/vendor/psy/psysh" />

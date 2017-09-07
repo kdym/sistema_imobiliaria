@@ -219,3 +219,4 @@ if (Configure::read('debug')) {
 Plugin::load('AdminLTE', ['bootstrap' => true, 'routes' => true]);
 Plugin::load('Migrations');
 Plugin::load('TwitterBootstrap');
+Plugin::load('SoftDelete');

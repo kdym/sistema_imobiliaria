@@ -11,6 +11,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use SoftDelete\Model\Table\SoftDeleteTrait;
 
 /**
  * Users Model
@@ -27,6 +28,8 @@ use Cake\Validation\Validator;
  */
 class UsersTable extends Table
 {
+
+    use SoftDeleteTrait;
 
     const ROLE_ADMIN = 0;
     const ROLE_BROKER = 1;
@@ -57,6 +60,8 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasOne('Brokers');
     }
 
     /**
@@ -99,6 +104,23 @@ class UsersTable extends Table
                 'message' => 'Telefone inválido'
             ]);
         }
+
+
+        $validator->notEmpty('cep');
+        $validator->add('cep', 'validCep', [
+            'rule' => ['custom', ValidationHelper::CEP_EXPRESSION],
+            'message' => 'CEP inválido'
+        ]);
+
+        $validator->notEmpty('endereco');
+
+        $validator->notEmpty('numero');
+
+        $validator->notEmpty('bairro');
+
+        $validator->notEmpty('cidade');
+
+        $validator->notEmpty('uf');
 
         return $validator;
     }

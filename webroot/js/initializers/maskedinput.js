@@ -56,20 +56,20 @@ function getCep(cep, callback) {
     }
 }
 
-// $('.mask-money').maskMoney({
-//     prefix: 'R$ ',
-//     affixesStay: false,
-//     thousands: '.',
-//     decimal: ',',
-//     allowEmpty: true
-// });
-//
-// $('.mask-number').maskMoney({
-//     thousands: '.',
-//     decimal: ',',
-//     allowEmpty: true
-// });
-//
+$('.mask-money').maskMoney({
+    prefix: 'R$ ',
+    affixesStay: false,
+    thousands: '.',
+    decimal: ',',
+    allowEmpty: true
+});
+
+$('.mask-number').maskMoney({
+    thousands: '.',
+    decimal: ',',
+    allowEmpty: true
+});
+
 // $('.datepicker').bootstrapDatePicker({
 //     language: 'pt-BR'
 // });

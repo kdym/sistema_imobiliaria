@@ -19,5 +19,6 @@ class ValidationHelper extends Helper
     protected $_defaultConfig = [];
 
     const PHONE_DDD_EXPRESSION = '/\(\d{2}\) \d?\d{4}\-\d{4}/';
+    const CEP_EXPRESSION = '/\d{5}\-\d{3}/';
 
 }

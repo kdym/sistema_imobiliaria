@@ -17,16 +17,16 @@ class UsersPolicy
         switch ($action) {
             case 'index':
             case 'form':
-                return $user['role'] == UsersTable::ROLE_ADMIN && $element['deleted'] == false;
+                return $user['role'] == UsersTable::ROLE_ADMIN && $element['deleted'] == null;
             case "logout":
             case "notAuthorized":
             case "profile":
             case "view":
                 return true;
             case 'delete':
-                return $user['role'] == UsersTable::ROLE_ADMIN && $user['id'] != $element['id'] && $element['deleted'] == false;
+                return $user['role'] == UsersTable::ROLE_ADMIN && $user['id'] != $element['id'] && $element['deleted'] == null;
             case 'undelete':
-                return $user['role'] == UsersTable::ROLE_ADMIN && $element['deleted'] == true;
+                return $user['role'] == UsersTable::ROLE_ADMIN && $element['deleted'] != null;
             case 'show_edit_profile':
                 return $user['id'] == $element['id'];
             case 'delete_avatar':
