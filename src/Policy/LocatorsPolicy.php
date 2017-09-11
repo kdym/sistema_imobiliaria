@@ -10,7 +10,7 @@ use App\Model\Table\UsersTable;
  * Date: 11/05/2017
  * Time: 10:10
  */
-class BrokersPolicy
+class LocatorsPolicy
 {
     public static function isAuthorized($action, $user, $element = null)
     {
@@ -19,7 +19,7 @@ class BrokersPolicy
             case 'delete':
                 return $user['role'] == UsersTable::ROLE_ADMIN;
             case 'form':
-                return $user['role'] == UsersTable::ROLE_ADMIN && $element['role'] == UsersTable::ROLE_BROKER;
+                return $user['role'] == UsersTable::ROLE_ADMIN && $element['role'] == UsersTable::ROLE_LOCATOR;
         }
     }
 }

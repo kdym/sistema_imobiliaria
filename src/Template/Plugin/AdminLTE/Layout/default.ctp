@@ -94,6 +94,9 @@
 <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js'); ?>
 <?php echo $this->Html->script('initializers/maskedinput.min'); ?>
 
+<?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js'); ?>
+<?php echo $this->Html->script('initializers/jquery-validate.min'); ?>
+
 <!-- AdminLTE App -->
 <?php echo $this->Html->script('AdminLTE./js/app.min'); ?>
 <!-- AdminLTE for demo purposes -->

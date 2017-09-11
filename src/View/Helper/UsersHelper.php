@@ -21,12 +21,21 @@ class UsersHelper extends Helper
 
     public function getUsername($user)
     {
-        return $user['username'];
+        if (is_numeric($user['username'])) {
+            return str_pad($user['username'], UsersTable::MAX_USER_CHARS, '0', STR_PAD_LEFT);
+        } else {
+            return $user['username'];
+        }
     }
 
     public function getRole($user)
     {
         return UsersTable::$roles[$user['role']];
+    }
+
+    public function getCivilState($user)
+    {
+        return GlobalCombosHelper::$civilStates[$user['estado_civil']];
     }
 
     public function getClassFlag($user)

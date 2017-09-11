@@ -20,9 +20,11 @@ class ParserBehavior extends Behavior
 
     public function parseDecimal($value)
     {
-        $value = str_replace(['R$ ', '.'], '', $value);
-        $value = str_replace(',', '.', $value);
+        return str_replace(',', '.', str_replace(['R$ ', '.'], '', $value));
+    }
 
-        return $value;
+    public function parseDate($value)
+    {
+        return implode('-', array_reverse(explode('/', $value)));
     }
 }

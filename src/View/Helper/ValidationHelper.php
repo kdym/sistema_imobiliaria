@@ -20,5 +20,7 @@ class ValidationHelper extends Helper
 
     const PHONE_DDD_EXPRESSION = '/\(\d{2}\) \d?\d{4}\-\d{4}/';
     const CEP_EXPRESSION = '/\d{5}\-\d{3}/';
+    const CPF_EXPRESSION = '/\d{3}\.\d{3}\.\d{3}\-\d{2}/';
+    const CNPJ_EXPRESSION = '/\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}/';
 
 }

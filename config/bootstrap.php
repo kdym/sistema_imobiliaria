@@ -39,6 +39,8 @@ use Cake\Database\Type;
 use Cake\Datasource\ConnectionManager;
 use Cake\Error\ErrorHandler;
 use Cake\Http\ServerRequest;
+use Cake\I18n\Date;
+use Cake\I18n\Number;
 use Cake\Log\Log;
 use Cake\Mailer\Email;
 use Cake\Utility\Inflector;
@@ -182,11 +184,14 @@ ServerRequest::addDetector('tablet', function ($request) {
 Type::build('time')
     ->useImmutable();
 Type::build('date')
-    ->useImmutable();
+    ->useLocaleParser();
 Type::build('datetime')
-    ->useImmutable();
+    ->useImmutable()
+    ->useLocaleParser();
 Type::build('timestamp')
     ->useImmutable();
+
+Date::setToStringFormat('dd/MM/yyyy');
 
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize

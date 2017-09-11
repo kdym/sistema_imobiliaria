@@ -44,6 +44,8 @@ class UsersTable extends Table
     ];
 
     const MAX_PHONE_NUMBERS = 4;
+    const MAX_PASSWORD_CHARS = 6;
+    const MAX_USER_CHARS = 4;
 
     /**
      * Initialize method
@@ -60,8 +62,10 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Parser');
 
         $this->hasOne('Brokers');
+        $this->hasOne('Locators');
     }
 
     /**
@@ -122,6 +126,28 @@ class UsersTable extends Table
 
         $validator->notEmpty('uf');
 
+        $validator->notEmpty('cpf_cnpj');
+        $validator->add('cpf_cnpj', 'custom', [
+            'rule' => function ($value, $context) {
+                if (!preg_match(ValidationHelper::CPF_EXPRESSION, $value) && !preg_match(ValidationHelper::CNPJ_EXPRESSION, $value)) {
+                    return false;
+                }
+
+                return true;
+            },
+            'message' => 'CPF/CNPJ inválido'
+        ]);
+
+        $validator->notEmpty('data_nascimento');
+        $validator->add('data_nascimento', [
+            'date' => [
+                'rule' => ['date', 'dmy'],
+                'message' => 'Data inválida',
+            ]
+        ]);
+
+        $validator->notEmpty('estado_civil');
+
         return $validator;
     }
 
@@ -151,6 +177,32 @@ class UsersTable extends Table
             $entity->set('password', (new DefaultPasswordHasher)->hash($entity['new_password']));
         }
 
+        if (!empty($entity['data_nascimento'])) {
+            $entity->set('data_nascimento', $this->parseDate($entity['data_nascimento']));
+        }
+
         return true;
+    }
+
+    public function getLastUsername()
+    {
+        $query = $this->find()->select(['max_user' => 'max(cast(username as unsigned))'])->first();
+
+        return $query['max_user'];
+    }
+
+    public function generatePassword()
+    {
+        $characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $buffer = str_split($characters);
+
+        $buffer2 = "";
+        for ($i = 0; $i < self::MAX_PASSWORD_CHARS; $i++) {
+            $index = mt_rand(0, count($buffer) - 1);
+
+            $buffer2 .= $buffer[$index];
+        }
+
+        return $buffer2;
     }
 }

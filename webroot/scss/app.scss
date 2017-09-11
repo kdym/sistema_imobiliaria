@@ -53,6 +53,12 @@ $mutedColor: #d4d4d4;
   margin: 0;
 }
 
+label.error {
+  color: $dangerColor;
+}
+
+select.error,
+input.error,
 .form-error {
   border-color: $dangerColor;
 }

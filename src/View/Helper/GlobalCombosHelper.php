@@ -187,4 +187,13 @@ class GlobalCombosHelper extends Helper
         self::COMISSION_TYPE_FIXED => 'Valor Fixo',
     ];
 
+    const CIVIL_STATE_SINGLE = 0;
+    const CIVIL_STATE_MARRIED = 1;
+    const CIVIL_STATE_DIVORCED = 2;
+
+    public static $civilStates = [
+        self::CIVIL_STATE_SINGLE => 'Solteiro(a)',
+        self::CIVIL_STATE_MARRIED => 'Casado(a)',
+        self::CIVIL_STATE_DIVORCED => 'Divorciado(a)',
+    ];
 }
