@@ -66,6 +66,10 @@ class UsersTable extends Table
 
         $this->hasOne('Brokers');
         $this->hasOne('Locators');
+
+        $this->hasMany('LocatorsAssociations', [
+            "foreignKey" => "locator_1",
+        ]);
     }
 
     /**
@@ -204,5 +208,14 @@ class UsersTable extends Table
         }
 
         return $buffer2;
+    }
+
+    public function parseUsername($username)
+    {
+        if (is_numeric($username)) {
+            return (int)$username;
+        } else {
+            return $username;
+        }
     }
 }

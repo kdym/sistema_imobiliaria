@@ -20,8 +20,13 @@
         folder instead of downloading all of them to reduce the load. -->
     <?php echo $this->Html->css('AdminLTE.skins/skin-' . Configure::read('Theme.skin') . '.min'); ?>
 
-    <?php echo $this->Html->css('//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css'); ?>
-    <?php echo $this->Html->css('https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css'); ?>
+    <?php echo $this->Html->css('AdminLTE./plugins/datatables/jquery.dataTables.min'); ?>
+    <?php echo $this->Html->css('AdminLTE./plugins/datatables/dataTables.bootstrap'); ?>
+    <?php echo $this->Html->css('AdminLTE./plugins/datatables/extensions/Responsive/css/dataTables.responsive'); ?>
+
+    <?php echo $this->Html->css('https://code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css'); ?>
+
+    <?php echo $this->Html->css('masonry.min'); ?>
 
     <?php echo $this->Html->css('app.min'); ?>
 
@@ -85,17 +90,24 @@
 <!-- FastClick -->
 <?php echo $this->Html->script('AdminLTE./plugins/fastclick/fastclick'); ?>
 
-<?php echo $this->Html->script('//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js'); ?>
-<?php echo $this->Html->script('https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js'); ?>
-<?php echo $this->Html->script('//cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js'); ?>
+<?php echo $this->Html->script('AdminLTE./plugins/datatables/jquery.dataTables.min'); ?>
+<?php echo $this->Html->script('AdminLTE./plugins/datatables/dataTables.bootstrap.min'); ?>
+<?php echo $this->Html->script('AdminLTE./plugins/datatables/extensions/Responsive/js/dataTables.responsive.min'); ?>
 <?php echo $this->Html->script('initializers/datatables.min'); ?>
 
-<?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js'); ?>
+<?php echo $this->Html->script('AdminLTE./plugins/input-mask/jquery.inputmask'); ?>
 <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js'); ?>
 <?php echo $this->Html->script('initializers/maskedinput.min'); ?>
 
 <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js'); ?>
 <?php echo $this->Html->script('initializers/jquery-validate.min'); ?>
+
+<?php echo $this->Html->script('https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'); ?>
+
+<?php echo $this->Html->script('http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js'); ?>
+
+<?php echo $this->Html->script('https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js'); ?>
+<?php echo $this->Html->script('initializers/masonry.min'); ?>
 
 <!-- AdminLTE App -->
 <?php echo $this->Html->script('AdminLTE./js/app.min'); ?>

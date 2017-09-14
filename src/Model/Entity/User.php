@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Model\Entity;
 
+use App\Model\Table\UsersTable;
 use Cake\ORM\Entity;
 
 /**
@@ -56,4 +58,13 @@ class User extends Entity
     protected $_hidden = [
         'password'
     ];
+
+    protected function _getFormattedUsername()
+    {
+        if (is_numeric($this['username'])) {
+            return str_pad($this['username'], UsersTable::MAX_USER_CHARS, '0', STR_PAD_LEFT);
+        } else {
+            return $this['username'];
+        }
+    }
 }

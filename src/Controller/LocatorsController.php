@@ -178,4 +178,27 @@ class LocatorsController extends AppController
 
         $this->set(compact('user'));
     }
+
+    public function fetch()
+    {
+        $this->autoRender = false;
+        $this->response->type('json');
+
+        $search = $this->Users->parseSearch($this->Users->parseUsername($this->request->getQuery('name')));
+
+        $locators = $this->Users->find()
+            ->where(['role' => UsersTable::ROLE_LOCATOR])
+            ->where([
+                "OR" => [
+                    "Users.nome LIKE" => $search,
+                    "Users.username LIKE" => $search,
+                ],
+            ])
+            ->limit(10);
+
+//        $this->set(compact("locators"));
+//        $this->set('_serialize', ['locators']);
+
+        $this->response->body(json_encode($locators));
+    }
 }

@@ -1,0 +1,10 @@
+$masonryGutter: 20px;
+$breakPoint: 767px;
+
+.masonry-sizer-50 {
+  width: calc(50% - #{$masonryGutter});
+
+  @media only screen and (max-width: $breakPoint), only screen and (max-device-width: $breakPoint) {
+    width: 100%;
+  }
+}

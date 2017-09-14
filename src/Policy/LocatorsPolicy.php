@@ -16,10 +16,16 @@ class LocatorsPolicy
     {
         switch ($action) {
             case 'index':
+            case 'fetch':
+                return $user['role'] == UsersTable::ROLE_ADMIN || $user['role'] == UsersTable::ROLE_BROKER;
             case 'delete':
                 return $user['role'] == UsersTable::ROLE_ADMIN;
             case 'form':
-                return $user['role'] == UsersTable::ROLE_ADMIN && $element['role'] == UsersTable::ROLE_LOCATOR;
+                if ($element) {
+                    return ($user['role'] == UsersTable::ROLE_ADMIN || $user['role'] == UsersTable::ROLE_BROKER) && $element['role'] == UsersTable::ROLE_LOCATOR;
+                } else {
+                    return $user['role'] == UsersTable::ROLE_ADMIN || $user['role'] == UsersTable::ROLE_BROKER;
+                }
         }
     }
 }

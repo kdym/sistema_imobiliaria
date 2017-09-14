@@ -31,7 +31,7 @@ use App\Policy\BrokersPolicy;
                     <tbody>
                     <?php foreach ($brokers as $b) { ?>
                         <tr>
-                            <td><?php echo $this->Users->getUsername($b) ?></td>
+                            <td><?php echo $b['formatted_username'] ?></td>
                             <td><?php echo $this->Html->link($b['nome'], ['controller' => 'users', 'action' => 'view', $b['id']]) ?></td>
                             <td><?php echo $b['email'] ?></td>
                             <td class="to-center">

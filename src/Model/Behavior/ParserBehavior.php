@@ -27,4 +27,9 @@ class ParserBehavior extends Behavior
     {
         return implode('-', array_reverse(explode('/', $value)));
     }
+
+    public function parseSearch($value)
+    {
+        return '%' . str_replace(' ', '%', $value) . '%';
+    }
 }

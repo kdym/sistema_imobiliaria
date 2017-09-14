@@ -31,7 +31,7 @@ use App\Policy\LocatorsPolicy;
                     <tbody>
                     <?php foreach ($locators as $l) { ?>
                         <tr>
-                            <td><?php echo $this->Users->getUsername($l) ?></td>
+                            <td><?php echo $l['formatted_username'] ?></td>
                             <td><?php echo $this->Html->link($l['nome'], ['controller' => 'users', 'action' => 'view', $l['id']]) ?></td>
                             <td><?php echo $l['email'] ?></td>
                             <td class="to-center">

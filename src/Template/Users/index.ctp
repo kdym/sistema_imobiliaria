@@ -36,7 +36,7 @@ use App\Policy\UsersPolicy;
                     <tbody>
                     <?php foreach ($users as $user) { ?>
                         <tr class="<?php echo $this->Users->getClassFlag($user) ?>">
-                            <td><?php echo $this->Users->getUsername($user) ?></td>
+                            <td><?php echo $user['formatted_username'] ?></td>
                             <td><?php echo $this->Html->link($user['nome'], ['action' => 'view', $user['id']]) ?></td>
                             <td><?php echo $user['email'] ?></td>
                             <td><?php echo $this->Users->getRole($user) ?></td>
