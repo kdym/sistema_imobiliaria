@@ -187,6 +187,7 @@ class LocatorsController extends AppController
         $search = $this->Users->parseSearch($this->Users->parseUsername($this->request->getQuery('name')));
 
         $locators = $this->Users->find()
+            ->contain('Locators')
             ->where(['role' => UsersTable::ROLE_LOCATOR])
             ->where([
                 "OR" => [

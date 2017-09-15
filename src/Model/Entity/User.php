@@ -59,6 +59,10 @@ class User extends Entity
         'password'
     ];
 
+    protected $_virtual = [
+        'formatted_username'
+    ];
+
     protected function _getFormattedUsername()
     {
         if (is_numeric($this['username'])) {

@@ -46,6 +46,14 @@ class LocatorsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
         ]);
+
+        $this->hasMany('LocatorsAssociations', [
+            "foreignKey" => "locator_1",
+            'sort' => ['Users.nome' => 'asc']
+        ]);
+        $this->hasMany('Prosecutors', [
+            'sort' => ['Users.nome' => 'asc']
+        ]);
     }
 
     /**

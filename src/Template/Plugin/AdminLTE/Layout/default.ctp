@@ -109,6 +109,8 @@
 <?php echo $this->Html->script('https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js'); ?>
 <?php echo $this->Html->script('initializers/masonry.min'); ?>
 
+<?php echo $this->Html->script('general.min') ?>
+
 <!-- AdminLTE App -->
 <?php echo $this->Html->script('AdminLTE./js/app.min'); ?>
 <!-- AdminLTE for demo purposes -->

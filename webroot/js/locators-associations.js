@@ -37,7 +37,7 @@ if ($('#search-locator').length) {
     }).autocomplete("instance")._renderItem = function (ul, item) {
         var data = {
             name: item.nome,
-            cpf_cnpj: item.cpf_cnpj,
+            username: item.formatted_username,
         };
 
         return $('<li>')
@@ -66,13 +66,13 @@ function associateLocator(locator) {
     if (confirm('Tem certeza que deseja associar esse Locador?')) {
         var error = false;
 
-        if ($('#main-locator').data('locator-id') == locator.id) {
+        if ($('#main-locator').data('locator-id') == locator.locator.id) {
             alert('Não é possível associar um Locador a ele mesmo');
             error = true;
         }
 
         for (var index in locatorsSliders) {
-            if (index == locator.id) {
+            if (index == locator.locator.id) {
                 alert('Locador já associado');
                 error = true;
             }
@@ -82,14 +82,15 @@ function associateLocator(locator) {
             mainSlider.bootstrapSlider('enable');
 
             var data = {
-                id: locator.id,
+                id: locator.locator.id,
                 name: locator.nome,
+                username: locator.formatted_username,
                 percentage: 0
             };
 
             var sliderRow = $('#locators-sliders-template').tmpl(data).appendTo('.percentage-sliders');
 
-            locatorsSliders[locator.id] = setSlider(sliderRow.find('.slider'));
+            locatorsSliders[locator.locator.id] = setSlider(sliderRow.find('.slider'));
 
             sliderRow.find('.delete-button').click(function () {
                 deleteSlider(this);

@@ -36,11 +36,11 @@ class LocatorsAssociationsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Locators', [
-            'className' => 'Users',
             'foreignKey' => 'locator_1',
         ]);
+
         $this->belongsTo('Associateds', [
-            'className' => 'Users',
+            'className' => 'Locators',
             'foreignKey' => 'locator_2',
         ]);
     }

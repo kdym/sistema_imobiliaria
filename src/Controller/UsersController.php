@@ -66,22 +66,29 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Brokers', 'Locators', 'LocatorsAssociations.Associateds'],
+            'contain' => [
+                'Brokers',
+                'Locators' => [
+                    'LocatorsAssociations.Associateds.Users',
+                    'Prosecutors.Users'
+                ],
+                'Prosecutors.Locators.Users'
+            ],
             'withDeleted'
         ]);
 
         if (!empty($user['locator'])) {
             $locatorsAssociationsDataset = [];
             $ownerPercentage = 100;
-            foreach ($user['locators_associations'] as $a) {
-                $locatorsAssociationsDataset['labels'][] = $a['associated']['nome'];
+            foreach ($user['locator']['locators_associations'] as $a) {
+                $locatorsAssociationsDataset['labels'][] = sprintf('%s - %s', $a['associated']['user']['formatted_username'], $a['associated']['user']['nome']);
                 $locatorsAssociationsDataset['dataset'][] = $a['porcentagem'];
                 $locatorsAssociationsDataset['colors'][] = $this->GraphUtil->getRandomColor();
 
                 $ownerPercentage -= $a['porcentagem'];
             }
 
-            $locatorsAssociationsDataset['labels'][] = $user['nome'];
+            $locatorsAssociationsDataset['labels'][] = sprintf('%s - %s', $user['formatted_username'], $user['nome']);
             $locatorsAssociationsDataset['dataset'][] = $ownerPercentage;
             $locatorsAssociationsDataset['colors'][] = $this->GraphUtil->getRandomColor();
 
@@ -294,5 +301,24 @@ class UsersController extends AppController
         }
 
         $this->set(compact('user'));
+    }
+
+    public function fetch()
+    {
+        $this->autoRender = false;
+        $this->response->type('json');
+
+        $search = $this->Users->parseSearch($this->Users->parseUsername($this->request->getQuery('name')));
+
+        $locators = $this->Users->find()
+            ->where([
+                "OR" => [
+                    "Users.nome LIKE" => $search,
+                    "Users.username LIKE" => $search,
+                ],
+            ])
+            ->limit(10);
+
+        $this->response->body(json_encode($locators));
     }
 }

@@ -31,6 +31,8 @@ class UsersPolicy
                 return $user['id'] == $element['id'];
             case 'delete_avatar':
                 return $user['role'] == UsersTable::ROLE_ADMIN || $user['id'] == $element['id'];
+            case 'fetch':
+                return $user['role'] == UsersTable::ROLE_ADMIN || $user['role'] == UsersTable::ROLE_BROKER;
         }
     }
 }

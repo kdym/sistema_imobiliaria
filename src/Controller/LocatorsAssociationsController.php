@@ -66,19 +66,19 @@ class LocatorsAssociationsController extends AppController
     public function form($locatorId)
     {
         $locator = $this->Users->get($locatorId, [
-            'contain' => ['LocatorsAssociations.Associateds']
+            'contain' => ['Locators.LocatorsAssociations.Associateds.Users']
         ]);
 
         $sum = 0;
-        foreach ($locator['locators_associations'] as $a) {
+        foreach ($locator['locator']['locators_associations'] as $a) {
             $sum += $a['porcentagem'];
         }
 
         $locator['owner_percentage'] = 100 - $sum;
 
         if ($this->request->is('post')) {
-            $this->LocatorsAssociations->deleteAll(['locator_1' => $locatorId]);
-            $this->LocatorsAssociations->deleteAll(['locator_2' => $locatorId]);
+            $this->LocatorsAssociations->deleteAll(['locator_1' => $locator['locator']['id']]);
+            $this->LocatorsAssociations->deleteAll(['locator_2' => $locator['locator']['id']]);
 
             $sum = 0;
             foreach ($this->request->getData('slider') as $key => $v) {
@@ -90,7 +90,7 @@ class LocatorsAssociationsController extends AppController
             foreach ($this->request->getData('slider') as $key => $v) {
                 $locatorAssociation = $this->LocatorsAssociations->newEntity();
 
-                $locatorAssociation['locator_1'] = $locatorId;
+                $locatorAssociation['locator_1'] = $locator['locator']['id'];
                 $locatorAssociation['locator_2'] = $key;
                 $locatorAssociation['porcentagem'] = $v;
 
@@ -99,7 +99,7 @@ class LocatorsAssociationsController extends AppController
                 $locatorAssociation = $this->LocatorsAssociations->newEntity();
 
                 $locatorAssociation['locator_1'] = $key;
-                $locatorAssociation['locator_2'] = $locatorId;
+                $locatorAssociation['locator_2'] = $locator['locator']['id'];
                 $locatorAssociation['porcentagem'] = $ownerPercentage;
 
                 $this->LocatorsAssociations->save($locatorAssociation);

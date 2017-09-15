@@ -12,6 +12,7 @@ use \App\Model\Table\UsersTable;
 use App\Policy\BrokersPolicy;
 use App\Policy\LocatorsAssociationsPolicy;
 use App\Policy\LocatorsPolicy;
+use App\Policy\ProsecutorsPolicy;
 use App\Policy\UsersPolicy;
 
 $editLink = '';
@@ -30,6 +31,10 @@ if (LocatorsPolicy::isAuthorized('form', $loggedUser, $user)) {
 
 if (BrokersPolicy::isAuthorized('form', $loggedUser, $user)) {
     $editLink = ['controller' => 'brokers', 'action' => 'form', $user['id']];
+}
+
+if (ProsecutorsPolicy::isAuthorized('edit', $loggedUser, $user)) {
+    $editLink = ['controller' => 'prosecutors', 'action' => 'form', $user['prosecutor']['locator_id'], $user['prosecutor']['id']];
 }
 
 if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
@@ -341,6 +346,73 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                             data-dataset='<?php echo json_encode($locatorsAssociationsDataset['dataset']) ?>'
                             data-labels='<?php echo json_encode($locatorsAssociationsDataset['labels']) ?>'
                             data-colors='<?php echo json_encode($locatorsAssociationsDataset['colors']) ?>'></canvas>
+                </div>
+            </div>
+
+            <div class="box masonry-sizer-50">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Procuradores</h3>
+
+                    <?php if (ProsecutorsPolicy::isAuthorized('form', $loggedUser)) { ?>
+                        <div class="box-tools pull-right">
+                            <?php echo $this->Html->link('<i class="fa fa-plus"></i>', ['controller' => 'prosecutors', 'action' => 'form', $user['locator']['id']], ['escape' => false]) ?>
+                        </div>
+                    <?php } ?>
+                </div>
+
+                <div class="box-body">
+                    <?php if (!empty($user['locator']['prosecutors'])) { ?>
+                        <ul class="vertical-icon-list">
+                            <?php foreach ($user['locator']['prosecutors'] as $p) { ?>
+                                <li>
+                                    <i class="fa fa-user"></i> <?php echo $p['user']['nome'] ?>
+                                    <small><?php echo $p['user']['formatted_username'] ?></small>
+
+                                    <div class="pull-right">
+                                        <?php if (ProsecutorsPolicy::isAuthorized('edit', $loggedUser, $p['user'])) { ?>
+                                            <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['controller' => 'prosecutors', 'action' => 'form', $user['locator']['id'], $p['id']], ['escape' => false]) ?>
+                                        <?php } ?>
+
+                                        <?php if (ProsecutorsPolicy::isAuthorized('delete', $loggedUser)) { ?>
+                                            <?php echo $this->Form->postLink('<i class="fa fa-trash"></i>', ['controller' => 'prosecutors', 'action' => 'delete', $p['id']], ['escape' => false, 'class' => 'text-danger', 'confirm' => 'Tem certeza que deseja excluir?', 'method' => 'delete']) ?>
+                                        <?php } ?>
+                                    </div>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } ?>
+
+        <?php if (!empty($user['prosecutors'])) { ?>
+            <div class="box masonry-sizer-50">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Procurador de</h3>
+                </div>
+
+                <div class="box-body">
+                    <div class="icon-view-list">
+                        <?php foreach ($user['prosecutors'] as $p) { ?>
+                            <div class="item">
+                                <div class="icon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+
+                                <div class="value">
+                                    <h1><?php echo $p['locator']['user']['formatted_username'] ?></h1>
+
+                                    <h2><?php echo $p['locator']['user']['nome'] ?></h2>
+
+                                    <h3>
+                                        <?php if (ProsecutorsPolicy::isAuthorized('delete', $loggedUser)) { ?>
+                                            <?php echo $this->Form->postLink('<i class="fa fa-trash"></i>', ['controller' => 'prosecutors', 'action' => 'delete', $p['id']], ['escape' => false, 'class' => 'text-danger', 'confirm' => 'Tem certeza que deseja excluir?', 'method' => 'delete']) ?>
+                                        <?php } ?>
+                                    </h3>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         <?php } ?>
