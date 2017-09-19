@@ -218,3 +218,58 @@ table {
 .graph-container {
   height: 30vh !important;
 }
+
+.thumbs-list {
+  .item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border: solid 1px #efefef;
+    border-radius: 2px;
+    padding: 5px;
+
+    .item-wrapper {
+      flex: 1;
+
+      figure {
+        margin: -5px;
+
+        img {
+          width: 100%;
+          height: 20vh;
+          border-radius: 2px;
+        }
+      }
+
+      h1 {
+        font-size: large;
+        margin: 5px 0 2px 0;
+        font-weight: bolder;
+      }
+
+      h2 {
+        font-size: medium;
+        margin: 0;
+      }
+
+      h3 {
+        font-size: small;
+        margin: 10px 0;
+      }
+    }
+
+    .actions {
+      margin: 5px 0;
+      text-align: right;
+    }
+  }
+}
+
+.small-long-text {
+  text-align: justify;
+  font-size: small;
+}
+
+.pagination-div .pagination {
+  margin: 0;
+}

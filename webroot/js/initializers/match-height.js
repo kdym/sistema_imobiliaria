@@ -1,0 +1,1 @@
+$('.thumbs-list .item').matchHeight();

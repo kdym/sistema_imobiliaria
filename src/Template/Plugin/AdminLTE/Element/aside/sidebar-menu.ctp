@@ -2,6 +2,7 @@
 
 use App\Policy\BrokersPolicy;
 use App\Policy\LocatorsPolicy;
+use App\Policy\PropertiesPolicy;
 use App\Policy\UsersPolicy;
 use Cake\Core\Configure;
 
@@ -48,6 +49,22 @@ if (file_exists($file)) {
             <li class="<?php echo $active ?>">
                 <a href="<?php echo $this->Url->build(["controller" => "locators", "action" => "index"]) ?>">
                     <i class="fa fa-users"></i> <span>Locadores</span>
+                </a>
+            </li>
+        <?php } ?>
+
+        <?php
+        $active = '';
+
+        if ($this->request->params['controller'] == 'Properties') {
+            $active = 'active';
+        }
+        ?>
+
+        <?php if (PropertiesPolicy::isAuthorized('index', $loggedUser)) { ?>
+            <li class="<?php echo $active ?>">
+                <a href="<?php echo $this->Url->build(["controller" => "properties", "action" => "index"]) ?>">
+                    <i class="fa fa-home"></i> <span>Imóveis</span>
                 </a>
             </li>
         <?php } ?>
