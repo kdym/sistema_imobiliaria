@@ -10,9 +10,9 @@ if (file_exists($file)) {
     echo ob_get_clean();
 } else {
     ?>
-    <div class="user-panel">
+    <!--div class="user-panel">
         <div class="info">
             <h4><?php echo $loggedUser['nome'] ?></h4>
         </div>
-    </div>
+    </div-->
 <?php } ?>

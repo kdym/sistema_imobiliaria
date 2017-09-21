@@ -13,6 +13,7 @@ use App\Policy\BrokersPolicy;
 use App\Policy\LocatorsAssociationsPolicy;
 use App\Policy\LocatorsPolicy;
 use App\Policy\ProsecutorsPolicy;
+use App\Policy\TenantsPolicy;
 use App\Policy\UsersPolicy;
 
 $editLink = '';
@@ -25,9 +26,9 @@ if (LocatorsPolicy::isAuthorized('form', $loggedUser, $user)) {
     $editLink = ['controller' => 'locators', 'action' => 'form', $user['id']];
 }
 
-//if (TenantsPolicy::isAuthorized('form', $loggedUser, $user)) {
-//    $editLink = ['controller' => 'tenants', 'action' => 'form', $user['id']];
-//}
+if (TenantsPolicy::isAuthorized('form', $loggedUser, $user)) {
+    $editLink = ['controller' => 'tenants', 'action' => 'form', $user['id']];
+}
 
 if (BrokersPolicy::isAuthorized('form', $loggedUser, $user)) {
     $editLink = ['controller' => 'brokers', 'action' => 'form', $user['id']];
@@ -122,17 +123,19 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                         </div>
                     <?php } ?>
 
-                    <div class="item">
-                        <div class="icon">
-                            <i class="fa fa-heart"></i>
-                        </div>
+                    <?php if (!empty($user['locator'])) { ?>
+                        <div class="item">
+                            <div class="icon">
+                                <i class="fa fa-heart"></i>
+                            </div>
 
-                        <div class="value">
-                            <h1>Estado Civil</h1>
+                            <div class="value">
+                                <h1>Estado Civil</h1>
 
-                            <h2><?php echo $this->Users->getCivilState($user) ?></h2>
+                                <h2><?php echo $this->Users->getCivilState($user) ?></h2>
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
 
                     <?php if (!empty($user['data_nascimento'])) { ?>
                         <div class="item">

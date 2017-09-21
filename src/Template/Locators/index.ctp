@@ -34,7 +34,7 @@ use App\Policy\LocatorsPolicy;
                             <td><?php echo $l['formatted_username'] ?></td>
                             <td><?php echo $this->Html->link($l['nome'], ['controller' => 'users', 'action' => 'view', $l['id']]) ?></td>
                             <td><?php echo $l['email'] ?></td>
-                            <td class="to-center">
+                            <td>
                                 <div class="actions-list">
                                     <?php echo $this->Html->link('Editar', ['action' => 'form', $l['id']]) ?>
 

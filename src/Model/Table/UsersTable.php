@@ -68,6 +68,7 @@ class UsersTable extends Table
 
         $this->hasOne('Brokers');
         $this->hasOne('Locators');
+        $this->hasOne('Tenants');
         $this->hasMany('Prosecutors');
     }
 
