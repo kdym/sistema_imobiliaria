@@ -86,7 +86,11 @@ $(".number-only").keydown(function (e) {
     }
 });
 
-// $('.datepicker').bootstrapDatePicker({
-//     language: 'pt-BR'
-// });
-// $('.datepicker').inputmask(DATE_MASK);
+$('.date-picker').datepicker({
+    language: 'pt-BR',
+    todayHighlight: true
+});
+
+$('.date-range-picker').daterangepicker({
+    locale: datePickerRangeLocale['pt-BR']
+});

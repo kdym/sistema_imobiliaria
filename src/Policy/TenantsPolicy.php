@@ -16,6 +16,7 @@ class TenantsPolicy
     {
         switch ($action) {
             case 'index':
+            case 'fetch':
                 return $user['role'] == UsersTable::ROLE_ADMIN || $user['role'] == UsersTable::ROLE_BROKER;
             case 'delete':
                 return $user['role'] == UsersTable::ROLE_ADMIN;

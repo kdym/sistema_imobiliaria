@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -45,4 +46,25 @@ class Property extends Entity
         '*' => true,
         'id' => false
     ];
+    protected $_virtual = [
+        'full_address',
+        'main_photo',
+    ];
+
+    protected function _getFullAddress()
+    {
+        return implode(', ', array_filter([
+            $this['endereco'],
+            $this['numero'],
+            $this['complemento'],
+            $this['bairro'],
+            $this['cidade'],
+            $this['uf'],
+        ]));
+    }
+
+    protected function _getMainPhoto()
+    {
+        return '/img/no_photo.png';
+    }
 }

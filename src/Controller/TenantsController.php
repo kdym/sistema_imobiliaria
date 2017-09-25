@@ -180,4 +180,25 @@ class TenantsController extends AppController
 
         $this->set(compact('user'));
     }
+
+    public function fetch()
+    {
+        $this->autoRender = false;
+        $this->response->type('json');
+
+        $search = $this->Users->parseSearch($this->Users->parseUsername($this->request->getQuery('name')));
+
+        $tenants = $this->Users->find()
+            ->contain('Tenants')
+            ->where(['role' => UsersTable::ROLE_TENANT])
+            ->where([
+                "OR" => [
+                    "Users.nome LIKE" => $search,
+                    "Users.username LIKE" => $search,
+                ],
+            ])
+            ->limit(10);
+
+        $this->response->body(json_encode($tenants));
+    }
 }

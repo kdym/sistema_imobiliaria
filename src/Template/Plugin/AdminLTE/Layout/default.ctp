@@ -28,6 +28,9 @@
 
     <?php echo $this->Html->css('masonry.min'); ?>
 
+    <?php echo $this->Html->css('AdminLTE./plugins/datepicker/datepicker3'); ?>
+    <?php echo $this->Html->css('AdminLTE./plugins/daterangepicker/daterangepicker'); ?>
+
     <?php echo $this->Html->css('app.min'); ?>
 
     <?php echo $this->fetch('css'); ?>
@@ -97,7 +100,6 @@
 
 <?php echo $this->Html->script('AdminLTE./plugins/input-mask/jquery.inputmask'); ?>
 <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js'); ?>
-<?php echo $this->Html->script('initializers/maskedinput.min'); ?>
 
 <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js'); ?>
 <?php echo $this->Html->script('initializers/jquery-validate.min'); ?>
@@ -108,6 +110,13 @@
 
 <?php echo $this->Html->script('https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js'); ?>
 <?php echo $this->Html->script('initializers/masonry.min'); ?>
+
+<?php echo $this->Html->script('AdminLTE./plugins/datepicker/bootstrap-datepicker'); ?>
+<?php echo $this->Html->script('AdminLTE./plugins/daterangepicker/moment.min'); ?>
+<?php echo $this->Html->script('AdminLTE./plugins/daterangepicker/daterangepicker'); ?>
+<?php echo $this->Html->script('initializers/datepickers.min'); ?>
+
+<?php echo $this->Html->script('initializers/maskedinput.min'); ?>
 
 <?php echo $this->Html->script('general.min') ?>
 

@@ -257,4 +257,29 @@ class PropertiesController extends AppController
 
         $this->set(compact('property'));
     }
+
+    public function fetch()
+    {
+        $this->autoRender = false;
+        $this->response->type('json');
+
+        $search = $this->Properties->parseSearch($this->request->getQuery('name'));
+
+        $properties = $this->Properties->find()
+            ->contain('Locators.Users')
+            ->where([
+                "OR" => [
+                    "Properties.endereco LIKE" => $search,
+                    "Properties.numero LIKE" => $search,
+                    "Properties.complemento LIKE" => $search,
+                    "Properties.bairro LIKE" => $search,
+                    "Properties.cidade LIKE" => $search,
+                    "Properties.uf LIKE" => $search,
+                    "Properties.cep LIKE" => $search,
+                ],
+            ])
+            ->limit(10);
+
+        $this->response->body(json_encode($properties));
+    }
 }

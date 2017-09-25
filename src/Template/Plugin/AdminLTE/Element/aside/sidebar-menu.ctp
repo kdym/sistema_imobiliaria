@@ -1,6 +1,7 @@
 <?php
 
 use App\Policy\BrokersPolicy;
+use App\Policy\ContractsPolicy;
 use App\Policy\LocatorsPolicy;
 use App\Policy\PropertiesPolicy;
 use App\Policy\TenantsPolicy;
@@ -82,6 +83,22 @@ if (file_exists($file)) {
             <li class="<?php echo $active ?>">
                 <a href="<?php echo $this->Url->build(["controller" => "tenants", "action" => "index"]) ?>">
                     <i class="fa fa-users"></i> <span>Locatários</span>
+                </a>
+            </li>
+        <?php } ?>
+
+        <?php
+        $active = '';
+
+        if ($this->request->params['controller'] == 'Contracts') {
+            $active = 'active';
+        }
+        ?>
+
+        <?php if (ContractsPolicy::isAuthorized('index', $loggedUser)) { ?>
+            <li class="<?php echo $active ?>">
+                <a href="<?php echo $this->Url->build(["controller" => "contracts", "action" => "index"]) ?>">
+                    <i class="fa fa-file-text"></i> <span>Contratos</span>
                 </a>
             </li>
         <?php } ?>

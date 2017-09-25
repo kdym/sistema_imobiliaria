@@ -71,6 +71,7 @@ class PropertiesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Parser');
 
         $this->belongsTo('Locators', [
             'foreignKey' => 'locator_id'
