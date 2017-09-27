@@ -55,12 +55,28 @@ echo $this->Html->script('contracts.min', ['block' => true]);
         <div class="box">
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <?php echo $this->Form->control('data_fim', ['label' => 'Término Fidelidade', 'type' => 'text', 'class' => 'date-picker']) ?>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <?php echo $this->Form->control('primeiro_vencimento', ['label' => 'Vencimento 1º Boleto', 'type' => 'text', 'class' => 'date-picker']) ?>
+                    </div>
+
+                    <div class="col-md-4">
                         <?php echo $this->Form->control('dia_vencimento', ['class' => 'number-only']) ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+
+    <?php if ($id) { ?>
+        <div class="box">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $this->Form->control('data_posse', ['label' => 'Data de Posse', 'type' => 'text', 'class' => 'date-picker']) ?>
                     </div>
                 </div>
             </div>

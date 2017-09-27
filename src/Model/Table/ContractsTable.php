@@ -122,9 +122,7 @@ class ContractsTable extends Table
         $validator->notEmpty('data_fim', 'Campo Obrigatório', 'update');
         $validator->add('data_fim', 'custom', [
             'rule' => function ($value, $context) {
-                $contract = $this->get($context['data']['id']);
-
-                $startDate = new DateTime($contract['data_inicio']->format('Y-m-d'));
+                $startDate = new DateTime($this->parseDate($context['data']['start_date']));
                 $endDate = new DateTime($this->parseDate($value));
 
                 return $startDate < $endDate;
@@ -148,6 +146,20 @@ class ContractsTable extends Table
                 $firstTicket = new DateTime($this->parseDate($value));
 
                 return $firstTicket >= $startDate && $firstTicket <= $endDate;
+            },
+            'message' => 'Fora do Período do Contrato'
+        ]);
+
+        $validator->allowEmpty('data_posse');
+        $validator->add('data_posse', 'custom', [
+            'rule' => function ($value, $context) {
+                $period = explode(' a ', $context['data']['period']);
+
+                $startDate = new DateTime($this->parseDate($period[0]));
+                $endDate = new DateTime($this->parseDate($period[1]));
+                $ownDate = new DateTime($this->parseDate($value));
+
+                return $ownDate >= $startDate && $ownDate <= $endDate;
             },
             'message' => 'Fora do Período do Contrato'
         ]);

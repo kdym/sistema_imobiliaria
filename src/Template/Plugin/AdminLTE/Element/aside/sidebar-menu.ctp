@@ -90,7 +90,10 @@ if (file_exists($file)) {
         <?php
         $active = '';
 
-        if ($this->request->params['controller'] == 'Contracts') {
+        if (
+            $this->request->params['controller'] == 'Contracts' ||
+            $this->request->params['controller'] == 'Slips'
+        ) {
             $active = 'active';
         }
         ?>

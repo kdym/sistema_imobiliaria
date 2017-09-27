@@ -16,6 +16,10 @@ $editLink = ['action' => 'form', $contract['id']];
 </section>
 
 <section class="content">
+    <nav class="actions-bar">
+        <?php echo $this->Html->link('<i class="fa fa-barcode"></i> Boletos', ['controller' => 'slips', 'action' => 'index', $contract['id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
+    </nav>
+
     <div class="masonry-list-50">
         <div class="box masonry-sizer-50">
             <div class="box-header with-border">
@@ -200,6 +204,44 @@ $editLink = ['action' => 'form', $contract['id']];
                         <h1>Dia Vencimento</h1>
 
                         <h2><?php echo $contract['contracts_values'][0]['vencimento_boleto'] ?></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box masonry-sizer-50">
+            <div class="box-header with-border">
+                <h3 class="box-title">Posse/Devolução</h3>
+
+                <div class="box-tools pull-right">
+                    <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="icon-view-list">
+                    <div class="item">
+                        <div class="icon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+
+                        <div class="value">
+                            <h1>Data de Posse</h1>
+
+                            <h2><?php echo (!empty($contract['data_posse'])) ? $contract['data_posse'] : 'Não definido' ?></h2>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="icon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+
+                        <div class="value">
+                            <h1>Data de Devolução</h1>
+
+                            <h2><?php echo (!empty($contract['data_devolucao'])) ? $contract['data_devolucao'] : 'Não definido' ?></h2>
+                        </div>
                     </div>
                 </div>
             </div>

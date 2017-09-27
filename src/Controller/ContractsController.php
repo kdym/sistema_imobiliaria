@@ -181,6 +181,11 @@ class ContractsController extends AppController
         }
 
         if ($this->request->is(['post', 'put'])) {
+            if ($id) {
+                $this->request->data['period'] = sprintf('%s a %s', $contract['data_inicio']->format('d/m/Y'), $this->request->getData('data_fim'));
+                $this->request->data['start_date'] = $contract['data_inicio']->format('d/m/Y');
+            }
+
             $this->Contracts->patchEntity($contract, $this->request->getData());
 
             if ($this->Contracts->save($contract)) {

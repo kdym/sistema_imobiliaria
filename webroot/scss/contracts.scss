@@ -1,0 +1,36 @@
+#slips-info {
+  .slip {
+    display: flex;
+    margin-bottom: 20px;
+
+    @media only screen and (max-width: 767px), only screen and (max-device-width: 767px) {
+      flex-direction: column;
+    }
+
+    .slip-header {
+      flex-grow: 1;
+      border-radius: 5px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+
+      .slip-header-container {
+        width: 100%;
+
+        h1 {
+          font-size: xx-large;
+        }
+      }
+    }
+
+    .slip-body {
+      flex-grow: 4;
+      padding: 0 10px;
+
+      .table {
+        margin: 0;
+      }
+    }
+  }
+}
