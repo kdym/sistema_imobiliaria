@@ -1,13 +1,7 @@
 <?php
-//$barCode = new \Picqer\Barcode\BarcodeGeneratorPNG();
-
-//$agencia = $companyData['agencia'];
-//$codigoCedente = $companyData['codigo_cedente'];
-//$codigoCedenteDv = $companyData['codigo_cedente_dv'];
-
-$agencia = '1234';
-$codigoCedente = '123';
-$codigoCedenteDv = '1';
+$agencia = $companyData['agencia'];
+$codigoCedente = $companyData['codigo_cedente'];
+$codigoCedenteDv = $companyData['codigo_cedente_dv'];
 
 $carteira = '9';
 $codigoBanco = '237';
@@ -88,7 +82,7 @@ $first = true;
         <table>
             <tr>
                 <td width="20%" align="center">
-                    <?php echo $this->Html->image('/files/company/logo' . $companyData['logo'], ['width' => 78, 'height' => 36]) ?>
+                    <?php echo $this->Html->image($this->CompanyData->getAppLogo(), ['width' => 78, 'height' => 36]) ?>
                 </td>
                 <td>
                     <h1 class="truncate-text"><?php echo $companyData['razao_social'] ?></h1>
@@ -106,7 +100,7 @@ $first = true;
                     <div class="squared">
                         <p>Cód. Imóvel: <b><?php echo $this->Slips->zeroFill($codImovel, 5) ?></b></p>
 
-                        <p>Senha: <b><?php echo $b['contrato']['property']['locator']['password'] ?></b></p>
+                        <p>Senha: <b><?php echo $contract['property']['locator']['password'] ?></b></p>
                     </div>
                 </td>
                 <td align="center">
@@ -123,20 +117,20 @@ $first = true;
         <table width="100%">
             <tr>
                 <td width="76%" rowspan="8" id="boleto-items">
-                    <h2>Recibo de Aluguel do Mês de <?php echo $this->Slips->textFormat($mes, 'monthInWords') ?>
+                    <h2>Recibo de Aluguel do Mês de <?php echo $this->Slips->monthInWords($mes) ?>
                         de <?php echo $ano ?></h2>
 
                     <div id="user-info">
                         <p class="truncate-text">
-                            <?php echo '<b>Locador:</b> ' . $this->Slips->zeroFill($b['contrato']['property']['locator']['user']['username'], 5) . ' - ' . $b['contrato']['property']['locator']['user']['nome'] ?>
+                            <b>Locador:</b> <?php echo sprintf('%s - %s', $this->Slips->zeroFill($contract['property']['locator']['user']['username'], 5), $contract['property']['locator']['user']['nome']) ?>
                         </p>
 
                         <p class="truncate-text">
-                            <?php echo '<b>Locatário:</b> ' . $b['contrato']['tenant']['nome'] ?>
+                            <b>Locatário:</b> <?php echo $contract['tenant']['user']['nome'] ?>
                         </p>
 
                         <p class="truncate-text">
-                            <?php echo '<b>Imóvel:</b> ' . $this->Slips->zeroFill($codImovel, 5) . ' - ' . $b['contrato']['property']['full_address'] ?>
+                            <b>Imóvel:</b> <?php echo sprintf('%s - %s', $this->Slips->zeroFill($codImovel, 5), $contract['property']['full_address']) ?>
                         </p>
                     </div>
 
@@ -145,45 +139,34 @@ $first = true;
                     <div id="boleto-values">
                         <table>
                             <tbody>
-                            <?php $count = $outros = 0; ?>
-                            <?php foreach ($b['data'] as $d) { ?>
+                            <?php $count = $others = 0; ?>
+                            <?php foreach ($values as $d) { ?>
                                 <?php if ($count > 7) { ?>
-                                    <?php $outros += $d['valor']; ?>
+                                    <?php $others += $d['value']; ?>
                                 <?php } else { ?>
                                     <tr>
-                                        <td><span class="truncate-text"><?php echo $d['descricao'] ?></span></td>
+                                        <td><span class="truncate-text"><?php echo $d['name'] ?></span></td>
                                         <td align="right"
-                                            width="15%"><?php echo $this->Slips->textFormat($d['valor'], 'number') ?></td>
+                                            width="15%"><?php echo $this->Slips->formatNumber($d['value']) ?></td>
                                     </tr>
 
                                     <?php $count++; ?>
                                 <?php } ?>
                             <?php } ?>
 
-                            <?php if (!empty($b['multa_desconto'])) { ?>
-                                <tr>
-                                    <td><span
-                                                class="truncate-text"><?php echo $b['multa_desconto']['descricao'] ?></span>
-                                    </td>
-                                    <td align="right"
-                                        width="15%"><?php echo $this->Slips->textFormat($b['multa_desconto']['valor'], 'number') ?></td>
-                                </tr>
-                            <?php } ?>
-
-                            <?php if ($outros <> 0) { ?>
+                            <?php if ($others <> 0) { ?>
                                 <tr>
                                     <td>Outros</td>
                                     <td align="right"
-                                        width="15%"><?php echo $this->Slips->textFormat($outros, 'number') ?></td>
+                                        width="15%"><?php echo $this->Slips->formatNumber($others) ?></td>
                                 </tr>
                             <?php } ?>
 
-                            <?php $linhasRestantes = 9 - count($b['data']); ?>
-                            <?php for ($i = 0; $i < $linhasRestantes; $i++) { ?>
+                            <?php $restantRows = 9 - count($values); ?>
+                            <?php for ($i = 0; $i < $restantRows; $i++) { ?>
                                 <tr>
                                     <td>&nbsp;</td>
-                                    <td align="right"
-                                        width="10%">&nbsp;
+                                    <td align="right" width="10%">&nbsp;
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -192,7 +175,7 @@ $first = true;
                             <tfoot>
                             <tr class="total">
                                 <td>Total do Recibo</td>
-                                <td align="right"><?php echo $this->Slips->textFormat($totalBoleto, 'number') ?></td>
+                                <td align="right"><?php echo $this->Slips->formatNumber($totalBoleto) ?></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -227,7 +210,7 @@ $first = true;
                 <td>
                     <p class="item-title">(=) Valor do Documento</p>
 
-                    <p class="item-value"><?php echo $this->Slips->textFormat($totalBoleto, 'number') ?></p>
+                    <p class="item-value"><?php echo $this->Slips->formatNumber($totalBoleto) ?></p>
                 </td>
             </tr>
             <tr>
@@ -252,7 +235,7 @@ $first = true;
         <table width="100%">
             <tr>
                 <td>
-<!--                    <img src="data:image/png;base64,--><?php //echo base64_encode($barCode->getBarcode($codigoBarras, $barCode::TYPE_INTERLEAVED_2_5, 1.5, 45)) ?><!--">-->
+                    <?php echo $this->Slips->getBarCode($codigoBarras) ?>
                 </td>
                 <td class="barcode-authentication" width="25%">Autenticação Mecânica - Recibo do Sacado</td>
             </tr>
@@ -265,7 +248,7 @@ $first = true;
         <tr>
             <td width="10%"><?php echo $this->Html->image('bradesco.jpg', ['width' => 43, 'height' => 29]) ?></td>
             <td width="20%"><?php echo $codigoBanco . '-' . $codigoBancoDv ?></td>
-            <td width="70%"><?php echo $this->Slips->textFormat($linhaDigitavel, 'linha_digitavel') ?></td>
+            <td width="70%"><?php echo $this->Slips->getDigitableLine($linhaDigitavel) ?></td>
         </tr>
     </table>
     <table width="100%" id="cedente-data">
@@ -356,22 +339,22 @@ $first = true;
             <td>
                 <p class="item-title">(=) Valor do Documento</p>
 
-                <p class="item-value"><?php echo $this->Slips->textFormat($totalBoleto, 'number') ?></p>
+                <p class="item-value"><?php echo $this->Slips->formatNumber($totalBoleto) ?></p>
             </td>
         </tr>
         <tr>
             <td colspan="7" rowspan="5">
                 <div id="cedente-info">
-                    <h2>Recibo de Aluguel do Mês de <?php echo $this->Slips->textFormat($mes, 'monthInWords') ?>
+                    <h2>Recibo de Aluguel do Mês de <?php echo $this->Slips->monthInWords($mes) ?>
                         de <?php echo $ano ?></h2>
 
                     <div id="cedente-user-info">
                         <p class="truncate-text">
-                            <b>Locador:</b> <?php echo $this->Slips->zeroFill($b['contrato']['property']['locator']['user']['username'], 5) . ' - ' . $b['contrato']['property']['locator']['user']['nome'] ?>
+                            <b>Locador:</b> <?php echo $this->Slips->zeroFill($contract['property']['locator']['user']['username'], 5) . ' - ' . $contract['property']['locator']['user']['nome'] ?>
                         </p>
 
                         <p class="truncate-text">
-                            <b>Imóvel:</b> <?php echo $this->Slips->zeroFill($codImovel, 5) . ' - ' . $b['contrato']['property']['full_address'] ?>
+                            <b>Imóvel:</b> <?php echo $this->Slips->zeroFill($codImovel, 5) . ' - ' . $contract['property']['full_address'] ?>
                         </p>
                     </div>
                 </div>
@@ -404,26 +387,26 @@ $first = true;
             <td colspan="8">
                 <p class="item-title">Pagador</p>
 
-                <p class="item-value item-left truncate-text"><?php echo $b['contrato']['tenant']['nome'] . ' - ' . $this->Slips->textFormat($b['contrato']['tenant']['cpf_cnpj'], 'cpf_cnpj') ?></p>
+                <p class="item-value item-left truncate-text"><?php echo $contract['tenant']['user']['nome'] . ' - ' . $contract['tenant']['user']['cpf_cnpj'] ?></p>
 
                 <p class="item-value item-left truncate-text">
                     <?php
-                    echo $this->Slips->implodeEx(', ', [
-                        $b['contrato']['property']['logradouro'],
-                        $b['contrato']['property']['numero'],
-                        $b['contrato']['property']['complemento'],
-                        $b['contrato']['property']['bairro'],
-                    ]);
+                    echo implode(', ', array_filter([
+                        $contract['property']['logradouro'],
+                        $contract['property']['numero'],
+                        $contract['property']['complemento'],
+                        $contract['property']['bairro'],
+                    ]));
                     ?>
                 </p>
 
                 <p class="item-value item-left truncate-text">
                     <?php
-                    echo $this->Slips->implodeEx(', ', [
-                        $b['contrato']['property']['cidade'],
-                        $b['contrato']['property']['uf'],
-                        $this->Slips->textFormat($b['contrato']['property']['cep'], 'cep'),
-                    ]);
+                    echo implode(', ', array_filter([
+                        $contract['property']['cidade'],
+                        $contract['property']['uf'],
+                        $contract['property']['cep'],
+                    ]));
                     ?>
                 </p>
             </td>
@@ -434,7 +417,7 @@ $first = true;
         <table width="100%">
             <tr>
                 <td>
-<!--                    <img src="data:image/png;base64,--><?php //echo base64_encode($barCode->getBarcode($codigoBarras, $barCode::TYPE_INTERLEAVED_2_5, 1.5, 45)) ?><!--">-->
+                    <?php echo $this->Slips->getBarCode($codigoBarras) ?>
                 </td>
                 <td class="barcode-authentication" width="25%">Autenticação Mecânica - Recibo do Sacado</td>
             </tr>

@@ -6,6 +6,7 @@ use Cake\View\Helper;
 use Cake\View\Helper\HtmlHelper;
 use Cake\View\View;
 use DateTime;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 /**
  * Slips helper
@@ -25,12 +26,17 @@ class SlipsHelper extends Helper
         return 'R$ ' . number_format($value, 2, ',', '.');
     }
 
+    public function formatNumber($value)
+    {
+        return number_format($value, 2, ',', '.');
+    }
+
     public function getSlipClass()
     {
         return 'bg-primary';
     }
 
-    public function getReportButton($date, $companyData)
+    public function getReportButton($date, $companyData, $contract)
     {
         $htmlHelper = new HtmlHelper(new View());
 
@@ -47,13 +53,45 @@ class SlipsHelper extends Helper
         }
 
         return $htmlHelper->link('<i class="fa fa-barcode fa-fw"></i>',
-            ['action' => 'report', '?' => [
+            ['action' => 'report', $contract['id'], '?' => [
                 'start_date' => $date->modify('first day of this month')->format('Y-m-d'),
                 'end_date' => $date->modify('last day of this month')->format('Y-m-d'),
             ]],
             [
                 'escape' => false,
                 'class' => 'btn btn-default',
+                'target' => '_blank',
+                'readonly' => $disabled,
+                'data-toggle' => $tooltip,
+                'title' => $tooltipTitle,
+            ]);
+    }
+
+    public function getAllReportButton($startDate, $endDate, $companyData, $contract)
+    {
+        $htmlHelper = new HtmlHelper(new View());
+
+        $startDate = new DateTime($this->invertDate($startDate));
+        $endDate = new DateTime($this->invertDate($endDate));
+
+        if ($companyData) {
+            $disabled = false;
+            $tooltip = '';
+            $tooltipTitle = '';
+        } else {
+            $disabled = true;
+            $tooltip = 'tooltip';
+            $tooltipTitle = 'É necessário informar os dados da Imobiliária antes';
+        }
+
+        return $htmlHelper->link('<i class="fa fa-barcode"></i> Ver Todos',
+            ['action' => 'report', $contract['id'], '?' => [
+                'start_date' => $startDate->modify('first day of this month')->format('Y-m-d'),
+                'end_date' => $endDate->modify('last day of this month')->format('Y-m-d'),
+            ]],
+            [
+                'escape' => false,
+                'class' => 'btn btn-app',
                 'target' => '_blank',
                 'readonly' => $disabled,
                 'data-toggle' => $tooltip,
@@ -161,5 +199,62 @@ class SlipsHelper extends Helper
     public function zeroFill($value, $limit)
     {
         return str_pad($value, $limit, '0', STR_PAD_LEFT);
+    }
+
+    public function monthInWords($month)
+    {
+        $month = (int)$month;
+
+        $months = [
+            1 => 'Janeiro',
+            2 => 'Fevereiro',
+            3 => 'Março',
+            4 => 'Abril',
+            5 => 'Maio',
+            6 => 'Junho',
+            7 => 'Julho',
+            8 => 'Agosto',
+            9 => 'Setembro',
+            10 => 'Outubro',
+            11 => 'Novembro',
+            12 => 'Dezembro',
+        ];
+
+        return $months[$month];
+    }
+
+    public function getBarCode($value)
+    {
+        $barCode = new BarcodeGeneratorPNG();
+
+        return sprintf('<img src="data:image/png;base64,%s"/>', base64_encode($barCode->getBarcode($value, $barCode::TYPE_INTERLEAVED_2_5, 1.7, 50)));
+    }
+
+    public function setMask($text, $mask)
+    {
+        $result = NULL;
+        $separators = array('-', '_', '.', ',', '/', '\\', ':', '|', '(', ')', '[', ']', '{', '}', ' ');
+
+        $z = 0;
+        for ($n = 0; $n < strlen($mask); $n++) {
+            $mask_char = substr($mask, $n, 1);
+            $text_char = substr($text, $z, 1);
+
+            if (in_array($mask_char, $separators)) {
+                if ($z < strlen($text)) {
+                    $result .= $mask_char;
+                }
+            } else {
+                $result .= $text_char;
+                $z++;
+            }
+        }
+
+        return $result;
+    }
+
+    public function getDigitableLine($value)
+    {
+        return $this->setMask($value, '99999.99999 99999.999999 99999.999999 9 99999999999999');
     }
 }

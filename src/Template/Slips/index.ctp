@@ -126,6 +126,12 @@ echo $this->Html->css('contracts.min', ['block' => true]);
         </div>
     </div>
 
+    <?php if (!empty($slips)) { ?>
+        <div class="actions-bar to-right">
+            <?php echo $this->Slips->getAllReportButton($startDate->format('d/m/Y'), $endDate->format('d/m/Y'), $companyData, $contract) ?>
+        </div>
+    <?php } ?>
+
     <div class="box">
         <div class="box-body">
             <?php if (empty($contract['data_posse'])) { ?>
@@ -137,36 +143,42 @@ echo $this->Html->css('contracts.min', ['block' => true]);
                     <div id="slips-info">
                         <?php foreach ($slips as $key => $values) { ?>
                             <div class="slip">
-                                <div class="slip-header <?php echo $this->Slips->getSlipClass() ?>">
-                                    <div class="slip-header-container">
-                                        <h1><?php echo $key ?></h1>
+                                <div class="row equal-height-row">
+                                    <div class="col-md-3">
+                                        <div class="slip-header <?php echo $this->Slips->getSlipClass() ?>">
+                                            <div class="slip-header-container">
+                                                <h1><?php echo $key ?></h1>
 
-                                        <div class="actions">
-                                            <?php echo $this->Html->link('<i class="fa fa-pencil fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
-                                            <?php echo $this->Html->link('<i class="fa fa-usd fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
-                                            <?php echo $this->Slips->getReportButton($key, $companyData) ?>
+                                                <div class="actions">
+                                                    <?php echo $this->Html->link('<i class="fa fa-pencil fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
+                                                    <?php echo $this->Html->link('<i class="fa fa-usd fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
+                                                    <?php echo $this->Slips->getReportButton($key, $companyData, $contract) ?>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="slip-body">
-                                    <table class="table table-hover">
-                                        <tbody>
-                                        <?php $sum = 0; ?>
-                                        <?php foreach ($values as $v) { ?>
-                                            <?php $sum += $v['value']; ?>
+                                    <div class="col-md-9">
+                                        <div class="slip-body">
+                                            <table class="table table-hover">
+                                                <tbody>
+                                                <?php $sum = 0; ?>
+                                                <?php foreach ($values as $v) { ?>
+                                                    <?php $sum += $v['value']; ?>
 
-                                            <tr>
-                                                <td><?php echo $v['name'] ?></td>
-                                                <td class="to-right"><?php echo $this->Slips->formatCurrency($v['value']) ?></td>
-                                            </tr>
-                                        <?php } ?>
-                                        <tr>
-                                            <th>Total</th>
-                                            <th class="to-right"><?php echo $this->Slips->formatCurrency($sum) ?></th>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                                    <tr>
+                                                        <td><?php echo $v['name'] ?></td>
+                                                        <td class="to-right"><?php echo $this->Slips->formatCurrency($v['value']) ?></td>
+                                                    </tr>
+                                                <?php } ?>
+                                                <tr>
+                                                    <th>Total</th>
+                                                    <th class="to-right"><?php echo $this->Slips->formatCurrency($sum) ?></th>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         <?php } ?>
