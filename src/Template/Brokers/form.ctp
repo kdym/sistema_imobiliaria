@@ -7,7 +7,6 @@
 use App\Model\Table\UsersTable;
 use App\View\Helper\GlobalCombosHelper;
 
-
 ?>
 
     <section class="content-header">

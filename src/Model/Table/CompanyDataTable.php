@@ -1,6 +1,11 @@
 <?php
+
 namespace App\Model\Table;
 
+use App\View\Helper\ValidationHelper;
+use ArrayObject;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -33,6 +38,8 @@ class CompanyDataTable extends Table
         $this->setTable('company_data');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('GoogleMaps');
     }
 
     /**
@@ -43,99 +50,67 @@ class CompanyDataTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
-        $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
+        $validator->notEmpty('nome');
+        $validator->notEmpty('razao_social');
 
-        $validator
-            ->scalar('nome')
-            ->requirePresence('nome', 'create')
-            ->notEmpty('nome');
+        $validator->notEmpty('email');
+        $validator->add('email', [
+            "email" => [
+                "rule" => "email"
+            ]
+        ]);
 
-        $validator
-            ->scalar('razao_social')
-            ->requirePresence('razao_social', 'create')
-            ->notEmpty('razao_social');
+        $validator->notEmpty('cnpj');
+        $validator->add('cnpj', 'validCnpj', [
+            'rule' => ['custom', ValidationHelper::CNPJ_EXPRESSION],
+            'message' => 'CNPJ inválido'
+        ]);
 
-        $validator
-            ->scalar('endereco')
-            ->requirePresence('endereco', 'create')
-            ->notEmpty('endereco');
+        $validator->notEmpty('cep');
+        $validator->add('cep', 'validCep', [
+            'rule' => ['custom', ValidationHelper::CEP_EXPRESSION],
+            'message' => 'CEP inválido'
+        ]);
 
-        $validator
-            ->scalar('numero')
-            ->requirePresence('numero', 'create')
-            ->notEmpty('numero');
+        $validator->notEmpty('endereco');
+        $validator->notEmpty('numero');
+        $validator->notEmpty('bairro');
+        $validator->notEmpty('cidade');
+        $validator->notEmpty('uf');
 
-        $validator
-            ->scalar('complemento')
-            ->requirePresence('complemento', 'create')
-            ->notEmpty('complemento');
+        $validator->notEmpty('telefone_1');
+        $validator->add('telefone_1', 'validPhone', [
+            'rule' => ['custom', ValidationHelper::PHONE_DDD_EXPRESSION],
+            'message' => 'Telefone inválido'
+        ]);
 
-        $validator
-            ->scalar('bairro')
-            ->requirePresence('bairro', 'create')
-            ->notEmpty('bairro');
+        for ($i = 2; $i <= 3; $i++) {
+            $validator->allowEmpty("telefone_$i");
+            $validator->add("telefone_$i", 'validPhone', [
+                'rule' => ['custom', ValidationHelper::PHONE_DDD_EXPRESSION],
+                'message' => 'Telefone inválido'
+            ]);
+        }
 
-        $validator
-            ->scalar('cidade')
-            ->requirePresence('cidade', 'create')
-            ->notEmpty('cidade');
+        $validator->notEmpty('agencia');
+        $validator->notEmpty('codigo_cedente');
+        $validator->notEmpty('codigo_cedente_dv');
 
-        $validator
-            ->scalar('uf')
-            ->requirePresence('uf', 'create')
-            ->notEmpty('uf');
+        $validator->notEmpty('logo', 'Campo Obrigatório', 'create');
+        $validator->add('logo', [
+            'extension' => [
+                'rule' => ['extension', ['png']],
+                'message' => 'Somente arquivos de imagem do tipo PNG'
+            ]
+        ]);
 
-        $validator
-            ->scalar('cep')
-            ->requirePresence('cep', 'create')
-            ->notEmpty('cep');
-
-        $validator
-            ->scalar('cnpj')
-            ->requirePresence('cnpj', 'create')
-            ->notEmpty('cnpj');
-
-        $validator
-            ->scalar('creci')
-            ->requirePresence('creci', 'create')
-            ->notEmpty('creci');
-
-        $validator
-            ->scalar('abadi')
-            ->requirePresence('abadi', 'create')
-            ->notEmpty('abadi');
-
-        $validator
-            ->scalar('telefone_1')
-            ->requirePresence('telefone_1', 'create')
-            ->notEmpty('telefone_1');
-
-        $validator
-            ->scalar('telefone_2')
-            ->requirePresence('telefone_2', 'create')
-            ->notEmpty('telefone_2');
-
-        $validator
-            ->scalar('telefone_3')
-            ->requirePresence('telefone_3', 'create')
-            ->notEmpty('telefone_3');
-
-        $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmpty('email');
-
-        $validator
-            ->scalar('latitude')
-            ->requirePresence('latitude', 'create')
-            ->notEmpty('latitude');
-
-        $validator
-            ->scalar('longitude')
-            ->requirePresence('longitude', 'create')
-            ->notEmpty('longitude');
+        $validator->allowEmpty('logo_small');
+        $validator->add('logo_small', [
+            'extension' => [
+                'rule' => ['extension', ['png']],
+                'message' => 'Somente arquivos de imagem do tipo PNG'
+            ]
+        ]);
 
         return $validator;
     }
@@ -152,5 +127,36 @@ class CompanyDataTable extends Table
         $rules->add($rules->isUnique(['email']));
 
         return $rules;
+    }
+
+    public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options)
+    {
+        $geoInfo = $this->getGeoInfo(implode(' ', array_filter([
+            $data['endereco'],
+            $data['numero'],
+            $data['complemento'],
+            $data['bairro'],
+            $data['cidade'],
+            $data['uf'],
+            $data['cep'],
+        ])));
+
+        $data['latitude'] = $geoInfo['latitude'];
+        $data['longitude'] = $geoInfo['longitude'];
+    }
+
+    public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    {
+        $logoDir = WWW_ROOT . '/file';
+
+        @mkdir($logoDir);
+
+        if (!empty($entity['logo'])) {
+            move_uploaded_file($entity['logo']['tmp_name'], sprintf('%s/logo.png', $logoDir));
+        }
+
+        if (!empty($entity['logo_small'])) {
+            move_uploaded_file($entity['logo_small']['tmp_name'], sprintf('%s/logo_small.png', $logoDir));
+        }
     }
 }

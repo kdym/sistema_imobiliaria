@@ -17,6 +17,7 @@ var VIACEP_URL = '//viacep.com.br/ws/';
 
 $('.cep-mask').inputmask(CEP_MASK);
 $('.cpf-mask').inputmask(CPF_MASK);
+$('.cnpj-mask').inputmask(CNPJ_MASK);
 
 $('.cpf-cnpj-mask').keyup(function () {
     if ($(this).inputmask('unmaskedvalue').length > CPF_LENGTH) {

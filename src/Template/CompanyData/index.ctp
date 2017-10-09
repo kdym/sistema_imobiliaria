@@ -1,81 +1,151 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  * @var \App\Model\Entity\CompanyData[]|\Cake\Collection\CollectionInterface $companyData
-  */
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
+ */
+
+use App\View\Helper\GlobalCombosHelper;
+
+echo $this->Html->script('company-data.min', ['block' => true]);
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Company Data'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="companyData index large-9 medium-8 columns content">
-    <h3><?= __('Company Data') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('nome') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('razao_social') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('endereco') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('numero') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('complemento') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('bairro') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('cidade') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('uf') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('cep') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('cnpj') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('creci') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('abadi') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('telefone_1') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('telefone_2') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('telefone_3') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('latitude') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('longitude') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($companyData as $companyData): ?>
-            <tr>
-                <td><?= $this->Number->format($companyData->id) ?></td>
-                <td><?= h($companyData->nome) ?></td>
-                <td><?= h($companyData->razao_social) ?></td>
-                <td><?= h($companyData->endereco) ?></td>
-                <td><?= h($companyData->numero) ?></td>
-                <td><?= h($companyData->complemento) ?></td>
-                <td><?= h($companyData->bairro) ?></td>
-                <td><?= h($companyData->cidade) ?></td>
-                <td><?= h($companyData->uf) ?></td>
-                <td><?= h($companyData->cep) ?></td>
-                <td><?= h($companyData->cnpj) ?></td>
-                <td><?= h($companyData->creci) ?></td>
-                <td><?= h($companyData->abadi) ?></td>
-                <td><?= h($companyData->telefone_1) ?></td>
-                <td><?= h($companyData->telefone_2) ?></td>
-                <td><?= h($companyData->telefone_3) ?></td>
-                <td><?= h($companyData->email) ?></td>
-                <td><?= h($companyData->latitude) ?></td>
-                <td><?= h($companyData->longitude) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $companyData->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $companyData->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $companyData->id], ['confirm' => __('Are you sure you want to delete # {0}?', $companyData->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+
+<section class="content-header">
+    <h1>Dados da Imobiliária</h1>
+</section>
+
+<section class="content">
+    <?php echo $this->Form->create($companyData, ['type' => 'file']) ?>
+
+    <div class="box">
+        <div class="box-body">
+            <?php echo $this->Form->control('nome') ?>
+
+            <?php echo $this->Form->control('razao_social', ['label' => 'Razão Social']) ?>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('email', ['label' => 'E-mail']) ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('cnpj', ['label' => 'CNPJ', 'class' => 'cnpj-mask']) ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('creci', ['label' => 'CRECI']) ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('abadi', ['label' => 'ABADI']) ?>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <div class="box">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('cep', ['label' => 'CEP', 'class' => 'cep-mask']) ?>
+                </div>
+            </div>
+
+            <?php echo $this->Form->control('endereco', ['label' => 'Endereço']) ?>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('numero', ['label' => 'Número']) ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('complemento') ?>
+                </div>
+            </div>
+
+            <?php echo $this->Form->control('bairro') ?>
+            <?php echo $this->Form->control('cidade') ?>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('uf', ['label' => 'UF', 'options' => GlobalCombosHelper::$brazilianStates, 'empty' => true]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="box-body">
+            <?php for ($i = 1; $i <= 3; $i++) { ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $this->Form->control("telefone_$i", ['class' => 'phone-ddd-mask']) ?>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('agencia', ['label' => 'Agência', 'class' => 'number-only']) ?>
+                </div>
+            </div>
+
+            <label>Código Cedente - DV</label>
+
+            <div class="row">
+                <div class="col-md-5 col-sm-10 col-xs-10">
+                    <?php echo $this->Form->control('codigo_cedente', ['label' => false, 'class' => 'number-only']) ?>
+                </div>
+
+                <div class="col-md-1 col-sm-2 col-xs-2">
+                    <?php echo $this->Form->control('codigo_cedente_dv', ['label' => false, 'class' => 'number-only']) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <?php if (file_exists(WWW_ROOT . 'file/logo.png')) { ?>
+                        <figure class="form-img">
+                            <?php echo $this->Html->link('<i class="fa fa-trash"></i>', ['action' => 'delete_logo'], ['class' => 'btn btn-danger btn-sm', 'escape' => false, 'confirm' => 'Tem certeza que deseja excluir?']) ?>
+
+                            <?php echo $this->Html->image('/file/logo.png', ['class' => 'img-responsive']) ?>
+                        </figure>
+                    <?php } ?>
+
+                    <?php echo $this->Form->control('logo', ['type' => 'file']) ?>
+                </div>
+
+                <div class="col-md-6">
+                    <?php if (file_exists(WWW_ROOT . 'file/logo_small.png')) { ?>
+                        <figure class="form-img">
+                            <?php echo $this->Html->link('<i class="fa fa-trash"></i>', ['action' => 'delete_small_logo'], ['class' => 'btn btn-danger btn-sm', 'escape' => false, 'confirm' => 'Tem certeza que deseja excluir?']) ?>
+
+                            <?php echo $this->Html->image('/file/logo_small.png', ['class' => 'img-responsive']) ?>
+                        </figure>
+                    <?php } ?>
+
+                    <?php echo $this->Form->control('logo_small', ['label' => 'Logo Pequeno', 'type' => 'file']) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php echo $this->Form->button('<i class="fa fa-check"></i> Salvar') ?>
+
+    <?php echo $this->Form->end() ?>
+</section>

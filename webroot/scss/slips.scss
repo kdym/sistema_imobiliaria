@@ -1,0 +1,293 @@
+$darkColor: #ECECEC;
+
+$defaultFontSize: 13px;
+
+@media print {
+  @page {
+    margin: 0;
+  }
+
+  body {
+    margin: 1.6cm;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+@page {
+  //margin-top: 30px;
+}
+
+body {
+  font-family: arial;
+}
+
+#boleto-header {
+  border-top: solid 2px #000;
+  border-bottom: solid 2px #000;
+
+  table {
+    width: 100%;
+
+    td {
+      padding: 5px;
+      text-align: center;
+    }
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  h2 {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 14px;
+    margin: 0;
+  }
+}
+
+#user-header {
+  font-size: $defaultFontSize;
+  margin: 5px 0;
+
+  p {
+    margin: 0;
+  }
+}
+
+#boleto-details {
+  border: solid 2px #000;
+
+  table {
+    td {
+      border: solid 1px #000;
+      padding: 2px;
+      vertical-align: top;
+
+      &#boleto-items {
+        padding: 0;
+        font-size: $defaultFontSize;
+
+        h2 {
+          background-color: $darkColor;
+          text-align: center;
+          padding: 5px;
+          margin: 0 1px;
+          font-size: $defaultFontSize;
+        }
+
+        #user-info {
+          padding: 5px;
+
+          p {
+            margin: 0;
+          }
+        }
+
+        #boleto-values {
+          height: 240px;
+          overflow: hidden;
+
+          table {
+            width: 100%;
+
+            td {
+              border: 0;
+              font-size: $defaultFontSize;
+            }
+
+            tfoot {
+              td {
+                padding-top: 10px;
+                font-weight: bolder;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.barcode {
+  table {
+    td {
+      vertical-align: top;
+    }
+  }
+}
+
+#cedente-header {
+  border-collapse: collapse;
+
+  td {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 16px;
+    border: solid 1px #000;
+
+    &:first-of-type {
+      border-left: 0;
+    }
+
+    &:last-of-type {
+      border-right: 0;
+    }
+  }
+}
+
+#cedente-data {
+  border-collapse: collapse;
+
+  td {
+    border: solid 1px #000;
+    padding: 2px;
+    vertical-align: top;
+  }
+}
+
+#cedente-info {
+  h2 {
+    background-color: $darkColor;
+    text-align: center;
+    padding: 5px;
+    margin: 0;
+    font-size: $defaultFontSize;
+  }
+
+  #cedente-user-info {
+    font-size: $defaultFontSize;
+    padding: 5px;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.mail-deliver-info {
+  p {
+    font-size: 14px;
+  }
+}
+
+.mail-deliver-extra {
+  height: 200px;
+}
+
+.mail-deliver-header {
+  h1 {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  h2 {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.mail-receiver-div {
+  border-top: solid 2px #000;
+  border-bottom: solid 2px #000;
+  margin: 10px 0;
+  position: relative;
+  height: 250px;
+
+  .mail-receiver-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .mail-receiver {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    width: 400px;
+    position: absolute;
+    top: 50px;
+    z-index: 9999;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+}
+
+hr {
+  border: dashed 1px #000;
+}
+
+.squared {
+  border: solid 1px #000;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.barcode-authentication {
+  font-size: 9px;
+  text-align: center;
+}
+
+.item-title {
+  font-size: 10px;
+  margin: 0;
+}
+
+.item-value {
+  text-align: right;
+  margin: 2px 0;
+  font-weight: bolder;
+  font-size: $defaultFontSize;
+
+  &.item-center {
+    text-align: center;
+  }
+
+  &.item-left {
+    text-align: left;
+    padding-left: 20px;
+  }
+}
+
+.truncate-text {
+  height: 15px;
+  overflow: hidden;
+  display: block;
+}
+
+.page-break {
+  page-break-before: always;
+  margin-top: 1.6cm;
+}
+
+.boxed {
+  border: solid 1px #000;
+  padding: 5px;
+}
+
+.to-center {
+  text-align: center;
+}
+
+.square {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  border: solid 1px #000;
+  margin-right: 10px;
+}

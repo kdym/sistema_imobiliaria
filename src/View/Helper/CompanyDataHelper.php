@@ -38,7 +38,7 @@ class CompanyDataHelper extends Helper
         $fileName = sprintf('%s/file/logo.png', WWW_ROOT);
 
         if (file_exists($fileName)) {
-            return $fileName;
+            return '/file/logo.png';
         } else {
             return 'new_logo_kdym.png';
         }
@@ -46,10 +46,10 @@ class CompanyDataHelper extends Helper
 
     public function getAppSmallLogo()
     {
-        $fileName = sprintf('%s/file/small_logo.png', WWW_ROOT);
+        $fileName = sprintf('%s/file/logo_small.png', WWW_ROOT);
 
         if (file_exists($fileName)) {
-            return $fileName;
+            return '/file/logo_small.png';
         } else {
             return 'kdym_small.png';
         }

@@ -17,6 +17,7 @@ use DateTime;
  * @property \App\Model\Table\ContractsTable $Contracts
  * @property \App\Model\Table\PropertiesPricesTable $PropertiesPrices
  * @property \App\Model\Table\ContractsValuesTable $ContractsValues
+ * @property \App\Model\Table\CompanyDataTable $CompanyData
  *
  */
 class SlipsController extends AppController
@@ -36,6 +37,7 @@ class SlipsController extends AppController
 
         $this->loadModel('Contracts');
         $this->loadModel('PropertiesPrices');
+        $this->loadModel('CompanyData');
         $this->loadModel('ContractsValues');
     }
 
@@ -51,8 +53,9 @@ class SlipsController extends AppController
         $contract = $this->Contracts->get($contractId, [
             'contain' => ['Properties.PropertiesPrices', 'ContractsValues']
         ]);
+        $companyData = $this->CompanyData->find()->first();
 
-        $this->set(compact('contract'));
+        $this->set(compact('contract', 'companyData'));
 
         $startDate = new DateTime('now');
         $endDate = new DateTime('now');
@@ -166,5 +169,45 @@ class SlipsController extends AppController
     public function getExtraFees($date, $fee)
     {
         return 0;
+    }
+
+    public function report($contractId)
+    {
+        $this->viewBuilder()->setLayout('slip');
+
+        $contract = $this->Contracts->get($contractId, [
+            'contain' => [
+                'Properties.Locators.Users'
+            ]
+        ]);
+
+        $this->set(compact('contract'));
+
+        $startDate = new DateTime($this->request->getQuery('start_date'));
+        $endDate = new DateTime($this->request->getQuery('end_date'));
+
+        $firstSalary = new DateTime($contract['primeiro_vencimento']->format('Y-m-d'));
+
+        $interval = new DatePeriod($startDate, new DateInterval('P1M'), $endDate);
+
+        $slips = [];
+        foreach ($interval as $d) {
+            if ($d->format('Y-m') >= $firstSalary->format('Y-m')) {
+                $contractValues = $this->ContractsValues->find()
+                    ->where(['date_format(start_date, "%Y-%m") <=' => $d->format('Y-m')])
+                    ->where(['contract_id' => $contract['id']])
+                    ->last();
+
+                if ($d->format('Y-m') == $firstSalary->format('Y-m')) {
+                    $salary = new DateTime($firstSalary->format('Y-m-d'));
+                } else {
+                    $salary = new DateTime(sprintf("%s-%s", $d->format('Y-m'), $contractValues['vencimento_boleto']));
+                }
+
+                $slips[$salary->format('d/m/Y')] = $this->getSlipInfo($salary, $contract, $contractValues);
+            }
+        }
+
+        $this->set(compact('slips'));
     }
 }

@@ -7,3 +7,10 @@ function startLoading(element) {
 function stopLoading(element) {
     $(element).find('.overlay').remove();
 }
+
+$('[readonly="readonly"]').click(function () {
+    return false;
+});
+
+$.fn.bstooltip = $.fn.tooltip.noConflict();
+$("body").bstooltip({selector: '[data-toggle=tooltip]'});

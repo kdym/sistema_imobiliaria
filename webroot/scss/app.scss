@@ -53,14 +53,31 @@ $mutedColor: #d4d4d4;
   margin: 0;
 }
 
-label.error {
-  color: $dangerColor;
-}
+form {
+  label.error {
+    color: $dangerColor;
+  }
 
-select.error,
-input.error,
-.form-error {
-  border-color: $dangerColor;
+  select.error,
+  input.error,
+  .form-error {
+    border-color: $dangerColor;
+  }
+
+  .form-img {
+    position: relative;
+
+    img {
+      margin: 10px;
+      height: 15vh;
+    }
+
+    a {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+    }
+  }
 }
 
 .to-center {
@@ -287,4 +304,8 @@ table {
 .search-h2 {
   font-size: medium;
   margin: 2px 0;
+}
+
+a[disabled='disabled'] {
+  //pointer-events: none;
 }

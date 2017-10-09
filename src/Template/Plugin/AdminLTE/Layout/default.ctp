@@ -86,7 +86,9 @@
 
 <!-- jQuery 2.2.3 -->
 <?php echo $this->Html->script('AdminLTE./plugins/jQuery/jquery-2.2.3.min'); ?>
-<!-- Bootstrap 3.3.5 -->
+
+<?php echo $this->Html->script('https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'); ?>
+
 <?php echo $this->Html->script('AdminLTE./bootstrap/js/bootstrap.min'); ?>
 <!-- SlimScroll -->
 <?php echo $this->Html->script('AdminLTE./plugins/slimScroll/jquery.slimscroll.min'); ?>
@@ -104,7 +106,6 @@
 <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js'); ?>
 <?php echo $this->Html->script('initializers/jquery-validate.min'); ?>
 
-<?php echo $this->Html->script('https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'); ?>
 
 <?php echo $this->Html->script('http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js'); ?>
 

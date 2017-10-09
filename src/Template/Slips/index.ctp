@@ -144,7 +144,7 @@ echo $this->Html->css('contracts.min', ['block' => true]);
                                         <div class="actions">
                                             <?php echo $this->Html->link('<i class="fa fa-pencil fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
                                             <?php echo $this->Html->link('<i class="fa fa-usd fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
-                                            <?php echo $this->Html->link('<i class="fa fa-barcode fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
+                                            <?php echo $this->Slips->getReportButton($key, $companyData) ?>
                                         </div>
                                     </div>
                                 </div>

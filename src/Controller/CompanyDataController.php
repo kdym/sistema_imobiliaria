@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Policy\CompanyDataPolicy;
 
 /**
  * CompanyData Controller
@@ -13,6 +15,15 @@ use App\Controller\AppController;
 class CompanyDataController extends AppController
 {
 
+    function isAuthorized($user)
+    {
+//        $element = $this->Users->findById($this->request->getParam('pass.0'))
+//            ->applyOptions(['withDeleted'])
+//            ->first();
+
+        return CompanyDataPolicy::isAuthorized($this->request->action, $user);
+    }
+
     /**
      * Index method
      *
@@ -20,10 +31,21 @@ class CompanyDataController extends AppController
      */
     public function index()
     {
-        $companyData = $this->paginate($this->CompanyData);
+        $companyData = $this->CompanyData->find()->first();
 
-        $this->set(compact('companyData'));
-        $this->set('_serialize', ['companyData']);
+        $entity = ($companyData) ? $companyData : $this->CompanyData->newEntity();
+
+        if ($this->request->is(['post', 'put'])) {
+            $this->CompanyData->patchEntity($entity, $this->request->getData());
+
+            if ($this->CompanyData->save($entity)) {
+                $this->Flash->success('Salvo com sucesso');
+
+                $this->redirect(['action' => 'index']);
+            }
+        }
+
+        $this->set('companyData', $entity);
     }
 
     /**
@@ -107,5 +129,23 @@ class CompanyDataController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function deleteLogo()
+    {
+        if (unlink(WWW_ROOT . '/file/logo.png')) {
+            $this->Flash->success('Logo excluído');
+
+            $this->redirect($this->referer());
+        }
+    }
+
+    public function deleteSmallLogo()
+    {
+        if (unlink(WWW_ROOT . '/file/logo_small.png')) {
+            $this->Flash->success('Logo Pequeno excluído');
+
+            $this->redirect($this->referer());
+        }
     }
 }
