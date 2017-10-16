@@ -45,12 +45,20 @@ class ContractsTable extends Table
         self::NO_WARRANTY => 'Sem Garantia',
     ];
 
-    const DISCOUNT = 0;
-    const FINE = 1;
+    const DISCOUNT = 'discount';
+    const FINE = 'fine';
 
     public static $discountOrFine = [
         self::DISCOUNT => 'Desconto Pagamento em Dia',
         self::FINE => 'Multa por Atraso',
+    ];
+
+    const RENT = 'rent';
+    const CUSTOM_FEE = 'custom';
+
+    public static $feesNames = [
+        self::RENT => 'Aluguel',
+        self::CUSTOM_FEE => 'Taxa Extra',
     ];
 
     const DEFAULT_MONTH_DAYS = 30;

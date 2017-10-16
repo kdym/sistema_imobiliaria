@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $bs
  */
 
+use App\Policy\SlipsCustomsValuesPolicy;
+
 echo $this->Html->css('contracts.min', ['block' => true]);
 ?>
 
@@ -128,7 +130,7 @@ echo $this->Html->css('contracts.min', ['block' => true]);
 
     <?php if (!empty($slips)) { ?>
         <div class="actions-bar to-right">
-            <?php echo $this->Slips->getAllReportButton($startDate->format('d/m/Y'), $endDate->format('d/m/Y'), $companyData, $contract) ?>
+            <!--            --><?php //echo $this->Slips->getAllReportButton($startDate->format('d/m/Y'), $endDate->format('d/m/Y'), $companyData, $contract) ?>
         </div>
     <?php } ?>
 
@@ -141,18 +143,21 @@ echo $this->Html->css('contracts.min', ['block' => true]);
             <?php } else { ?>
                 <?php if (!empty($slips)) { ?>
                     <div id="slips-info">
-                        <?php foreach ($slips as $key => $values) { ?>
+                        <?php foreach ($slips as $s) { ?>
                             <div class="slip">
                                 <div class="row equal-height-row">
                                     <div class="col-md-3">
                                         <div class="slip-header <?php echo $this->Slips->getSlipClass() ?>">
                                             <div class="slip-header-container">
-                                                <h1><?php echo $key ?></h1>
+                                                <h1><?php echo $s->getSalary()->format('d/m/Y') ?></h1>
 
                                                 <div class="actions">
-                                                    <?php echo $this->Html->link('<i class="fa fa-pencil fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
+                                                    <?php if (SlipsCustomsValuesPolicy::isAuthorized('form', $loggedUser)) { ?>
+                                                        <?php echo $this->Html->link('<i class="fa fa-pencil fa-fw"></i>', ['action' => 'edit', $contract['id'], '?' => ['slip' => $s->getSalary()->format('d/m/Y')]], ['escape' => false, 'class' => 'btn btn-default']) ?>
+                                                    <?php } ?>
+
                                                     <?php echo $this->Html->link('<i class="fa fa-usd fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
-                                                    <?php echo $this->Slips->getReportButton($key, $companyData, $contract) ?>
+                                                    <!--                                                    --><?php //echo $this->Slips->getReportButton($key, $companyData, $contract) ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,12 +168,12 @@ echo $this->Html->css('contracts.min', ['block' => true]);
                                             <table class="table table-hover">
                                                 <tbody>
                                                 <?php $sum = 0; ?>
-                                                <?php foreach ($values as $v) { ?>
-                                                    <?php $sum += $v['value']; ?>
+                                                <?php foreach ($s->getValues() as $v) { ?>
+                                                    <?php $sum += $v->getValue(); ?>
 
                                                     <tr>
-                                                        <td><?php echo $v['name'] ?></td>
-                                                        <td class="to-right"><?php echo $this->Slips->formatCurrency($v['value']) ?></td>
+                                                        <td><?php echo $v->getName() ?></td>
+                                                        <td class="to-right"><?php echo $this->Slips->formatCurrency($v->getValue()) ?></td>
                                                     </tr>
                                                 <?php } ?>
                                                 <tr>

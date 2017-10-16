@@ -65,6 +65,15 @@ $('.mask-money').maskMoney({
     allowEmpty: true
 });
 
+$('.mask-money-negative').maskMoney({
+    prefix: 'R$ ',
+    affixesStay: false,
+    thousands: '.',
+    decimal: ',',
+    allowEmpty: true,
+    allowNegative: true
+});
+
 $('.mask-number').maskMoney({
     thousands: '.',
     decimal: ',',

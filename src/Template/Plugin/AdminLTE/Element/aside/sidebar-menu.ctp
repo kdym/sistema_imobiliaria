@@ -93,7 +93,8 @@ if (file_exists($file)) {
 
         if (
             $this->request->params['controller'] == 'Contracts' ||
-            $this->request->params['controller'] == 'Slips'
+            $this->request->params['controller'] == 'Slips' ||
+            $this->request->params['controller'] == 'SlipsCustomsValues'
         ) {
             $active = 'active';
         }

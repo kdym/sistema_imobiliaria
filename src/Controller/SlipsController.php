@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Custom\Slip;
 use App\Model\Table\ContractsTable;
 use App\Model\Table\ContractsValuesTable;
+use App\Model\Table\SlipsCustomsValuesTable;
+use App\Model\Table\SlipsRecursiveTable;
 use App\Policy\SlipsPolicy;
 use Cake\Event\Event;
 use DateInterval;
@@ -18,6 +21,8 @@ use DateTime;
  * @property \App\Model\Table\PropertiesPricesTable $PropertiesPrices
  * @property \App\Model\Table\ContractsValuesTable $ContractsValues
  * @property \App\Model\Table\CompanyDataTable $CompanyData
+ * @property \App\Model\Table\SlipsRecursiveTable $SlipsRecursive
+ * @property \App\Model\Table\SlipsCustomsValuesTable $SlipsCustomsValues
  *
  */
 class SlipsController extends AppController
@@ -39,6 +44,8 @@ class SlipsController extends AppController
         $this->loadModel('PropertiesPrices');
         $this->loadModel('CompanyData');
         $this->loadModel('ContractsValues');
+        $this->loadModel('SlipsRecursive');
+        $this->loadModel('SlipsCustomsValues');
     }
 
     public function beforeRender(Event $event)
@@ -72,27 +79,7 @@ class SlipsController extends AppController
 
         $this->set(compact('startDate', 'endDate'));
 
-        $firstSalary = new DateTime($contract['primeiro_vencimento']->format('Y-m-d'));
-
-        $interval = new DatePeriod($startDate, new DateInterval('P1M'), $endDate);
-
-        $slips = [];
-        foreach ($interval as $d) {
-            if ($d->format('Y-m') >= $firstSalary->format('Y-m')) {
-                $contractValues = $this->ContractsValues->find()
-                    ->where(['date_format(start_date, "%Y-%m") <=' => $d->format('Y-m')])
-                    ->where(['contract_id' => $contract['id']])
-                    ->last();
-
-                if ($d->format('Y-m') == $firstSalary->format('Y-m')) {
-                    $salary = new DateTime($firstSalary->format('Y-m-d'));
-                } else {
-                    $salary = new DateTime(sprintf("%s-%s", $d->format('Y-m'), $contractValues['vencimento_boleto']));
-                }
-
-                $slips[$salary->format('d/m/Y')] = $this->getSlipInfo($salary, $contract, $contractValues);
-            }
-        }
+        $slips = $this->findSlipsInPeriod($contract, $startDate, $endDate);
 
         $this->set(compact('slips'));
     }
@@ -108,6 +95,10 @@ class SlipsController extends AppController
         $ownDate = new DateTime($contract['data_posse']->format('Y-m-d'));
 
         //Aluguel
+        $recursiveRent = $this->SlipsRecursive->find()
+            ->where(['contract_id' => $contract['id']])
+            ->where(['tipo' => ContractsTable::RENT]);
+
         $propertyPrice = $this->PropertiesPrices->find()
             ->where(['date_format(start_date, "%Y-%m") <=' => $date->format('Y-m')])
             ->where(['property_id' => $contract['property_id']])
@@ -127,9 +118,13 @@ class SlipsController extends AppController
             $rent = ($propertyPrice['valor'] * ($diff->days + 1)) / ContractsTable::DEFAULT_MONTH_DAYS;
         }
 
+        $recursion = SlipsRecursiveTable::RECURSION_ALL;
+
         $values[] = [
-            'name' => 'Aluguel',
-            'value' => $rent
+            'name' => ContractsTable::$feesNames[ContractsTable::RENT],
+            'value' => $rent,
+            'type' => ContractsTable::RENT,
+            'recursion' => $recursion
         ];
 
         $sum += $rent;
@@ -139,9 +134,13 @@ class SlipsController extends AppController
             if (!empty($contractValues[$key]) && $key <> ContractsValuesTable::CPMF) {
                 $value = $this->getExtraFees($date, $key);
 
+                $recursion = SlipsRecursiveTable::RECURSION_ALL;
+
                 $values[] = [
                     'name' => $f,
-                    'value' => $value
+                    'value' => $value,
+                    'type' => $key,
+                    'recursion' => $recursion
                 ];
 
                 $sum += $value;
@@ -153,14 +152,16 @@ class SlipsController extends AppController
             if (!empty($contractValues['multa'])) {
                 $values[] = [
                     'name' => ContractsTable::$discountOrFine[ContractsTable::FINE],
-                    'value' => ($sum * $contractValues['multa']) / 100
+                    'value' => ($sum * $contractValues['multa']) / 100,
+                    'type' => ContractsTable::FINE,
                 ];
             }
         } else {
             if (!empty($contractValues['desconto'])) {
                 $values[] = [
                     'name' => ContractsTable::$discountOrFine[ContractsTable::DISCOUNT],
-                    'value' => (($sum * $contractValues['desconto']) / 100) * -1
+                    'value' => (($sum * $contractValues['desconto']) / 100) * -1,
+                    'type' => ContractsTable::DISCOUNT,
                 ];
             }
         }
@@ -191,28 +192,178 @@ class SlipsController extends AppController
         $startDate = new DateTime($this->request->getQuery('start_date'));
         $endDate = new DateTime($this->request->getQuery('end_date'));
 
-        $firstSalary = new DateTime($contract['primeiro_vencimento']->format('Y-m-d'));
+        $slips = $this->findSlipsInPeriod($contract, $startDate, $endDate);
 
+        $this->set(compact('slips'));
+    }
+
+    public function findSlipsInPeriod($contract, DateTime $startDate, DateTime $endDate)
+    {
         $interval = new DatePeriod($startDate, new DateInterval('P1M'), $endDate);
 
         $slips = [];
         foreach ($interval as $d) {
-            if ($d->format('Y-m') >= $firstSalary->format('Y-m')) {
-                $contractValues = $this->ContractsValues->find()
-                    ->where(['date_format(start_date, "%Y-%m") <=' => $d->format('Y-m')])
-                    ->where(['contract_id' => $contract['id']])
-                    ->last();
-
-                if ($d->format('Y-m') == $firstSalary->format('Y-m')) {
-                    $salary = new DateTime($firstSalary->format('Y-m-d'));
-                } else {
-                    $salary = new DateTime(sprintf("%s-%s", $d->format('Y-m'), $contractValues['vencimento_boleto']));
-                }
-
-                $slips[$salary->format('d/m/Y')] = $this->getSlipInfo($salary, $contract, $contractValues);
+            if ($d->format('Y-m') >= $contract['primeiro_vencimento']->format('Y-m')) {
+                $slips[] = new Slip($contract, $d);
             }
         }
 
-        $this->set(compact('slips'));
+        return $slips;
+    }
+
+    public function edit($contractId)
+    {
+        $slipDate = new DateTime($this->Contracts->parseDate($this->request->getQuery('slip')));
+        $contract = $this->Contracts->get($contractId, [
+            'contain' => ['Properties.PropertiesPrices', 'ContractsValues']
+        ]);
+
+        $this->set(compact('slipDate', 'contract'));
+
+        $startDate = new DateTime($slipDate->format('Y-m-d'));
+        $endDate = new DateTime($slipDate->format('Y-m-d'));
+
+        $startDate->modify('first day of this month');
+        $endDate->modify('last day of this month');
+
+        $slips = $this->findSlipsInPeriod($contract, $startDate, $endDate);
+
+        $oldValues = [];
+        foreach ($slips[0]->getValues() as $v) {
+            if ($v->getType() <> ContractsTable::CUSTOM_FEE) {
+                $oldValues[$v->getType()] = $v->getValue();
+            } else {
+                $oldValues[$v->getCustomId()] = $v->getValue();
+            }
+        }
+
+        $this->set('slipValues', $slips[0]);
+
+        if ($this->request->is('post')) {
+            foreach ($this->request->getData('name') as $key => $name) {
+                $type = $this->request->getData('type')[$key];
+                $value = $this->Contracts->parseDecimal($this->request->getData('value')[$key]);
+                $customId = $this->request->getData('custom_id')[$key];
+
+                if ($type == ContractsTable::CUSTOM_FEE) {
+                    if ($oldValues[$customId] == $value) {
+                        continue;
+                    }
+                } else {
+                    if ($oldValues[$type] == $value) {
+                        continue;
+                    }
+                }
+
+                $customValue = $this->SlipsRecursive->newEntity();
+
+                $customValue['start_date'] = $slipDate->format('Y-m-d');
+                $customValue['end_date'] = $slipDate->format('Y-m-d');
+                $customValue['deleted'] = false;
+                $customValue['tipo'] = $type;
+                $customValue['valor'] = $value;
+                $customValue['contract_id'] = $contractId;
+                $customValue['slip_custom_id'] = $customId;
+
+                $this->SlipsRecursive->save($customValue);
+            }
+
+            $this->Flash->success('Salvo com sucesso');
+
+            $this->redirect(['controller' => 'slips', 'action' => 'index', $contractId]);
+        }
+    }
+
+    public function addRecursiveFee($contractId)
+    {
+        $customValue = $this->SlipsCustomsValues->newEntity();
+
+        $customValue['descricao'] = $this->request->getData('name');
+        $customValue['valor'] = $this->Contracts->parseDecimal($this->request->getData('value'));
+        $customValue['contract_id'] = $contractId;
+
+        if ($this->SlipsCustomsValues->save($customValue)) {
+            $recursion = $this->SlipsRecursive->newEntity();
+
+            switch ($this->request->getData('recursive')) {
+                case SlipsRecursiveTable::RECURSION_NONE:
+                    $recursion['start_date'] = $this->request->getData('slip_date');
+                    $recursion['end_date'] = $this->request->getData('slip_date');
+
+                    break;
+
+                case SlipsRecursiveTable::RECURSION_ALL:
+                    $recursion['start_date'] = null;
+                    $recursion['end_date'] = null;
+
+                    break;
+
+                case SlipsRecursiveTable::RECURSION_START_AT:
+                    $recursion['start_date'] = $this->Contracts->parseDate($this->request->getData('start_at_input'));
+                    $recursion['end_date'] = null;
+
+                    break;
+
+                case SlipsRecursiveTable::RECURSION_PERIOD:
+                    $period = explode(' a ', $this->request->getData('period_input'));
+
+                    $recursion['start_date'] = $this->Contracts->parseDate($period[0]);
+                    $recursion['end_date'] = $this->Contracts->parseDate($period[1]);
+
+                    break;
+            }
+
+            $recursion['deleted'] = false;
+            $recursion['slip_custom_id'] = $customValue['id'];
+            $recursion['tipo'] = ContractsTable::CUSTOM_FEE;
+            $recursion['contract_id'] = $contractId;
+            $recursion['valor'] = $this->Contracts->parseDecimal($this->request->getData('value'));
+
+            if ($this->SlipsRecursive->save($recursion)) {
+                $this->Flash->success('Salvo com sucesso');
+
+                $this->redirect(['controller' => 'slips', 'action' => 'index', $contractId]);
+            }
+        }
+    }
+
+    public function deleteCustom()
+    {
+        $recursive = $this->SlipsRecursive->newEntity();
+
+        $slipDate = new DateTime($this->request->getData('slip_date'));
+
+        $recursive['start_date'] = $slipDate->format('Y-m-d');
+        $recursive['deleted'] = true;
+        $recursive['slip_custom_id'] = $this->request->getData('custom_id');
+        $recursive['tipo'] = ContractsTable::CUSTOM_FEE;
+        $recursive['contract_id'] = $this->request->getData('contract_id');
+
+        switch ($this->request->getData('delete_option')) {
+            case SlipsRecursiveTable::DELETE_SINGLE:
+                $recursive['end_date'] = $slipDate->format('Y-m-d');
+
+                $this->SlipsRecursive->save($recursive);
+
+                break;
+
+            case SlipsRecursiveTable::DELETE_NEXT:
+                $recursive['end_date'] = null;
+
+                $this->SlipsRecursive->save($recursive);
+
+                break;
+
+            case SlipsRecursiveTable::DELETE_ALL:
+                $slipCustomValue = $this->SlipsCustomsValues->get($this->request->getData('custom_id'));
+
+                $this->SlipsCustomsValues->delete($slipCustomValue);
+
+                break;
+        }
+
+        $this->Flash->success('Excluído com sucesso');
+
+        $this->redirect(['action' => 'index', $this->request->getData('contract_id')]);
     }
 }

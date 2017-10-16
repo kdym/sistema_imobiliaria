@@ -78,6 +78,17 @@ form {
       left: 5px;
     }
   }
+
+  .single-checkbox {
+    margin-top: 11px;
+  }
+
+  .big-radios {
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
 }
 
 .to-center {
