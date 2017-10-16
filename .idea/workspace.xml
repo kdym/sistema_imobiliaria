@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2efe6039-6659-41b6-99c0-8ecbe00eb18c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/Migrations/schema-dump-default.lock" afterPath="$PROJECT_DIR$/config/Migrations/schema-dump-default.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/SlipsController.php" afterPath="$PROJECT_DIR$/src/Controller/SlipsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Table/ContractsTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/ContractsTable.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Policy/SlipsPolicy.php" afterPath="$PROJECT_DIR$/src/Policy/SlipsPolicy.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/form.ctp" afterPath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/form.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/sidebar-menu.ctp" afterPath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/sidebar-menu.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Slips/index.ctp" afterPath="$PROJECT_DIR$/src/Template/Slips/index.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/css/app.min.css" afterPath="$PROJECT_DIR$/webroot/css/app.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/css/app.min.css.map" afterPath="$PROJECT_DIR$/webroot/css/app.min.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/js/initializers/maskedinput.js" afterPath="$PROJECT_DIR$/webroot/js/initializers/maskedinput.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/js/initializers/maskedinput.min.js" afterPath="$PROJECT_DIR$/webroot/js/initializers/maskedinput.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/scss/app.scss" afterPath="$PROJECT_DIR$/webroot/scss/app.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Slips/report.ctp" afterPath="$PROJECT_DIR$/src/Template/Slips/report.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/css/slips.min.css" afterPath="$PROJECT_DIR$/webroot/css/slips.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/css/slips.min.css.map" afterPath="$PROJECT_DIR$/webroot/css/slips.min.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/scss/slips.scss" afterPath="$PROJECT_DIR$/webroot/scss/slips.scss" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,64 +24,59 @@
       <file leaf-file-name="SlipsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/SlipsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="341" column="59" lean-forward="true" selection-start-line="341" selection-start-column="59" selection-end-line="341" selection-end-column="59" />
+            <state relative-caret-position="177">
+              <caret line="176" column="20" lean-forward="false" selection-start-line="176" selection-start-column="20" selection-end-line="176" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SlipsRecursiveTable.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Table/SlipsRecursiveTable.php">
+      <file leaf-file-name="index.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Template/Slips/index.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="44" column="55" lean-forward="false" selection-start-line="44" selection-start-column="55" selection-end-line="44" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Slip.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Model/Custom/Slip.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="171" column="25" lean-forward="true" selection-start-line="171" selection-start-column="25" selection-end-line="171" selection-end-column="25" />
+            <state relative-caret-position="510">
+              <caret line="160" column="125" lean-forward="false" selection-start-line="160" selection-start-column="125" selection-end-line="160" selection-end-column="125" />
               <folding>
-                <element signature="e#122#157#0#PHP" expanded="true" />
+                <element signature="e#121#161#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="slips.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webroot/js/slips.js">
+      <file leaf-file-name="report.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Template/Slips/report.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="754">
-              <caret line="86" column="44" lean-forward="false" selection-start-line="86" selection-start-column="44" selection-end-line="86" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Template/Slips/edit.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="533">
-              <caret line="255" column="36" lean-forward="true" selection-start-line="255" selection-start-column="36" selection-end-line="255" selection-end-column="36" />
+            <state relative-caret-position="230">
+              <caret line="441" column="14" lean-forward="false" selection-start-line="441" selection-start-column="14" selection-end-line="441" selection-end-column="14" />
               <folding>
-                <element signature="e#124#159#0#PHP" expanded="true" />
-                <element signature="e#9558#9565#1#HTML" expanded="true" />
+                <element signature="e#19612#19618#1#HTML" expanded="true" />
+                <marker date="1508160409221" expanded="true" signature="18348:18408" ph="..." />
+                <marker date="1508160409221" expanded="true" signature="18696:18756" ph="..." />
+                <marker date="1508160409221" expanded="true" signature="19033:19075" ph="..." />
+                <marker date="1508160409221" expanded="true" signature="19184:19228" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webroot/scss/app.scss">
+      <file leaf-file-name="slips.scss" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/webroot/scss/slips.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="737">
-              <caret line="88" column="26" lean-forward="false" selection-start-line="88" selection-start-column="26" selection-end-line="88" selection-end-column="26" />
+            <state relative-caret-position="272">
+              <caret line="16" column="16" lean-forward="false" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SlipsHelper.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/View/Helper/SlipsHelper.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-141">
+              <caret line="26" column="5" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
+              <folding>
+                <marker date="1507560053794" expanded="true" signature="6768:6792" ph="data:" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -116,6 +104,7 @@
       <find>'null' =&gt; false,</find>
       <find>'null' =&gt; false</find>
       <find>SlipsCustomsValuesTable</find>
+      <find>$b['contrato']</find>
     </findStrings>
     <replaceStrings>
       <replace>Form</replace>
@@ -126,6 +115,7 @@
       <replace>Slips</replace>
       <replace>'null' =&gt; true,</replace>
       <replace>SlipsRecursiveTable</replace>
+      <replace>$contract</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -142,7 +132,6 @@
         <option value="$PROJECT_DIR$/config/Migrations/20170926131314_AddColumnsToContracts.php" />
         <option value="$PROJECT_DIR$/src/Template/Contracts/view.ctp" />
         <option value="$PROJECT_DIR$/src/Template/Contracts/form.ctp" />
-        <option value="$PROJECT_DIR$/webroot/scss/slips.scss" />
         <option value="$PROJECT_DIR$/src/Template/Layout/slip.ctp" />
         <option value="$PROJECT_DIR$/webroot/js/general.js" />
         <option value="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp" />
@@ -155,7 +144,6 @@
         <option value="$PROJECT_DIR$/src/Controller/CompanyDataController.php" />
         <option value="$PROJECT_DIR$/src/View/Helper/CompanyDataHelper.php" />
         <option value="$PROJECT_DIR$/src/Template/CompanyData/index.ctp" />
-        <option value="$PROJECT_DIR$/src/Template/Slips/report.ctp" />
         <option value="$PROJECT_DIR$/webroot/scss/contracts.scss" />
         <option value="$PROJECT_DIR$/src/View/Helper/SlipsHelper.php" />
         <option value="$PROJECT_DIR$/config/Migrations/20171010140929_CreateSlipsCustomsValues.php" />
@@ -173,7 +161,6 @@
         <option value="$PROJECT_DIR$/config/Migrations/20171011143056_ChangeRecursiveLogic.php" />
         <option value="$PROJECT_DIR$/config/Migrations/20171011143729_AddValorToSlipsRecursive.php" />
         <option value="$PROJECT_DIR$/src/Template/Slips/form.ctp" />
-        <option value="$PROJECT_DIR$/src/Template/Slips/index.ctp" />
         <option value="$PROJECT_DIR$/src/Model/Table/ContractsTable.php" />
         <option value="$PROJECT_DIR$/src/Model/Custom/SlipValueRecursion.php" />
         <option value="$PROJECT_DIR$/src/Model/Custom/SlipValue.php" />
@@ -185,6 +172,9 @@
         <option value="$PROJECT_DIR$/src/Template/Slips/edit.ctp" />
         <option value="$PROJECT_DIR$/src/Controller/SlipsController.php" />
         <option value="$PROJECT_DIR$/src/Model/Custom/Slip.php" />
+        <option value="$PROJECT_DIR$/src/Template/Slips/index.ctp" />
+        <option value="$PROJECT_DIR$/src/Template/Slips/report.ctp" />
+        <option value="$PROJECT_DIR$/webroot/scss/slips.scss" />
       </list>
     </option>
   </component>
@@ -688,12 +678,12 @@
       <workItem from="1507316522494" duration="5145000" />
       <workItem from="1507549116494" duration="11445000" />
       <workItem from="1507644034320" duration="38704000" />
-      <workItem from="1508152563399" duration="5554000" />
+      <workItem from="1508152563399" duration="7849000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="225791000" />
+    <option name="totallyTimeSpent" value="228086000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1432" y="-132" width="1296" height="1000" extended-state="6" />
@@ -813,22 +803,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Slips/report.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7123">
-          <caret line="419" column="45" lean-forward="false" selection-start-line="419" selection-start-column="45" selection-end-line="419" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/scss/slips.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webroot/js/properties.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -872,16 +846,6 @@
         <state relative-caret-position="391">
           <caret line="26" column="5" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View/Helper/SlipsHelper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="26" column="5" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
-          <folding>
-            <marker date="1507560053794" expanded="true" signature="6768:6792" ph="data:" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1061,14 +1025,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Slips/index.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="178" column="52" lean-forward="false" selection-start-line="178" selection-start-column="52" selection-end-line="178" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/SlipsCustomsValuesController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="703">
@@ -1148,27 +1104,69 @@
         <state relative-caret-position="533">
           <caret line="255" column="36" lean-forward="true" selection-start-line="255" selection-start-column="36" selection-end-line="255" selection-end-column="36" />
           <folding>
-            <element signature="e#124#159#0#PHP" expanded="true" />
-            <element signature="e#9558#9565#1#HTML" expanded="true" />
+            <element signature="e#124#159#0#PHP" expanded="false" />
+            <element signature="e#9558#9565#1#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Custom/Slip.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="149" column="33" lean-forward="true" selection-start-line="149" selection-start-column="33" selection-end-line="149" selection-end-column="33" />
+          <folding>
+            <element signature="e#122#157#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View/Helper/SlipsHelper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-141">
+          <caret line="26" column="5" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
+          <folding>
+            <marker date="1507560053794" expanded="true" signature="6768:6792" ph="data:" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/SlipsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="341" column="59" lean-forward="true" selection-start-line="341" selection-start-column="59" selection-end-line="341" selection-end-column="59" />
+        <state relative-caret-position="177">
+          <caret line="176" column="20" lean-forward="false" selection-start-line="176" selection-start-column="20" selection-end-line="176" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Custom/Slip.php">
+    <entry file="file://$PROJECT_DIR$/src/Template/Slips/index.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="171" column="25" lean-forward="true" selection-start-line="171" selection-start-column="25" selection-end-line="171" selection-end-column="25" />
+        <state relative-caret-position="510">
+          <caret line="160" column="125" lean-forward="false" selection-start-line="160" selection-start-column="125" selection-end-line="160" selection-end-column="125" />
           <folding>
-            <element signature="e#122#157#0#PHP" expanded="true" />
+            <element signature="e#121#161#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Slips/report.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="441" column="14" lean-forward="false" selection-start-line="441" selection-start-column="14" selection-end-line="441" selection-end-column="14" />
+          <folding>
+            <element signature="e#19612#19618#1#HTML" expanded="true" />
+            <marker date="1508160409221" expanded="true" signature="18348:18408" ph="..." />
+            <marker date="1508160409221" expanded="true" signature="18696:18756" ph="..." />
+            <marker date="1508160409221" expanded="true" signature="19033:19075" ph="..." />
+            <marker date="1508160409221" expanded="true" signature="19184:19228" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/scss/slips.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="16" lean-forward="false" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

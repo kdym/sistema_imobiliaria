@@ -1,4 +1,7 @@
 <?php
+
+use App\Model\Table\ContractsValuesTable;
+
 $agencia = $companyData['agencia'];
 $codigoCedente = $companyData['codigo_cedente'];
 $codigoCedenteDv = $companyData['codigo_cedente_dv'];
@@ -8,20 +11,30 @@ $codigoBanco = '237';
 $moeda = '9';
 
 $first = true;
+
+/* @var $s \App\Model\Custom\Slip */
 ?>
 
-<?php foreach ($slips as $key => $values) { ?>
+<?php foreach ($slips as $s) { ?>
     <?php
-    $vencimentoDateTime = new DateTime($this->Slips->invertDate($key));
+    $vencimentoDateTime = $s->getSalary();
 
     $mes = $vencimentoDateTime->format('m');
     $ano = $vencimentoDateTime->format('Y');
 
     $codImovel = $contract['property']['locator']['user']['username'];
 
+    /* @var $v \App\Model\Custom\SlipValue */
+
+    $hasMailFee = false;
+
     $totalBoleto = 0;
-    foreach ($values as $v) {
-        $totalBoleto += $v['value'];
+    foreach ($s->getValues() as $v) {
+        $totalBoleto += $v->getValue();
+
+        if ($v->getType() == ContractsValuesTable::MAIL_FEE) {
+            $hasMailFee = true;
+        }
     }
 
     $vencimento = $vencimentoDateTime->format('d/m/Y');
@@ -140,14 +153,14 @@ $first = true;
                         <table>
                             <tbody>
                             <?php $count = $others = 0; ?>
-                            <?php foreach ($values as $d) { ?>
+                            <?php foreach ($s->getValues() as $v) { ?>
                                 <?php if ($count > 7) { ?>
-                                    <?php $others += $d['value']; ?>
+                                    <?php $others += $v->getValue(); ?>
                                 <?php } else { ?>
                                     <tr>
-                                        <td><span class="truncate-text"><?php echo $d['name'] ?></span></td>
+                                        <td><span class="truncate-text"><?php echo $v->getName() ?></span></td>
                                         <td align="right"
-                                            width="15%"><?php echo $this->Slips->formatNumber($d['value']) ?></td>
+                                            width="15%"><?php echo $this->Slips->formatNumber($v->getValue()) ?></td>
                                     </tr>
 
                                     <?php $count++; ?>
@@ -162,7 +175,7 @@ $first = true;
                                 </tr>
                             <?php } ?>
 
-                            <?php $restantRows = 9 - count($values); ?>
+                            <?php $restantRows = 9 - count($s->getValues()); ?>
                             <?php for ($i = 0; $i < $restantRows; $i++) { ?>
                                 <tr>
                                     <td>&nbsp;</td>
@@ -424,9 +437,9 @@ $first = true;
         </table>
     </div>
 
-    <?php if (!empty($b['correio'])) { ?>
-        <div class="page-break"></div>
+    <div class="page-break"></div>
 
+    <?php if ($hasMailFee) { ?>
         <div class="boxed to-center">
             Para Uso dos Correios
         </div>
@@ -497,46 +510,48 @@ $first = true;
             </div>
 
             <div class="mail-receiver">
-                <p><?php echo $b['contrato']['tenant']['nome'] . ' - ' . $this->Slips->textFormat($b['contrato']['tenant']['cpf_cnpj'], 'cpf_cnpj') ?></p>
+                <p><?php echo $contract['tenant']['user']['nome'] . ' - ' . $contract['tenant']['user']['cpf_cnpj'] ?></p>
 
                 <p>
                     <?php
-                    echo $this->Slips->implodeEx(', ', [
-                        $b['contrato']['property']['logradouro'],
-                        $b['contrato']['property']['numero'],
-                        $b['contrato']['property']['complemento'],
-                    ]);
+                    echo implode(', ', array_filter([
+                        $contract['property']['endereco'],
+                        $contract['property']['numero'],
+                        $contract['property']['complemento'],
+                    ]));
                     ?>
                 </p>
 
                 <p>
                     <?php
-                    echo $this->Slips->implodeEx(', ', [
-                        $b['contrato']['property']['cidade'],
-                        $b['contrato']['property']['uf'],
-                        $b['contrato']['property']['bairro'],
-                    ]);
+                    echo implode(', ', array_filter([
+                        $contract['property']['cidade'],
+                        $contract['property']['uf'],
+                        $contract['property']['bairro'],
+                    ]));
                     ?>
                 </p>
 
                 <p>
-                    <?php echo $this->Slips->textFormat($b['contrato']['property']['cep'], 'cep') ?>
+                    <?php echo $contract['property']['cep'] ?>
                 </p>
             </div>
         </div>
 
         <div class="to-center">
             <?php
-            echo $this->Slips->implodeEx(', ', [
-                $companyData['logradouro'],
+            echo implode(', ', array_filter([
+                $companyData['endereco'],
                 $companyData['numero'],
                 $companyData['complemento'],
                 $companyData['bairro'],
                 $companyData['cidade'],
                 $companyData['uf'],
-                $this->Slips->textFormat($companyData['cep'], 'cep'),
-            ]);
+                $companyData['cep'],
+            ]));
             ?>
         </div>
+    <?php } else { ?>
+        <div>&nbsp;</div>
     <?php } ?>
 <?php } ?>

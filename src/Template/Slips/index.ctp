@@ -5,6 +5,7 @@
  */
 
 use App\Policy\SlipsCustomsValuesPolicy;
+use App\Policy\SlipsPolicy;
 
 echo $this->Html->css('contracts.min', ['block' => true]);
 ?>
@@ -130,7 +131,7 @@ echo $this->Html->css('contracts.min', ['block' => true]);
 
     <?php if (!empty($slips)) { ?>
         <div class="actions-bar to-right">
-            <!--            --><?php //echo $this->Slips->getAllReportButton($startDate->format('d/m/Y'), $endDate->format('d/m/Y'), $companyData, $contract) ?>
+            <!--            --><?php echo $this->Slips->getAllReportButton($startDate->format('d/m/Y'), $endDate->format('d/m/Y'), $companyData, $contract) ?>
         </div>
     <?php } ?>
 
@@ -152,12 +153,12 @@ echo $this->Html->css('contracts.min', ['block' => true]);
                                                 <h1><?php echo $s->getSalary()->format('d/m/Y') ?></h1>
 
                                                 <div class="actions">
-                                                    <?php if (SlipsCustomsValuesPolicy::isAuthorized('form', $loggedUser)) { ?>
+                                                    <?php if (SlipsPolicy::isAuthorized('edit', $loggedUser)) { ?>
                                                         <?php echo $this->Html->link('<i class="fa fa-pencil fa-fw"></i>', ['action' => 'edit', $contract['id'], '?' => ['slip' => $s->getSalary()->format('d/m/Y')]], ['escape' => false, 'class' => 'btn btn-default']) ?>
                                                     <?php } ?>
 
                                                     <?php echo $this->Html->link('<i class="fa fa-usd fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
-                                                    <!--                                                    --><?php //echo $this->Slips->getReportButton($key, $companyData, $contract) ?>
+                                                    <?php echo $this->Slips->getReportButton($s->getSalary()->format('d/m/Y'), $companyData, $contract) ?>
                                                 </div>
                                             </div>
                                         </div>
