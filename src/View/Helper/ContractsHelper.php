@@ -68,7 +68,7 @@ class ContractsHelper extends Helper
         return number_format($value, 2, ',', '.') . '%';
     }
 
-    public function getExtraFees($contract, $fee)
+    public function getExtraFees($fee)
     {
         return 'R$ 0,00';
     }

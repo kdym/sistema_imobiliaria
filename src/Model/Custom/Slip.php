@@ -4,6 +4,8 @@
  * User: sKnMetal
  * Date: 12/10/2017
  * Time: 10:22
+ *
+ * @var \App\Model\Custom\GeneralFee $f
  */
 
 namespace App\Model\Custom;
@@ -100,11 +102,11 @@ class Slip
         $sum += $rent;
 
         //Taxas Extras
-        foreach (ContractsValuesTable::$fees as $key => $f) {
-            if (!empty($contractValues[$key]) && $key <> ContractsValuesTable::CPMF) {
+        foreach (ContractsValuesTable::$generalFees as $f) {
+            if (!empty($contractValues[$f->getKey()]) && $f->getKey() <> ContractsValuesTable::CPMF) {
                 $recursiveFee = $slipsRecursiveTable->find()
                     ->where(['contract_id' => $contract['id']])
-                    ->where(['tipo' => $key])
+                    ->where(['tipo' => $f->getKey()])
                     ->where(['DATE_FORMAT(:date, "%Y-%m") BETWEEN DATE_FORMAT(start_date, "%Y-%m") AND DATE_FORMAT(end_date, "%Y-%m")'])
                     ->bind(':date', $date->format('Y-m-d'))
                     ->last();
@@ -118,16 +120,16 @@ class Slip
                     $recursion->setStartDate(new DateTime($recursiveFee['start_date']->format('Y-m-d')));
                     $recursion->setEndDate(new DateTime($recursiveFee['end_date']->format('Y-m-d')));
                 } else {
-                    $value = 0;
+                    $value = $f->getValue($date);
 
                     $recursion->setType(SlipsRecursiveTable::RECURSION_ALL);
                 }
 
                 $slipValue = new SlipValue();
 
-                $slipValue->setName($f);
+                $slipValue->setName($f->getName());
                 $slipValue->setValue($value);
-                $slipValue->setType($key);
+                $slipValue->setType($f->getKey());
                 $slipValue->setRecursion($recursion);
 
                 $this->values[] = $slipValue;

@@ -2,6 +2,7 @@
 
 use App\Policy\BrokersPolicy;
 use App\Policy\CompanyDataPolicy;
+use App\Policy\ConfigPolicy;
 use App\Policy\ContractsPolicy;
 use App\Policy\LocatorsPolicy;
 use App\Policy\PropertiesPolicy;
@@ -127,15 +128,18 @@ if (file_exists($file)) {
         <?php
         $active = '';
 
-        if ($this->request->params['controller'] == 'CompanyData') {
+        if (
+            $this->request->params['controller'] == 'Config' ||
+            $this->request->params['controller'] == 'CompanyData'
+        ) {
             $active = 'active';
         }
         ?>
 
-        <?php if (CompanyDataPolicy::isAuthorized('index', $loggedUser)) { ?>
+        <?php if (ConfigPolicy::isAuthorized('index', $loggedUser)) { ?>
             <li class="<?php echo $active ?>">
-                <a href="<?php echo $this->Url->build(["controller" => "company_data", "action" => "index"]) ?>">
-                    <i class="fa fa-cog"></i> <span>Dados da Imobiliária</span>
+                <a href="<?php echo $this->Url->build(["controller" => "config", "action" => "index"]) ?>">
+                    <i class="fa fa-cog"></i> <span>Configurações</span>
                 </a>
             </li>
         <?php } ?>

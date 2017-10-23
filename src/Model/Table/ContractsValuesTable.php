@@ -2,6 +2,7 @@
 
 namespace App\Model\Table;
 
+use App\Model\Custom\GeneralFee;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -39,6 +40,8 @@ class ContractsValuesTable extends Table
         self::MAIL_FEE => 'envelope',
     ];
 
+    public static $generalFees = [];
+
     /**
      * Initialize method
      *
@@ -53,10 +56,42 @@ class ContractsValuesTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->loadGeneralFees();
+
         $this->belongsTo('Contracts', [
             'foreignKey' => 'contract_id',
             'joinType' => 'INNER'
         ]);
+    }
+
+    public function loadGeneralFees()
+    {
+        $fee = new GeneralFee();
+
+        $fee->setKey(self::RECORD_FEE);
+        $fee->setName('Taxa de Expediente');
+        $fee->setIcon('barcode');
+        $fee->setType(GeneralFee::CURRENCY);
+
+        self::$generalFees[] = $fee;
+
+        $fee = new GeneralFee();
+
+        $fee->setKey(self::CPMF);
+        $fee->setName('CPMF');
+        $fee->setIcon('percent');
+        $fee->setType(GeneralFee::PERCENT);
+
+        self::$generalFees[] = $fee;
+
+        $fee = new GeneralFee();
+
+        $fee->setKey(self::MAIL_FEE);
+        $fee->setName('Taxa de Correio');
+        $fee->setIcon('envelope');
+        $fee->setType(GeneralFee::CURRENCY);
+
+        self::$generalFees[] = $fee;
     }
 
     /**

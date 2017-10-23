@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $bs
+ * @var \App\Model\Custom\GeneralFee $f
  */
 
 use App\Model\Table\ContractsTable;
@@ -155,17 +156,17 @@ $editLink = ['action' => 'form', $contract['id']];
                     </div>
                 </div>
 
-                <?php foreach (ContractsValuesTable::$fees as $key => $f) { ?>
-                    <?php if (!empty($contract['contracts_values'][0][$key])) { ?>
+                <?php foreach (ContractsValuesTable::$generalFees as $f) { ?>
+                    <?php if (!empty($contract['contracts_values'][0][$f->getKey()])) { ?>
                         <div class="item">
                             <div class="icon">
-                                <i class="fa fa-<?php echo ContractsValuesTable::$feesIcons[$key] ?>"></i>
+                                <i class="fa fa-<?php echo $f->getIcon() ?>"></i>
                             </div>
 
                             <div class="value">
-                                <h1><?php echo $f ?></h1>
+                                <h1><?php echo $f->getName() ?></h1>
 
-                                <h2><?php echo $this->Contracts->getExtraFees($contract, $key) ?></h2>
+                                <h2><?php echo $f->getFormattedValue() ?></h2>
                             </div>
                         </div>
                     <?php } ?>
