@@ -25,10 +25,9 @@ class GoogleMapsBehavior extends Behavior
     {
         $path = sprintf('%s?address=%s&key=%s', self::GEOCODE_URL, urlencode($data), self::GOOGLE_MAPS_API_KEY);
 
-        $context = stream_context_create(array('ssl' => array(
-            'verify_peer' => true,
-            'cafile' => WWW_ROOT . '/ca-bundle.crt'
-        )));
+        $context = stream_context_create(array(
+            'verify_peer' => false,
+        ));
         libxml_set_streams_context($context);
 
         $xml = simplexml_load_file($path);
