@@ -27,7 +27,7 @@ class GoogleMapsComponent extends Component
 
         $context = stream_context_create(array('ssl' => array(
             'verify_peer' => true,
-            'cafile' => WWW_ROOT . '/ca-bundle.crt'
+            'cafile' => 'https://raw.githubusercontent.com/bagder/ca-bundle/master/ca-bundle.crt'
         )));
         libxml_set_streams_context($context);
 
