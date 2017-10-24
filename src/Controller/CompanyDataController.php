@@ -41,7 +41,7 @@ class CompanyDataController extends AppController
             if ($this->CompanyData->save($entity)) {
                 $this->Flash->success('Salvo com sucesso');
 
-                $this->redirect(['action' => 'index']);
+                $this->redirect(['controller' => 'config', 'action' => 'index']);
             }
         }
 
