@@ -3,6 +3,8 @@
 namespace App\Model\Table;
 
 use App\View\Helper\ValidationHelper;
+use ArrayObject;
+use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;

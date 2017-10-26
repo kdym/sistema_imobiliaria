@@ -15,5 +15,23 @@ jQuery.extend(jQuery.validator.messages, {
     rangelength: jQuery.validator.format("Por favor, forne&ccedil;a um valor entre {0} e {1} caracteres de comprimento."),
     range: jQuery.validator.format("Por favor, forne&ccedil;a um valor entre {0} e {1}."),
     max: jQuery.validator.format("Por favor, forne&ccedil;a um valor menor ou igual a {0}."),
-    min: jQuery.validator.format("Por favor, forne&ccedil;a um valor maior ou igual a {0}.")
+    min: jQuery.validator.format("Por favor, forne&ccedil;a um valor maior ou igual a {0}."),
+    validDate: "Data inválida.",
+    validPeriod: "Período inválido.",
+    dateFormat: 'DD/MM/YYYY'
 });
+
+$.validator.addMethod('validDate', function (value, element) {
+    return this.optional(element) || moment(value, $.validator.messages.dateFormat).isValid();
+}, $.validator.messages.validDate);
+
+$.validator.addMethod('validPeriod', function (value, element, params) {
+    var startDate = moment($('input[name="' + params[0] + '"]').val(), $.validator.messages.dateFormat);
+    var endDate = moment($('input[name="' + params[1] + '"]').val(), $.validator.messages.dateFormat);
+
+    if (startDate > endDate) {
+        return false;
+    }
+
+    return true;
+}, $.validator.messages.validPeriod);

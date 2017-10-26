@@ -100,6 +100,7 @@ $('.date-picker').datepicker({
     language: 'pt-BR',
     todayHighlight: true
 });
+$('.date-picker').inputmask(DATE_MASK);
 
 $('.date-range-picker').daterangepicker({
     locale: datePickerRangeLocale['pt-BR']

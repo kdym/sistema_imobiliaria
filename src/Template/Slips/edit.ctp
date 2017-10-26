@@ -11,7 +11,9 @@ echo $this->Html->script('slips.min', ['block' => true]);
 ?>
 
 <section class="content-header">
-    <h1>Editar Boleto
+    <h1>
+        <?php echo $this->Html->link('<i class="fa fa-arrow-left"></i>', $referrer, ['escape' => false]) ?>
+        Editar Boleto
         <small><?php echo $slipDate->format('d/m/Y') ?></small>
     </h1>
 </section>

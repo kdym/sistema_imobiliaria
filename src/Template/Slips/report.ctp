@@ -1,5 +1,6 @@
 <?php
 
+use App\Model\Custom\Slip;
 use App\Model\Table\ContractsValuesTable;
 
 $agencia = $companyData['agencia'];
@@ -17,6 +18,10 @@ $first = true;
 
 <?php foreach ($slips as $s) { ?>
     <?php
+    if ($s->getStatus() == Slip::PAID) {
+        continue;
+    }
+
     $vencimentoDateTime = $s->getSalary();
 
     $mes = $vencimentoDateTime->format('m');

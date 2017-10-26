@@ -241,7 +241,7 @@ class PropertiesController extends AppController
                     if ($this->PropertiesFees->save($propertyFees)) {
                         $propertyPrice = $this->PropertiesPrices->newEntity();
 
-                        $propertyPrice['valor'] = $property['valor'];
+                        $propertyPrice['valor'] = $this->Properties->parseDecimal($property['valor']);
                         $propertyPrice['start_date'] = date('Y-m-d');
                         $propertyPrice['property_id'] = $property['id'];
 

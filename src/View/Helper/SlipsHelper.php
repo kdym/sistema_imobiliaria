@@ -2,6 +2,7 @@
 
 namespace App\View\Helper;
 
+use App\Model\Custom\Slip;
 use Cake\View\Helper;
 use Cake\View\Helper\HtmlHelper;
 use Cake\View\View;
@@ -31,9 +32,16 @@ class SlipsHelper extends Helper
         return number_format($value, 2, ',', '.');
     }
 
-    public function getSlipClass()
+    public function getSlipClass($slip)
     {
-        return 'bg-primary';
+        switch ($slip->getStatus()) {
+            case Slip::PAID:
+                return 'bg-success';
+            case Slip::LATE:
+                return 'bg-danger';
+            case Slip::NORMAL:
+                return 'bg-primary';
+        }
     }
 
     public function getReportButton($date, $companyData, $contract)
@@ -44,11 +52,9 @@ class SlipsHelper extends Helper
 
         if ($companyData) {
             $disabled = false;
-            $tooltip = '';
-            $tooltipTitle = '';
+            $tooltipTitle = 'Visualizar Boleto';
         } else {
             $disabled = true;
-            $tooltip = 'tooltip';
             $tooltipTitle = 'É necessário informar os dados da Imobiliária antes';
         }
 
@@ -62,7 +68,7 @@ class SlipsHelper extends Helper
                 'class' => 'btn btn-default',
                 'target' => '_blank',
                 'readonly' => $disabled,
-                'data-toggle' => $tooltip,
+                'data-toggle' => 'tooltip',
                 'title' => $tooltipTitle,
             ]);
     }

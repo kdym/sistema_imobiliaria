@@ -19,7 +19,11 @@ class BrokersPolicy
             case 'delete':
                 return $user['role'] == UsersTable::ROLE_ADMIN;
             case 'form':
-                return $user['role'] == UsersTable::ROLE_ADMIN && $element['role'] == UsersTable::ROLE_BROKER;
+                if ($element) {
+                    return $user['role'] == UsersTable::ROLE_ADMIN && $element['role'] == UsersTable::ROLE_BROKER;
+                } else {
+                    return $user['role'] == UsersTable::ROLE_ADMIN;
+                }
         }
     }
 }

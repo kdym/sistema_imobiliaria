@@ -6,6 +6,7 @@ use App\Controller\AppController;
 use App\Model\Custom\Slip;
 use App\Model\Table\ContractsTable;
 use App\Model\Table\ContractsValuesTable;
+use App\Model\Table\PaidSlipsTable;
 use App\Model\Table\SlipsCustomsValuesTable;
 use App\Model\Table\SlipsRecursiveTable;
 use App\Policy\SlipsPolicy;
@@ -23,6 +24,7 @@ use DateTime;
  * @property \App\Model\Table\CompanyDataTable $CompanyData
  * @property \App\Model\Table\SlipsRecursiveTable $SlipsRecursive
  * @property \App\Model\Table\SlipsCustomsValuesTable $SlipsCustomsValues
+ * @property \App\Model\Table\PaidSlipsTable $PaidSlips
  *
  */
 class SlipsController extends AppController
@@ -30,9 +32,6 @@ class SlipsController extends AppController
 
     function isAuthorized($user)
     {
-//        $element = $this->Users->findById($this->request->getParam('pass.0'))
-//            ->first();
-
         return SlipsPolicy::isAuthorized($this->request->action, $user);
     }
 
@@ -46,6 +45,7 @@ class SlipsController extends AppController
         $this->loadModel('ContractsValues');
         $this->loadModel('SlipsRecursive');
         $this->loadModel('SlipsCustomsValues');
+        $this->loadModel('PaidSlips');
     }
 
     public function beforeRender(Event $event)
@@ -67,11 +67,12 @@ class SlipsController extends AppController
         $startDate = new DateTime('now');
         $endDate = new DateTime('now');
 
-        if ($this->request->is('post')) {
-            $period = explode(' a ', $this->request->getData('period'));
+        if (!empty($this->request->getQuery('start_date'))) {
+            $startDate = new DateTime($this->Contracts->parseDate($this->request->getQuery('start_date')));
+        }
 
-            $startDate = new DateTime($this->Contracts->parseDate($period[0]));
-            $endDate = new DateTime($this->Contracts->parseDate($period[1]));
+        if (!empty($this->request->getQuery('end_date'))) {
+            $endDate = new DateTime($this->Contracts->parseDate($this->request->getQuery('end_date')));
         }
 
         $startDate->modify('first day of this month');
@@ -203,8 +204,10 @@ class SlipsController extends AppController
 
         $slips = [];
         foreach ($interval as $d) {
-            if ($d->format('Y-m') >= $contract['primeiro_vencimento']->format('Y-m')) {
-                $slips[] = new Slip($contract, $d);
+            if (!empty($contract['data_posse'])) {
+                if ($d->format('Y-m') >= $contract['primeiro_vencimento']->format('Y-m')) {
+                    $slips[] = new Slip($contract, $d);
+                }
             }
         }
 
@@ -213,6 +216,9 @@ class SlipsController extends AppController
 
     public function edit($contractId)
     {
+        $referrer = $this->referer();
+        $this->set(compact('referrer'));
+
         $slipDate = new DateTime($this->Contracts->parseDate($this->request->getQuery('slip')));
         $contract = $this->Contracts->get($contractId, [
             'contain' => ['Properties.PropertiesPrices', 'ContractsValues']
@@ -365,5 +371,89 @@ class SlipsController extends AppController
         $this->Flash->success('Excluído com sucesso');
 
         $this->redirect(['action' => 'index', $this->request->getData('contract_id')]);
+    }
+
+    public function pay(DateTime $salary, $contract, DateTime $paidDate)
+    {
+        $paidSlip = $this->PaidSlips->find()
+            ->where(['vencimento' => $salary->format('Y-m-d')])
+            ->where(['contract_id' => $contract['id']])
+            ->first();
+
+        if (!$paidSlip) {
+            $paidSlip = $this->PaidSlips->newEntity();
+
+            $paidSlip['vencimento'] = $salary->format('Y-m-d');
+            $paidSlip['data_pago'] = $paidDate->format('Y-m-d');
+            $paidSlip['contract_id'] = $contract['id'];
+
+            $this->PaidSlips->save($paidSlip);
+        }
+    }
+
+    public function unPay(DateTime $salary, $contract)
+    {
+        $paidSlip = $this->PaidSlips->find()
+            ->where(['vencimento' => $salary->format('Y-m-d')])
+            ->where(['contract_id' => $contract['id']])
+            ->first();
+
+        $this->PaidSlips->delete($paidSlip);
+    }
+
+    public function paySlip()
+    {
+        $salary = new DateTime($this->Contracts->parseDate($this->request->getData('pay_slip_salary_hidden')));
+        $selectedDate = new DateTime($this->Contracts->parseDate($this->request->getData('pay_slip_selected_date')));
+        $contract = $this->Contracts->get($this->request->getData('pay_slip_contract_hidden'));
+
+        $this->pay($salary, $contract, $selectedDate);
+
+        $this->Flash->success('Pago com sucesso');
+
+        $this->redirect($this->referer());
+    }
+
+    public function unPaySlip()
+    {
+        $salary = new DateTime($this->request->getQuery('salary'));
+        $contract = $this->Contracts->get($this->request->getQuery('contract'));
+
+        $this->unPay($salary, $contract);
+
+        $this->Flash->success('Pagamento cancelado com sucesso');
+
+        $this->redirect($this->referer());
+    }
+
+    public function payMultiple()
+    {
+        $contract = $this->Contracts->get($this->request->getData('pay_multiple_contract'), [
+            'contain' => ['Properties.PropertiesPrices', 'ContractsValues']
+        ]);
+
+        switch ($this->request->getData('pay_multiple_choice')) {
+            case PaidSlipsTable::MULTIPLE_UNTIL:
+                $startDate = new DateTime($contract['primeiro_vencimento']->format('Y-m-d'));
+                $endDate = new DateTime($this->Contracts->parseDate($this->request->getData('multiple_until_date')));
+
+                break;
+
+            case PaidSlipsTable::MULTIPLE_PERIOD:
+                $startDate = new DateTime($this->Contracts->parseDate($this->request->getData('multiple_start_date')));
+                $endDate = new DateTime($this->Contracts->parseDate($this->request->getData('multiple_end_date')));
+
+                break;
+        }
+
+        $slips = $this->findSlipsInPeriod($contract, $startDate, $endDate);
+
+        foreach ($slips as $s) {
+            $this->pay($s->getSalary(), $contract, $s->getSalary());
+        }
+
+        $this->Flash->success('Pagos com sucesso');
+
+        $this->redirect($this->referer());
     }
 }

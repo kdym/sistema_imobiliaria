@@ -42,7 +42,17 @@ echo $this->Html->script('contracts.min', ['block' => true]);
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <?php echo $this->Form->control('period', ['label' => 'Período', 'class' => 'date-range-picker']) ?>
+                        <label>Período</label>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <?php echo $this->Form->control('data_inicio', ['label' => false, 'class' => 'date-picker', 'type' => 'text']) ?>
+                            </div>
+
+                            <div class="col-md-6">
+                                <?php echo $this->Form->control('data_fim', ['label' => false, 'class' => 'date-picker', 'type' => 'text']) ?>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-md-6">

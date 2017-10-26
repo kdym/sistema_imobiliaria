@@ -103,9 +103,10 @@
 <?php echo $this->Html->script('AdminLTE./plugins/input-mask/jquery.inputmask'); ?>
 <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js'); ?>
 
+<?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js'); ?>
+
 <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js'); ?>
 <?php echo $this->Html->script('initializers/jquery-validate.min'); ?>
-
 
 <?php echo $this->Html->script('http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js'); ?>
 

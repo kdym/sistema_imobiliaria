@@ -4,14 +4,20 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $bs
  */
 
+use App\Model\Custom\Slip;
+use App\Model\Table\PaidSlipsTable;
 use App\Policy\SlipsCustomsValuesPolicy;
 use App\Policy\SlipsPolicy;
 
 echo $this->Html->css('contracts.min', ['block' => true]);
+
+echo $this->Html->script('slips.min', ['block' => true]);
 ?>
 
 <section class="content-header">
-    <h1>Boletos
+    <h1>
+        <?php echo $this->Html->link('<i class="fa fa-arrow-left"></i>', ['controller' => "contracts", 'action' => 'view', $contract['id']], ['escape' => false]) ?>
+        Boletos
         <small><?php echo $contract['property']['full_address'] ?></small>
     </h1>
 </section>
@@ -111,13 +117,20 @@ echo $this->Html->css('contracts.min', ['block' => true]);
 
     <div class="box">
         <div class="box-body">
-            <?php echo $this->Form->create() ?>
+            <?php echo $this->Form->create(null, ['type' => 'get']) ?>
 
             <label>Período</label>
 
             <div class="row">
                 <div class="col-md-9 col-sm-6">
-                    <?php echo $this->Form->control('period', ['label' => false, 'class' => 'date-range-picker']) ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <?php echo $this->Form->control('start_date', ['label' => false, 'class' => 'date-picker', 'value' => $this->request->getQuery('start_date')]) ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?php echo $this->Form->control('end_date', ['label' => false, 'class' => 'date-picker', 'value' => $this->request->getQuery('end_date')]) ?>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6">
@@ -130,10 +143,17 @@ echo $this->Html->css('contracts.min', ['block' => true]);
     </div>
 
     <?php if (!empty($slips)) { ?>
-        <div class="actions-bar to-right">
-            <!--            --><?php echo $this->Slips->getAllReportButton($startDate->format('d/m/Y'), $endDate->format('d/m/Y'), $companyData, $contract) ?>
+        <div class="actions-bar">
+            <?php echo $this->Slips->getAllReportButton($startDate->format('d/m/Y'), $endDate->format('d/m/Y'), $companyData, $contract) ?>
+            <?php echo $this->Html->link('<i class="fa fa-usd"></i> Pagar Muitos', '', ['escape' => false, 'class' => 'btn btn-app', 'id' => 'pay-multiple-button']) ?>
         </div>
     <?php } ?>
+
+    <ul class="circles-legend">
+        <li><i class="fa fa-circle-o text-primary"></i> Normal</li>
+        <li><i class="fa fa-circle-o text-success"></i> Pago</li>
+        <li><i class="fa fa-circle-o text-danger"></i> Atrasado</li>
+    </ul>
 
     <div class="box">
         <div class="box-body">
@@ -148,17 +168,46 @@ echo $this->Html->css('contracts.min', ['block' => true]);
                             <div class="slip">
                                 <div class="row equal-height-row">
                                     <div class="col-md-3">
-                                        <div class="slip-header <?php echo $this->Slips->getSlipClass() ?>">
+                                        <div class="slip-header <?php echo $this->Slips->getSlipClass($s) ?>">
                                             <div class="slip-header-container">
                                                 <h1><?php echo $s->getSalary()->format('d/m/Y') ?></h1>
 
+                                                <?php if ($s->getStatus() == Slip::PAID) { ?>
+                                                    <small>Pago
+                                                        em <?php echo $s->getPaidDate()->format('d/m/Y') ?></small>
+                                                <?php } ?>
+
                                                 <div class="actions">
-                                                    <?php if (SlipsPolicy::isAuthorized('edit', $loggedUser)) { ?>
-                                                        <?php echo $this->Html->link('<i class="fa fa-pencil fa-fw"></i>', ['action' => 'edit', $contract['id'], '?' => ['slip' => $s->getSalary()->format('d/m/Y')]], ['escape' => false, 'class' => 'btn btn-default']) ?>
+                                                    <?php if (SlipsPolicy::isAuthorized('edit', $loggedUser, $s)) { ?>
+                                                        <?php echo $this->Html->link('<i class="fa fa-pencil fa-fw"></i>', ['action' => 'edit', $contract['id'], '?' => ['slip' => $s->getSalary()->format('d/m/Y')]], ['escape' => false, 'class' => 'btn btn-default', 'title' => 'Editar Boleto', 'data-toggle' => 'tooltip']) ?>
                                                     <?php } ?>
 
-                                                    <?php echo $this->Html->link('<i class="fa fa-usd fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default']) ?>
-                                                    <?php echo $this->Slips->getReportButton($s->getSalary()->format('d/m/Y'), $companyData, $contract) ?>
+                                                    <?php if (SlipsPolicy::isAuthorized('pay', $loggedUser, $s)) { ?>
+                                                        <?php echo $this->Html->link('<i class="fa fa-usd fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default', 'data-pay-slip' => $s->getSalary()->format('d/m/Y'), 'title' => 'Pagar Boleto', 'data-toggle' => 'tooltip']) ?>
+                                                    <?php } ?>
+
+                                                    <?php if (SlipsPolicy::isAuthorized('unPay', $loggedUser, $s)) { ?>
+                                                        <?php echo $this->Html->link(
+                                                            '<i class="fa fa-ban fa-fw"></i>',
+                                                            [
+                                                                'action' => 'unPaySlip',
+                                                                '?' => [
+                                                                    'contract' => $contract['id'],
+                                                                    'salary' => $s->getSalary()->format('Y-m-d'),
+                                                                ]
+                                                            ],
+                                                            [
+                                                                'escape' => false,
+                                                                'class' => 'btn btn-default',
+                                                                'confirm' => 'Tem certeza que deseja cancelar esse pagamento?',
+                                                                'title' => 'Cancelar Pagamento',
+                                                                'data-toggle' => 'tooltip'
+                                                            ]) ?>
+                                                    <?php } ?>
+
+                                                    <?php if ($s->getStatus() <> Slip::PAID) { ?>
+                                                        <?php echo $this->Slips->getReportButton($s->getSalary()->format('d/m/Y'), $companyData, $contract) ?>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -198,3 +247,96 @@ echo $this->Html->css('contracts.min', ['block' => true]);
         </div>
     </div>
 </section>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="pay-slip-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Pagar Boleto</h4>
+            </div>
+
+            <?php echo $this->Form->create(null, ['url' => ['action' => 'pay_slip']]) ?>
+
+            <?php echo $this->Form->control('pay_slip_salary_hidden', ['type' => 'hidden']) ?>
+            <?php echo $this->Form->control('pay_slip_contract_hidden', ['type' => 'hidden', 'value' => $contract['id']]) ?>
+            <?php echo $this->Form->control('pay_slip_selected_date', ['type' => 'hidden', 'value' => date('d/m/Y')]) ?>
+
+            <div class="modal-body">
+                <h3>Boleto com vencimento em <span id="pay-slip-salary"></span></h3>
+
+                <p>Informe a Data de Pagamento</p>
+
+                <div id="pay-slip-calendar"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Salvar</button>
+            </div>
+
+            <?php echo $this->Form->end() ?>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="pay-multiple-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Pagar Muitos Boletos</h4>
+            </div>
+
+            <?php echo $this->Form->create(null, ['url' => ['action' => 'pay_multiple'], 'id' => 'pay-multiple-form']) ?>
+
+            <?php echo $this->Form->control('pay_multiple_contract', ['type' => 'hidden', 'value' => $contract['id']]) ?>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" checked="checked" id="pay-multiple-choice-until"
+                                       name="pay_multiple_choice"
+                                       value="<?php echo PaidSlipsTable::MULTIPLE_UNTIL ?>"/>
+                                <?php echo PaidSlipsTable::$multipleOptions[PaidSlipsTable::MULTIPLE_UNTIL] ?>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <?php echo $this->Form->control('multiple_until_date', ['label' => false, 'class' => 'date-picker']) ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="pay_multiple_choice" id="pay-multiple-choice-period"
+                                       value="<?php echo PaidSlipsTable::MULTIPLE_PERIOD ?>"/>
+                                <?php echo PaidSlipsTable::$multipleOptions[PaidSlipsTable::MULTIPLE_PERIOD] ?>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <?php echo $this->Form->control('multiple_start_date', ['label' => false, 'class' => 'date-picker', 'data-accept' => PaidSlipsTable::MULTIPLE_PERIOD]) ?>
+                    </div>
+
+                    <div class="col-md-4">
+                        <?php echo $this->Form->control('multiple_end_date', ['label' => false, 'class' => 'date-picker', 'data-accept' => PaidSlipsTable::MULTIPLE_PERIOD]) ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Salvar</button>
+            </div>
+
+            <?php echo $this->Form->end() ?>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

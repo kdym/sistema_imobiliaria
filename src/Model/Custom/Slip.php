@@ -20,9 +20,15 @@ use DateTime;
 
 class Slip
 {
+    const PAID = 'paid';
+    const LATE = 'late';
+    const NORMAL = 'normal';
+
     private $salary;
     private $contract;
     private $values;
+    private $status;
+    private $paidDate;
 
     public function __construct(Entity $contract, DateTime $date)
     {
@@ -194,12 +200,48 @@ class Slip
             }
         }
 
+        //Status do Boleto
+        $paidSlipsTable = TableRegistry::get('PaidSlips');
+
+        $slipPaid = $paidSlipsTable->find()
+            ->where(['vencimento' => $this->getSalary()->format('Y-m-d')])
+            ->where(['contract_id' => $contract['id']])
+            ->first();
+
+        if ($slipPaid) {
+            $this->setStatus(self::PAID);
+            $this->setPaidDate(new DateTime($slipPaid['data_pago']->format('Y-m-d')));
+        } else {
+            $this->setPaidDate(null);
+
+            if ($today->format('Y-m-d') > $this->getSalary()->format('Y-m-d')) {
+                $this->setStatus(self::LATE);
+            } else {
+                $this->setStatus(self::NORMAL);
+            }
+        }
+
         //Desconto/Multa
+        $isFee = false;
+        $isDiscount = false;
+
+        if ($this->getStatus() == self::LATE) {
+            $isFee = true;
+        }
+
+        if ($this->getStatus() == self::PAID) {
+            if ($this->getPaidDate()->format('Y-m-d') > $this->getSalary()->format('Y-m-d')) {
+                $isFee = true;
+            } else {
+                $isDiscount = true;
+            }
+        }
+
         $recursion = new SlipValueRecursion();
 
         $recursion->setType(SlipsRecursiveTable::RECURSION_ALL);
 
-        if ($today > $date) {
+        if ($isFee) {
             if (!empty($contractValues['multa'])) {
                 $slipValue = new SlipValue();
 
@@ -210,7 +252,9 @@ class Slip
 
                 $this->values[] = $slipValue;
             }
-        } else {
+        }
+
+        if ($isDiscount) {
             if (!empty($contractValues['desconto'])) {
                 $slipValue = new SlipValue();
 
@@ -251,5 +295,37 @@ class Slip
         if (empty($recursion['start_date']) && empty($recursion['end_date'])) {
             return SlipsRecursiveTable::RECURSION_ALL;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return null
+     */
+    public function getPaidDate()
+    {
+        return $this->paidDate;
+    }
+
+    /**
+     * @param null $paidDate
+     */
+    public function setPaidDate($paidDate)
+    {
+        $this->paidDate = $paidDate;
     }
 }
