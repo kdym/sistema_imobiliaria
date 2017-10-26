@@ -173,9 +173,9 @@ class PropertiesController extends AppController
 
         if ($this->request->is('get')) {
             if (!empty($property['properties_compositions'][0])) {
-                $property['quartos'] = $property['properties_compositions'][0]['quartos'];
-                $property['suites'] = $property['properties_compositions'][0]['suites'];
-                $property['garagens'] = $property['properties_compositions'][0]['garagens'];
+                foreach (PropertiesCompositionsTable::$propertiesItems as $i) {
+                    $property[$i->getKey()] = $property['properties_compositions'][0][$i->getKey()];
+                }
 
                 foreach (PropertiesCompositionsTable::$compositions as $key => $c) {
                     $property[$key] = $property['properties_compositions'][0][$key];
@@ -217,9 +217,9 @@ class PropertiesController extends AppController
             if ($this->Properties->save($property)) {
                 $propertyComposition = $this->PropertiesCompositions->newEntity();
 
-                $propertyComposition['quartos'] = $property['quartos'];
-                $propertyComposition['suites'] = $property['suites'];
-                $propertyComposition['garagens'] = $property['garagens'];
+                foreach (PropertiesCompositionsTable::$propertiesItems as $i) {
+                    $propertyComposition[$i->getKey()] = $property[$i->getKey()];
+                }
 
                 foreach (PropertiesCompositionsTable::$compositions as $key => $c) {
                     $propertyComposition[$key] = $property[$key];
@@ -231,7 +231,7 @@ class PropertiesController extends AppController
                 if ($this->PropertiesCompositions->save($propertyComposition)) {
                     $propertyFees = $this->PropertiesFees->newEntity();
 
-                    $propertyFees['taxa_administrativa'] = $property['taxa_administrativa'];
+                    $propertyFees['taxa_administrativa'] = $this->Properties->parseDecimal($property['taxa_administrativa']);
                     $propertyFees['taxa_administrativa_tipo'] = $property['taxa_administrativa_tipo'];
                     $propertyFees['taxa_administrativa_incidencia'] = $property['taxa_administrativa_incidencia'];
                     $propertyFees['parcelas_13_taxa_administrativa'] = $property['parcelas_13_taxa_administrativa'];

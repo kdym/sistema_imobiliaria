@@ -66,17 +66,11 @@ echo $this->Html->script('properties.min', ['block' => true]);
                     <?php echo $this->Form->control('tipo', ['options' => PropertiesTable::$propertyTypes, 'empty' => true]) ?>
 
                     <div class="row">
-                        <div class="col-md-4">
-                            <?php echo $this->Form->control('quartos', ['class' => 'number-only']) ?>
-                        </div>
-
-                        <div class="col-md-4">
-                            <?php echo $this->Form->control('suites', ['label' => 'Suítes', 'class' => 'number-only']) ?>
-                        </div>
-
-                        <div class="col-md-4">
-                            <?php echo $this->Form->control('garagens', ['class' => 'number-only']) ?>
-                        </div>
+                        <?php foreach (PropertiesCompositionsTable::$propertiesItems as $i) { ?>
+                            <div class="col-md-4">
+                                <?php echo $this->Form->control($i->getKey(), ['label' => $i->getName(), 'class' => 'number-only']) ?>
+                            </div>
+                        <?php } ?>
                     </div>
 
                     <div class="row">
@@ -95,7 +89,7 @@ echo $this->Html->script('properties.min', ['block' => true]);
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <?php echo $this->Form->control('valor', ['label' => 'Valor do Imóvel', 'class' => 'mask-money']) ?>
+                            <?php echo $this->Form->control('valor', ['label' => 'Valor do Aluguel', 'class' => 'mask-money']) ?>
                         </div>
                     </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Model\Table;
 
+use App\Model\Custom\PropertyItem;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -35,6 +36,15 @@ class PropertiesCompositionsTable extends Table
         self::BARBECUE_AREA => 'Área de Churrasqueira',
     ];
 
+    const BEDROOMS = 'quartos';
+    const SUITES = 'suites';
+    const GARAGES = 'garagens';
+    const RESTROOMS = 'banheiros';
+    const ROOMS = 'salas';
+    const KITCHENS = 'cozinhas';
+
+    public static $propertiesItems = [];
+
     /**
      * Initialize method
      *
@@ -49,9 +59,61 @@ class PropertiesCompositionsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->loadPropertiesItems();
+
         $this->belongsTo('Properties', [
             'foreignKey' => 'property_id'
         ]);
+    }
+
+    public function loadPropertiesItems() {
+        $item = new PropertyItem();
+
+        $item->setKey(self::BEDROOMS);
+        $item->setName('Quartos');
+        $item->setIcon('bed');
+
+        self::$propertiesItems[] = $item;
+
+        $item = new PropertyItem();
+
+        $item->setKey(self::SUITES);
+        $item->setName('Suítes');
+        $item->setIcon('bath');
+
+        self::$propertiesItems[] = $item;
+
+        $item = new PropertyItem();
+
+        $item->setKey(self::GARAGES);
+        $item->setName('Garagens');
+        $item->setIcon('car');
+
+        self::$propertiesItems[] = $item;
+
+        $item = new PropertyItem();
+
+        $item->setKey(self::RESTROOMS);
+        $item->setName('Banheiros');
+        $item->setIcon('bath');
+
+        self::$propertiesItems[] = $item;
+
+        $item = new PropertyItem();
+
+        $item->setKey(self::ROOMS);
+        $item->setName('Salas');
+        $item->setIcon('square-o');
+
+        self::$propertiesItems[] = $item;
+
+        $item = new PropertyItem();
+
+        $item->setKey(self::KITCHENS);
+        $item->setName('Cozinhas');
+        $item->setIcon('cutlery');
+
+        self::$propertiesItems[] = $item;
     }
 
     /**

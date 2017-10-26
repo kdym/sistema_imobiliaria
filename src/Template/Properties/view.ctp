@@ -104,46 +104,20 @@ $editLink = ['action' => 'form', $property['id']];
 
             <div class="box-body">
                 <div class="icon-view-list">
-                    <?php if (!empty($property['properties_compositions'][0]['quartos'])) { ?>
-                        <div class="item">
-                            <div class="icon">
-                                <i class="fa fa-bed"></i>
+                    <?php foreach (PropertiesCompositionsTable::$propertiesItems as $i) { ?>
+                        <?php if (!empty($property['properties_compositions'][0][$i->getKey()])) { ?>
+                            <div class="item">
+                                <div class="icon">
+                                    <i class="fa fa-<?php echo $i->getIcon() ?>"></i>
+                                </div>
+
+                                <div class="value">
+                                    <h1><?php echo $i->getName() ?></h1>
+
+                                    <h2><?php echo $property['properties_compositions'][0][$i->getKey()] ?></h2>
+                                </div>
                             </div>
-
-                            <div class="value">
-                                <h1>Quartos</h1>
-
-                                <h2><?php echo $property['properties_compositions'][0]['quartos'] ?></h2>
-                            </div>
-                        </div>
-                    <?php } ?>
-
-                    <?php if (!empty($property['properties_compositions'][0]['suites'])) { ?>
-                        <div class="item">
-                            <div class="icon">
-                                <i class="fa fa-bed"></i>
-                            </div>
-
-                            <div class="value">
-                                <h1>Suítes</h1>
-
-                                <h2><?php echo $property['properties_compositions'][0]['suites'] ?></h2>
-                            </div>
-                        </div>
-                    <?php } ?>
-
-                    <?php if (!empty($property['properties_compositions'][0]['garagens'])) { ?>
-                        <div class="item">
-                            <div class="icon">
-                                <i class="fa fa-car"></i>
-                            </div>
-
-                            <div class="value">
-                                <h1>Garagens</h1>
-
-                                <h2><?php echo $property['properties_compositions'][0]['garagens'] ?></h2>
-                            </div>
-                        </div>
+                        <?php } ?>
                     <?php } ?>
                 </div>
 
