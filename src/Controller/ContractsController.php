@@ -72,7 +72,14 @@ class ContractsController extends AppController
     public function view($id = null)
     {
         $contract = $this->Contracts->get($id, [
-            'contain' => ['Tenants.Users', 'Properties.PropertiesPrices', 'ContractsValues']
+            'contain' => [
+                'Tenants.Users',
+                'Properties' => [
+                    'PropertiesPrices',
+                    'Locators.Users'
+                ],
+                'ContractsValues'
+            ]
         ]);
 
         $this->set('contract', $contract);

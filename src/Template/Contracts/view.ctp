@@ -19,6 +19,7 @@ $editLink = ['action' => 'form', $contract['id']];
 <section class="content">
     <nav class="actions-bar">
         <?php echo $this->Html->link('<i class="fa fa-barcode"></i> Boletos', ['controller' => 'slips', 'action' => 'index', $contract['id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
+<!--        --><?php //echo $this->Html->link('<i class="fa fa-usd"></i> Extrato', ['controller' => 'extract', 'action' => 'index', $contract['property']['locator_id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
     </nav>
 
     <div class="masonry-list-50">
@@ -60,6 +61,20 @@ $editLink = ['action' => 'form', $contract['id']];
                             </h3>
 
                             <h4><?php echo $contract['property']['cep'] ?></h4>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+
+                        <div class="value">
+                            <h1>Locador</h1>
+
+                            <h2><?php echo $contract['property']['locator']['user']['nome'] ?></h2>
+
+                            <h3><?php echo $contract['property']['locator']['user']['formatted_username'] ?></h3>
                         </div>
                     </div>
 

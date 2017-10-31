@@ -90,6 +90,12 @@ class PropertiesTable extends Table
             'foreignKey' => 'property_id',
             'sort' => ['id' => 'desc']
         ]);
+        $this->hasMany('Contracts');
+        $this->hasOne('ActiveContract', [
+            'className' => 'Contracts',
+            'foreignKey' => 'property_id',
+            'conditions' => ['finalizado is null']
+        ]);
     }
 
     /**

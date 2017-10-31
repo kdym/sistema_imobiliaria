@@ -54,6 +54,7 @@ class LocatorsTable extends Table
         $this->hasMany('Prosecutors', [
             'sort' => ['Users.nome' => 'asc']
         ]);
+        $this->hasMany('Properties');
     }
 
     /**

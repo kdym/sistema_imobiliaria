@@ -23,6 +23,31 @@
       .table {
         margin: 0;
       }
+
+      .extract-tables {
+        margin-bottom: 20px;
+
+        thead {
+          th {
+            border: 0;
+          }
+
+          .columns-header {
+            th {
+              border-top: solid 2px #000;
+              border-bottom: solid 2px #000;
+            }
+          }
+        }
+
+        tfoot {
+          td {
+            border-top: solid 2px #000;
+            border-bottom: solid 2px #000;
+            font-weight: bolder;
+          }
+        }
+      }
     }
   }
 }

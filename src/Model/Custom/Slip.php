@@ -30,7 +30,7 @@ class Slip
     private $status;
     private $paidDate;
 
-    public function __construct(Entity $contract, DateTime $date)
+    public function __construct($contract, DateTime $date)
     {
         $this->contract = $contract;
 

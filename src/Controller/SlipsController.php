@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Model\Custom\Slip;
+use App\Model\Custom\SlipValue;
 use App\Model\Table\ContractsTable;
 use App\Model\Table\ContractsValuesTable;
+use App\Model\Table\ExtractsTable;
 use App\Model\Table\PaidSlipsTable;
+use App\Model\Table\PropertiesFeesTable;
 use App\Model\Table\SlipsCustomsValuesTable;
 use App\Model\Table\SlipsRecursiveTable;
 use App\Policy\SlipsPolicy;
@@ -20,11 +23,13 @@ use DateTime;
  *
  * @property \App\Model\Table\ContractsTable $Contracts
  * @property \App\Model\Table\PropertiesPricesTable $PropertiesPrices
+ * @property \App\Model\Table\PropertiesFeesTable $PropertiesFees
  * @property \App\Model\Table\ContractsValuesTable $ContractsValues
  * @property \App\Model\Table\CompanyDataTable $CompanyData
  * @property \App\Model\Table\SlipsRecursiveTable $SlipsRecursive
  * @property \App\Model\Table\SlipsCustomsValuesTable $SlipsCustomsValues
  * @property \App\Model\Table\PaidSlipsTable $PaidSlips
+ * @property \App\Model\Table\ExtractsTable $Extracts
  *
  */
 class SlipsController extends AppController
@@ -41,11 +46,13 @@ class SlipsController extends AppController
 
         $this->loadModel('Contracts');
         $this->loadModel('PropertiesPrices');
+        $this->loadModel('PropertiesFees');
         $this->loadModel('CompanyData');
         $this->loadModel('ContractsValues');
         $this->loadModel('SlipsRecursive');
         $this->loadModel('SlipsCustomsValues');
         $this->loadModel('PaidSlips');
+        $this->loadModel('Extracts');
     }
 
     public function beforeRender(Event $event)
@@ -387,7 +394,44 @@ class SlipsController extends AppController
             $paidSlip['data_pago'] = $paidDate->format('Y-m-d');
             $paidSlip['contract_id'] = $contract['id'];
 
-            $this->PaidSlips->save($paidSlip);
+            if ($this->PaidSlips->save($paidSlip)) {
+//                $slip = new Slip($contract, $salary);
+//
+//                $propertyFees = $this->PropertiesFees->find()
+//                    ->where(['property_id' => $contract['property_id']])
+//                    ->where(['date_format(start_date, "%Y-%m") <= :date'])
+//                    ->bind(':date', $salary->format('Y-m'))
+//                    ->last();
+//
+//                /* @var SlipValue $v */
+//                foreach ($slip->getValues() as $v) {
+//                    //Aluguel
+//                    if ($v->getType() == ContractsTable::RENT) {
+//                        $extract = $this->Extracts->newEntity();
+//
+//                        $extract['data'] = $paidDate->format('Y-m-d');
+//                        $extract['descricao'] = sprintf('Aluguel %s/%s', $slip->getSalary()->format('m'), $slip->getSalary()->format('Y'));
+//                        $extract['valor'] = $v->getValue();
+//                        $extract['tipo'] = ExtractsTable::IN;
+//                        $extract['property_id'] = $contract['property_id'];
+//
+//                        $this->Extracts->save($extract);
+//
+//                        //Taxa Administrativa sobre o Aluguel
+//                        if ($propertyFees['taxa_administrativa_incidencia'] == PropertiesFeesTable::INCIDENCE_RENT) {
+//                            $extract = $this->Extracts->newEntity();
+//
+//                            $extract['data'] = $paidDate->format('Y-m-d');
+//                            $extract['descricao'] = sprintf('Comissão da Imobiliária (Aluguel %s/%s)', $slip->getSalary()->format('m'), $slip->getSalary()->format('Y'));
+//                            $extract['valor'] = ($v->getValue() * $propertyFees['taxa_administrativa']) / 100;
+//                            $extract['tipo'] = ExtractsTable::OUT;
+//                            $extract['property_id'] = $contract['property_id'];
+//
+//                            $this->Extracts->save($extract);
+//                        }
+//                    }
+//                }
+            }
         }
     }
 
