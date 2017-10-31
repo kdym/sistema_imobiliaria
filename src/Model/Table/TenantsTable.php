@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -38,6 +39,11 @@ class TenantsTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
+        ]);
+        $this->hasOne('ActiveContract', [
+            'className' => 'Contracts',
+            'foreignKey' => 'tenant_id',
+            'conditions' => ['finalizado is null']
         ]);
     }
 

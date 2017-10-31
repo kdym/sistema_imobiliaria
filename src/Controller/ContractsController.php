@@ -13,6 +13,9 @@ use Cake\Event\Event;
  *
  * @property \App\Model\Table\ContractsTable $Contracts
  * @property \App\Model\Table\ContractsValuesTable $ContractsValues
+ * @property \App\Model\Table\TenantsTable $Tenants
+ * @property \App\Model\Table\UsersTable $Users
+ * @property \App\Model\Table\PropertiesTable $Properties
  * @property \App\Controller\Component\FormatterComponent $Formatter
  *
  * @method \App\Model\Entity\Contract[] paginate($object = null, array $settings = [])
@@ -36,6 +39,9 @@ class ContractsController extends AppController
         $this->loadComponent('Formatter');
 
         $this->loadModel('ContractsValues');
+        $this->loadModel('Tenants');
+        $this->loadModel('Users');
+        $this->loadModel('Properties');
     }
 
     public function beforeRender(Event $event)

@@ -72,7 +72,8 @@ class UsersController extends AppController
                     'LocatorsAssociations.Associateds.Users',
                     'Prosecutors.Users'
                 ],
-                'Prosecutors.Locators.Users'
+                'Prosecutors.Locators.Users',
+                'Tenants.ActiveContract.Properties'
             ],
             'withDeleted'
         ]);

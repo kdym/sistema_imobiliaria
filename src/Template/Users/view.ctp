@@ -209,26 +209,56 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                         </div>
 
                         <div class="value">
-                            <?php if (!$this->Users->hasAddress($user)) { ?>
+                            <?php
+                            $userAddress = [];
+
+                            if ($user['role'] == UsersTable::ROLE_TENANT) {
+                                if (!empty($user['tenant']['active_contract'])) {
+                                    $userAddress = [
+                                        'address' => $user['tenant']['active_contract']['property']['endereco'],
+                                        'number' => $user['tenant']['active_contract']['property']['numero'],
+                                        'complement' => $user['tenant']['active_contract']['property']['complemento'],
+                                        'neighborhood' => $user['tenant']['active_contract']['property']['bairro'],
+                                        'city' => $user['tenant']['active_contract']['property']['cidade'],
+                                        'state' => $user['tenant']['active_contract']['property']['uf'],
+                                        'zip' => $user['tenant']['active_contract']['property']['cep'],
+                                    ];
+                                }
+                            } else {
+                                if (!empty($user['endereco'])) {
+                                    $userAddress = [
+                                        'address' => $user['endereco'],
+                                        'number' => $user['numero'],
+                                        'complement' => $user['complemento'],
+                                        'neighborhood' => $user['bairro'],
+                                        'city' => $user['cidade'],
+                                        'state' => $user['uf'],
+                                        'zip' => $user['cep'],
+                                    ];
+                                }
+                            }
+                            ?>
+
+                            <?php if (empty($userAddress)) { ?>
                                 <h2>Nenhum endereço cadastrado</h2>
                             <?php } else { ?>
                                 <h2>
                                     <?php echo implode(', ', array_filter([
-                                        $user['endereco'],
-                                        $user['numero'],
-                                        $user['complemento'],
+                                        $userAddress['address'],
+                                        $userAddress['number'],
+                                        $userAddress['complement'],
                                     ])) ?>
                                 </h2>
 
                                 <h3>
                                     <?php echo implode(', ', [
-                                        $user['bairro'],
-                                        $user['cidade'],
-                                        $user['uf'],
+                                        $userAddress['neighborhood'],
+                                        $userAddress['city'],
+                                        $userAddress['state'],
                                     ]) ?>
                                 </h3>
 
-                                <h4><?php echo $user['cep'] ?></h4>
+                                <h4><?php echo $userAddress['zip'] ?></h4>
                             <?php } ?>
                         </div>
                     </div>

@@ -78,39 +78,6 @@ echo $this->Html->script('tenants.min', ['block' => true]);
 
     <div class="box">
         <div class="box-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <?php echo $this->Form->control('cep', ['label' => 'CEP', 'class' => 'cep-mask']) ?>
-                </div>
-            </div>
-
-            <?php echo $this->Form->control('endereco', ['label' => 'Endereço']) ?>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <?php echo $this->Form->control('numero', ['label' => 'Número']) ?>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <?php echo $this->Form->control('complemento') ?>
-                </div>
-            </div>
-
-            <?php echo $this->Form->control('bairro') ?>
-            <?php echo $this->Form->control('cidade') ?>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <?php echo $this->Form->control('uf', ['label' => 'UF', 'options' => GlobalCombosHelper::$brazilianStates, 'empty' => true]) ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="box">
-        <div class="box-body">
             <?php for ($i = 1; $i <= UsersTable::MAX_PHONE_NUMBERS; $i++) { ?>
                 <div class="row">
                     <div class="col-md-6">
