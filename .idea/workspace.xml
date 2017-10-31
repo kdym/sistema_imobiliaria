@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2efe6039-6659-41b6-99c0-8ecbe00eb18c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/Migrations/schema-dump-default.lock" afterPath="$PROJECT_DIR$/config/Migrations/schema-dump-default.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/Migrations/schema-dump-prod.lock" afterPath="$PROJECT_DIR$/config/Migrations/schema-dump-prod.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/ContractsController.php" afterPath="$PROJECT_DIR$/src/Controller/ContractsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/SlipsController.php" afterPath="$PROJECT_DIR$/src/Controller/SlipsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Custom/Slip.php" afterPath="$PROJECT_DIR$/src/Model/Custom/Slip.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Table/LocatorsTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/LocatorsTable.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Contracts/view.ctp" afterPath="$PROJECT_DIR$/src/Template/Contracts/view.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/sidebar-menu.ctp" afterPath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/sidebar-menu.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/css/contracts.min.css" afterPath="$PROJECT_DIR$/webroot/css/contracts.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/css/contracts.min.css.map" afterPath="$PROJECT_DIR$/webroot/css/contracts.min.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/scss/contracts.scss" afterPath="$PROJECT_DIR$/webroot/scss/contracts.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/View/Helper/VersionHelper.php" afterPath="$PROJECT_DIR$/src/View/Helper/VersionHelper.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -69,34 +60,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="contracts.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webroot/scss/contracts.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="46" column="32" lean-forward="false" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Slip.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/Custom/Slip.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="352">
               <caret line="45" column="84" lean-forward="false" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="84" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Template/Slips/index.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="58" />
-              <folding>
-                <element signature="e#121#147#0#PHP" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -111,11 +80,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="view.ctp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="view.ctp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Template/Contracts/view.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="22" column="10" lean-forward="true" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+            <state relative-caret-position="544">
+              <caret line="42" column="32" lean-forward="true" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/app.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4437">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VersionHelper.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/View/Helper/VersionHelper.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -177,7 +166,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Model/Table/ParametersTable.php" />
         <option value="$PROJECT_DIR$/src/Controller/ConfigController.php" />
         <option value="$PROJECT_DIR$/src/Model/Custom/GeneralFee.php" />
         <option value="$PROJECT_DIR$/config/app.php" />
@@ -228,6 +216,7 @@
         <option value="$PROJECT_DIR$/src/Template/Extract/index.ctp" />
         <option value="$PROJECT_DIR$/src/Controller/SlipsController.php" />
         <option value="$PROJECT_DIR$/src/Template/Contracts/view.ctp" />
+        <option value="$PROJECT_DIR$/src/View/Helper/VersionHelper.php" />
       </list>
     </option>
   </component>
@@ -756,12 +745,12 @@
       <workItem from="1508778712567" duration="12736000" />
       <workItem from="1508948621641" duration="19178000" />
       <workItem from="1509366456123" duration="7559000" />
-      <workItem from="1509446747215" duration="9981000" />
+      <workItem from="1509446747215" duration="10567000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="278100000" />
+    <option name="totallyTimeSpent" value="278686000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -776,15 +765,15 @@
     <frame x="1432" y="-132" width="1296" height="1000" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27109376" sideWeight="0.45997745" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27109376" sideWeight="0.4591195" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27109376" sideWeight="0.54002255" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28297633" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27109376" sideWeight="0.5408805" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28297633" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -806,22 +795,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="46" column="33" lean-forward="false" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Policy/BrokersPolicy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="67" lean-forward="false" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/Contracts/form.ctp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -872,6 +845,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="21" column="13" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="21" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1208,8 +1182,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/Contracts/view.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="22" column="10" lean-forward="true" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        <state relative-caret-position="544">
+          <caret line="42" column="32" lean-forward="true" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4437">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View/Helper/VersionHelper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
           <folding />
         </state>
       </provider>
