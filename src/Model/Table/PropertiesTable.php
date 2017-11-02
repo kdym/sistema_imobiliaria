@@ -58,6 +58,8 @@ class PropertiesTable extends Table
         self::TYPE_SHED => 'Galpão',
     ];
 
+    const MAX_CODE_CHARS = 5;
+
     /**
      * Initialize method
      *
@@ -149,5 +151,14 @@ class PropertiesTable extends Table
         $rules->add($rules->existsIn(['locator_id'], 'Locators'));
 
         return $rules;
+    }
+
+    public function parseCode($code)
+    {
+        if (is_numeric($code)) {
+            return (int)$code;
+        } else {
+            return $code;
+        }
     }
 }

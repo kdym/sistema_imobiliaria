@@ -29,7 +29,10 @@ use App\Policy\PropertiesPolicy;
                                         </a>
                                     </figure>
 
-                                    <h1><?php echo $this->Properties->getMainAddress($p) ?></h1>
+                                    <h1>
+                                        <?php echo $this->Properties->getMainAddress($p) ?>
+                                        <small><?php echo $p['formatted_code'] ?></small>
+                                    </h1>
 
                                     <h2><?php echo $p['locator']['user']['nome'] ?>
                                         <small><?php echo $p['locator']['user']['formatted_username'] ?></small>

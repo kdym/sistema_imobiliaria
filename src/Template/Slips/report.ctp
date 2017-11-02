@@ -27,7 +27,7 @@ $first = true;
     $mes = $vencimentoDateTime->format('m');
     $ano = $vencimentoDateTime->format('Y');
 
-    $codImovel = $contract['property']['locator']['user']['username'];
+    $codImovel = $contract['property']['formatted_code'];
 
     /* @var $v \App\Model\Custom\SlipValue */
 
@@ -116,7 +116,7 @@ $first = true;
             <tr>
                 <td width="25%">
                     <div class="squared">
-                        <p>Cód. Imóvel: <b><?php echo $this->Slips->zeroFill($codImovel, 5) ?></b></p>
+                        <p>Cód. Imóvel: <b><?php echo $codImovel ?></b></p>
 
                         <p>Senha: <b><?php echo $contract['property']['locator']['password'] ?></b></p>
                     </div>
@@ -144,7 +144,7 @@ $first = true;
                         </p>
 
                         <p class="truncate-text">
-                            <b>Locatário:</b> <?php echo $contract['tenant']['user']['nome'] ?>
+                            <b>Locatário:</b> <?php echo sprintf('%s - %s', $this->Slips->zeroFill($contract['tenant']['user']['username'], 5), $contract['tenant']['user']['nome']) ?>
                         </p>
 
                         <p class="truncate-text">

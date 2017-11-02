@@ -160,7 +160,10 @@ echo $this->Html->script('contracts.min', ['block' => true]);
         </div>
 
         <div class="col-md-10">
-            <h1 class="search-h1">${address}</h1>
+            <h1 class="search-h1">
+                ${address}
+                <small>${code}</small>
+            </h1>
 
             <h2 class="search-h2">${locator}
                 <small>${locator_username}</small>

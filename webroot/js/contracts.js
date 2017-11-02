@@ -51,6 +51,7 @@ $('#property').autocomplete({
     var data = {
         photo: item.main_photo,
         address: item.full_address,
+        code: item.formatted_code,
         locator: item.locator.user.nome,
         locator_username: item.locator.user.formatted_username
     };

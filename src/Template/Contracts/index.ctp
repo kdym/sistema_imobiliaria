@@ -32,7 +32,10 @@ echo $this->Html->script('initializers/match-height.min', ['block' => true]);
                                         </a>
                                     </figure>
 
-                                    <h1><?php echo $this->Properties->getMainAddress($c['property']) ?></h1>
+                                    <h1>
+                                        <?php echo $this->Properties->getMainAddress($c['property']) ?>
+                                        <small><?php echo $c['property']['formatted_code'] ?></small>
+                                    </h1>
 
                                     <h2><?php echo $c['tenant']['user']['nome'] ?>
                                         <small><?php echo $c['tenant']['user']['formatted_username'] ?></small>

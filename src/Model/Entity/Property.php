@@ -2,6 +2,7 @@
 
 namespace App\Model\Entity;
 
+use App\Model\Table\PropertiesTable;
 use Cake\ORM\Entity;
 
 /**
@@ -49,6 +50,7 @@ class Property extends Entity
     protected $_virtual = [
         'full_address',
         'main_photo',
+        'formatted_code',
     ];
 
     protected function _getFullAddress()
@@ -66,5 +68,10 @@ class Property extends Entity
     protected function _getMainPhoto()
     {
         return '/img/no_photo.png';
+    }
+
+    protected function _getFormattedCode()
+    {
+        return str_pad($this['id'], PropertiesTable::MAX_CODE_CHARS, '0', STR_PAD_LEFT);
     }
 }

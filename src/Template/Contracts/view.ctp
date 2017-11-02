@@ -40,6 +40,8 @@ $editLink = ['action' => 'form', $contract['id']];
                         </div>
 
                         <div class="value">
+                            <h1><?php echo $contract['property']['formatted_code'] ?></h1>
+
                             <h2>
                                 <?php
                                 echo implode(', ', array_filter([

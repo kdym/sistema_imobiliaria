@@ -47,7 +47,7 @@ class UsersTable extends Table
 
     const MAX_PHONE_NUMBERS = 4;
     const MAX_PASSWORD_CHARS = 6;
-    const MAX_USER_CHARS = 4;
+    const MAX_USER_CHARS = 5;
 
     /**
      * Initialize method

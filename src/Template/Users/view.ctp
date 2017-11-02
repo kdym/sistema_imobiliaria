@@ -465,23 +465,26 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                                     <div class="item">
                                         <div class="item-wrapper">
                                             <figure>
-                                                <a href="<?php echo $this->Url->build(['action' => 'view', $p['id']]) ?>">
+                                                <a href="<?php echo $this->Url->build(['controller' => 'properties', 'action' => 'view', $p['id']]) ?>">
                                                     <?php echo $this->Html->image($this->Properties->getMainPhoto($p)) ?>
                                                 </a>
                                             </figure>
 
-                                            <h1><?php echo $this->Properties->getMainAddress($p) ?></h1>
+                                            <h1>
+                                                <?php echo $this->Properties->getMainAddress($p) ?>
+                                                <small><?php echo $p['formatted_code'] ?></small>
+                                            </h1>
 
                                             <h3><?php echo $this->Properties->getStatus($p) ?></h3>
                                         </div>
 
                                         <nav class="actions">
                                             <?php if (PropertiesPolicy::isAuthorized('form', $loggedUser, $p)) { ?>
-                                                <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['action' => 'form', $p['id']], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+                                                <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['controller' => 'properties', 'action' => 'form', $p['id']], ['escape' => false, 'class' => 'btn btn-primary']) ?>
                                             <?php } ?>
 
                                             <?php if (PropertiesPolicy::isAuthorized('delete', $loggedUser, $p)) { ?>
-                                                <?php echo $this->Form->postLink('<i class="fa fa-trash"></i>', ['action' => 'delete', $p['id']], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => 'Tem certeza que deseja excluir?', 'method' => 'delete']) ?>
+                                                <?php echo $this->Form->postLink('<i class="fa fa-trash"></i>', ['controller' => 'properties', 'action' => 'delete', $p['id']], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => 'Tem certeza que deseja excluir?', 'method' => 'delete']) ?>
                                             <?php } ?>
                                         </nav>
                                     </div>

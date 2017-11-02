@@ -263,19 +263,19 @@ class PropertiesController extends AppController
         $this->autoRender = false;
         $this->response->type('json');
 
-        $search = $this->Properties->parseSearch($this->request->getQuery('name'));
+        $search = $this->Properties->parseSearch($this->Properties->parseCode($this->request->getQuery('name')));
 
         $properties = $this->Properties->find()
             ->contain('Locators.Users')
             ->where([
                 "OR" => [
+                    "Properties.id LIKE" => $search,
                     "Properties.endereco LIKE" => $search,
                     "Properties.numero LIKE" => $search,
                     "Properties.complemento LIKE" => $search,
                     "Properties.bairro LIKE" => $search,
                     "Properties.cidade LIKE" => $search,
                     "Properties.uf LIKE" => $search,
-                    "Properties.cep LIKE" => $search,
                 ],
             ])
             ->limit(10);

@@ -28,6 +28,8 @@ $editLink = ['action' => 'form', $property['id']];
                         </div>
 
                         <div class="value">
+                            <h1><?php echo $property['formatted_code'] ?></h1>
+
                             <h2>
                                 <?php echo implode(', ', array_filter([
                                     $property['endereco'],
