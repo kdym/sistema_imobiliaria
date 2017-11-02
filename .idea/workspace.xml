@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2efe6039-6659-41b6-99c0-8ecbe00eb18c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/Migrations/schema-dump-default.lock" afterPath="$PROJECT_DIR$/config/Migrations/schema-dump-default.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/PropertiesController.php" afterPath="$PROJECT_DIR$/src/Controller/PropertiesController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Entity/Property.php" afterPath="$PROJECT_DIR$/src/Model/Entity/Property.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Table/UsersTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/UsersTable.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Contracts/form.ctp" afterPath="$PROJECT_DIR$/src/Template/Contracts/form.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Contracts/index.ctp" afterPath="$PROJECT_DIR$/src/Template/Contracts/index.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Contracts/view.ctp" afterPath="$PROJECT_DIR$/src/Template/Contracts/view.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Properties/index.ctp" afterPath="$PROJECT_DIR$/src/Template/Properties/index.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Properties/view.ctp" afterPath="$PROJECT_DIR$/src/Template/Properties/view.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Slips/report.ctp" afterPath="$PROJECT_DIR$/src/Template/Slips/report.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Users/view.ctp" afterPath="$PROJECT_DIR$/src/Template/Users/view.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/View/Helper/VersionHelper.php" afterPath="$PROJECT_DIR$/src/View/Helper/VersionHelper.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/js/contracts.js" afterPath="$PROJECT_DIR$/webroot/js/contracts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/js/contracts.min.js" afterPath="$PROJECT_DIR$/webroot/js/contracts.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Table/PropertiesCompositionsTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/PropertiesCompositionsTable.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,103 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="view.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Template/Users/view.ctp">
+      <file leaf-file-name="PropertiesCompositionsTable.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Model/Table/PropertiesCompositionsTable.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="482">
-              <caret line="475" column="49" lean-forward="false" selection-start-line="472" selection-start-column="43" selection-end-line="475" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Template/Contracts/index.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="36" column="72" lean-forward="false" selection-start-line="36" selection-start-column="72" selection-end-line="36" selection-end-column="72" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Template/Contracts/view.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="42" column="80" lean-forward="false" selection-start-line="42" selection-start-column="80" selection-end-line="42" selection-end-column="80" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PropertiesController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/PropertiesController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="265" column="112" lean-forward="false" selection-start-line="265" selection-start-column="112" selection-end-line="265" selection-end-column="112" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="report.ctp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Template/Slips/report.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="146" column="136" lean-forward="false" selection-start-line="146" selection-start-column="136" selection-end-line="146" selection-end-column="136" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="form.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Template/Contracts/form.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="164" column="29" lean-forward="false" selection-start-line="164" selection-start-column="29" selection-end-line="164" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="contracts.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webroot/js/contracts.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="53" column="33" lean-forward="false" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Property.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Entity/Property.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="52" column="23" lean-forward="false" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
-              <folding>
-                <element signature="e#36#72#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TenantsController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/TenantsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="188" column="64" lean-forward="false" selection-start-line="188" selection-start-column="64" selection-end-line="188" selection-end-column="64" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PropertiesTable.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Table/PropertiesTable.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="669">
-              <caret line="160" column="24" lean-forward="false" selection-start-line="160" selection-start-column="24" selection-end-line="160" selection-end-column="24" />
+            <state relative-caret-position="533">
+              <caret line="47" column="29" lean-forward="false" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -176,7 +72,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Template/Dashboard/index.ctp" />
         <option value="$PROJECT_DIR$/config/routes.php" />
         <option value="$PROJECT_DIR$/src/Policy/BrokersPolicy.php" />
         <option value="$PROJECT_DIR$/webroot/js/initializers/maskedinput.js" />
@@ -194,7 +89,6 @@
         <option value="$PROJECT_DIR$/config/Migrations/20171026120558_AddColumnsToPropertiesCompositions.php" />
         <option value="$PROJECT_DIR$/src/Model/Custom/PropertyItem.php" />
         <option value="$PROJECT_DIR$/src/Template/Properties/form.ctp" />
-        <option value="$PROJECT_DIR$/src/Model/Table/PropertiesCompositionsTable.php" />
         <option value="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/sidebar-menu.ctp" />
         <option value="$PROJECT_DIR$/src/Model/Table/LocatorsTable.php" />
         <option value="$PROJECT_DIR$/src/Model/Custom/ExtractPropertyValue.php" />
@@ -227,6 +121,8 @@
         <option value="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" />
         <option value="$PROJECT_DIR$/src/Controller/PropertiesController.php" />
         <option value="$PROJECT_DIR$/src/Template/Slips/report.ctp" />
+        <option value="$PROJECT_DIR$/config/Migrations/20171102163517_AddNewItemsToPropertiesCompositions.php" />
+        <option value="$PROJECT_DIR$/src/Model/Table/PropertiesCompositionsTable.php" />
       </list>
     </option>
   </component>
@@ -756,12 +652,12 @@
       <workItem from="1508948621641" duration="19178000" />
       <workItem from="1509366456123" duration="7559000" />
       <workItem from="1509446747215" duration="12318000" />
-      <workItem from="1509624060797" duration="3827000" />
+      <workItem from="1509624060797" duration="4860000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="284264000" />
+    <option name="totallyTimeSpent" value="285297000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -806,24 +702,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Template/Properties/form.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="68" column="96" lean-forward="false" selection-start-line="68" selection-start-column="24" selection-end-line="68" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Table/PropertiesCompositionsTable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="95" column="30" lean-forward="false" selection-start-line="95" selection-start-column="30" selection-end-line="95" selection-end-column="30" />
-          <folding>
-            <element signature="e#35#69#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/Locators/form.ctp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1196,8 +1074,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/Slips/report.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="146" column="136" lean-forward="false" selection-start-line="146" selection-start-column="136" selection-end-line="146" selection-end-column="136" />
+        <state relative-caret-position="313">
+          <caret line="142" column="125" lean-forward="false" selection-start-line="142" selection-start-column="125" selection-end-line="142" selection-end-column="125" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/Migrations/20171102163517_AddNewItemsToPropertiesCompositions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Table/PropertiesCompositionsTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="533">
+          <caret line="47" column="29" lean-forward="false" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
           <folding />
         </state>
       </provider>

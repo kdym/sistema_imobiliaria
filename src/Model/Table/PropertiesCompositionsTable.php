@@ -28,12 +28,24 @@ class PropertiesCompositionsTable extends Table
     const POOL = 'piscina';
     const PARTY_ROOM = 'salao_festas';
     const BARBECUE_AREA = 'area_churrasqueira';
+    const SERVICE_AREA = 'area_servico';
+    const MAID_QUARTERS = 'dependencias_empregada';
+    const BALCONY = 'varanda';
+    const BACKYARD = 'quintal';
+    const TERRACE = 'terraco';
+    const SAUNA = 'sauna';
 
     public static $compositions = [
         self::GATED_COMMUNITY => 'Condomínio Fechado',
         self::POOL => 'Piscina',
         self::PARTY_ROOM => 'Salão de Festas',
         self::BARBECUE_AREA => 'Área de Churrasqueira',
+        self::SERVICE_AREA => 'Área de Serviço',
+        self::MAID_QUARTERS => 'Dependências de Empregada',
+        self::BALCONY => 'Varanda',
+        self::BACKYARD => 'Quintal',
+        self::TERRACE => 'Terraço',
+        self::SAUNA => 'Sauna',
     ];
 
     const BEDROOMS = 'quartos';
