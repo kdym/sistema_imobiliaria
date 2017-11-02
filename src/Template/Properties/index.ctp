@@ -5,9 +5,6 @@
  */
 
 use App\Policy\PropertiesPolicy;
-
-echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js', ['block' => true]);
-echo $this->Html->script('initializers/match-height.min', ['block' => true]);
 ?>
 <section class="content-header">
     <h1>Imóveis</h1>

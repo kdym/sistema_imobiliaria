@@ -8,3 +8,7 @@ $breakPoint: 767px;
     width: 100%;
   }
 }
+
+.masonry-sizer-100 {
+  width: calc(100% - #{$masonryGutter});
+}

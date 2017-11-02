@@ -3,11 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="2efe6039-6659-41b6-99c0-8ecbe00eb18c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/ContractsController.php" afterPath="$PROJECT_DIR$/src/Controller/ContractsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Table/TenantsTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/TenantsTable.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Tenants/form.ctp" afterPath="$PROJECT_DIR$/src/Template/Tenants/form.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp" afterPath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Properties/index.ctp" afterPath="$PROJECT_DIR$/src/Template/Properties/index.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Users/view.ctp" afterPath="$PROJECT_DIR$/src/Template/Users/view.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/css/masonry.min.css" afterPath="$PROJECT_DIR$/webroot/css/masonry.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/css/masonry.min.css.map" afterPath="$PROJECT_DIR$/webroot/css/masonry.min.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/scss/masonry.scss" afterPath="$PROJECT_DIR$/webroot/scss/masonry.scss" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,64 +22,53 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="form.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Template/Tenants/form.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="78" column="4" lean-forward="false" selection-start-line="78" selection-start-column="4" selection-end-line="78" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContractsController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/ContractsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="601">
-              <caret line="231" column="75" lean-forward="false" selection-start-line="231" selection-start-column="75" selection-end-line="231" selection-end-column="75" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view.ctp" pinned="false" current-in-tab="true">
+    <leaf>
+      <file leaf-file-name="view.ctp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Template/Users/view.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="223" column="81" lean-forward="false" selection-start-line="223" selection-start-column="81" selection-end-line="223" selection-end-column="81" />
-              <folding>
-                <marker date="1509470331784" expanded="true" signature="9646:9702" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="10038:10094" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="10621:10965" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="11116:11343" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="11169:11343" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="11289:11343" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="11499:11835" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="11548:11835" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="11591:11835" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="11638:11732" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="11781:11835" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="12067:12381" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="12114:12217" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="12266:12381" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="12677:12903" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="12730:12903" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="12849:12903" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="13059:13396" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="13108:13396" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="13151:13396" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="13198:13298" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="13347:13396" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="14125:14448" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="14176:14278" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="14331:14448" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="14708:14902" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="14761:14902" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="14987:15045" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="15301:15428" ph="..." />
-                <marker date="1509470331784" expanded="true" signature="15387:15428" ph="..." />
-              </folding>
+            <state relative-caret-position="533">
+              <caret line="478" column="65" lean-forward="true" selection-start-line="478" selection-start-column="65" selection-end-line="478" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="default.ctp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="697">
+              <caret line="122" column="122" lean-forward="false" selection-start-line="122" selection-start-column="122" selection-end-line="122" selection-end-column="122" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="match-height.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webroot/js/initializers/match-height.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Template/Properties/index.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="6" column="32" lean-forward="false" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="masonry.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webroot/scss/masonry.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="20" lean-forward="false" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -85,18 +76,8 @@
       <file leaf-file-name="UsersController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/UsersController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
-              <caret line="75" column="25" lean-forward="false" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TenantsTable.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Table/TenantsTable.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="46" column="11" lean-forward="true" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
+            <state relative-caret-position="330">
+              <caret line="41" column="85" lean-forward="false" selection-start-line="41" selection-start-column="85" selection-end-line="41" selection-end-column="85" />
               <folding />
             </state>
           </provider>
@@ -146,8 +127,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Model/Behavior/GoogleMapsBehavior.php" />
-        <option value="$PROJECT_DIR$/src/Controller/Component/GoogleMapsComponent.php" />
         <option value="$PROJECT_DIR$/src/Controller/CompanyDataController.php" />
         <option value="$PROJECT_DIR$/src/Template/Config/index.ctp" />
         <option value="$PROJECT_DIR$/src/Policy/DashboardPolicy.php" />
@@ -161,7 +140,6 @@
         <option value="$PROJECT_DIR$/src/Model/Behavior/ParserBehavior.php" />
         <option value="$PROJECT_DIR$/src/Model/Table/PropertiesPricesTable.php" />
         <option value="$PROJECT_DIR$/config/Migrations/20171025171109_CreatePaidSlips.php" />
-        <option value="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp" />
         <option value="$PROJECT_DIR$/webroot/js/initializers/jquery-validate.js" />
         <option value="$PROJECT_DIR$/webroot/js/slips.js" />
         <option value="$PROJECT_DIR$/src/Model/Table/PaidSlipsTable.php" />
@@ -195,8 +173,11 @@
         <option value="$PROJECT_DIR$/src/Template/Tenants/form.ctp" />
         <option value="$PROJECT_DIR$/src/Controller/ContractsController.php" />
         <option value="$PROJECT_DIR$/src/Model/Table/TenantsTable.php" />
+        <option value="$PROJECT_DIR$/webroot/scss/masonry.scss" />
         <option value="$PROJECT_DIR$/src/Controller/UsersController.php" />
         <option value="$PROJECT_DIR$/src/Template/Users/view.ctp" />
+        <option value="$PROJECT_DIR$/src/Template/Properties/index.ctp" />
+        <option value="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp" />
       </list>
     </option>
   </component>
@@ -289,8 +270,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -578,6 +557,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -589,15 +570,15 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Plugin\AdminLTE\Layout" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\ProjetosNoob\unilar_intranet\src\Policy" />
       <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Slips" />
       <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Tenants" />
       <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Locators" />
       <recent name="E:\ProjetosNoob\unilar_intranet\webroot\js" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Plugin\AdminLTE\Layout" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -725,12 +706,13 @@
       <workItem from="1508778712567" duration="12736000" />
       <workItem from="1508948621641" duration="19178000" />
       <workItem from="1509366456123" duration="7559000" />
-      <workItem from="1509446747215" duration="12011000" />
+      <workItem from="1509446747215" duration="12318000" />
+      <workItem from="1509624060797" duration="1993000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="280130000" />
+    <option name="totallyTimeSpent" value="282430000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -745,14 +727,13 @@
     <frame x="1432" y="-132" width="1296" height="1000" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27109376" sideWeight="0.45997745" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27109376" sideWeight="0.45546788" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27109376" sideWeight="0.54002255" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27109376" sideWeight="0.5445321" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28297633" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -761,6 +742,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -775,45 +757,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Model/Table/PropertiesPricesTable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="85" column="5" lean-forward="false" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/js/initializers/maskedinput.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="101" column="3" lean-forward="true" selection-start-line="98" selection-start-column="17" selection-end-line="101" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Users/index.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="21" column="13" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="21" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/scss/app.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="206" column="7" lean-forward="true" selection-start-line="206" selection-start-column="7" selection-end-line="206" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="106" column="0" lean-forward="true" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webroot/js/initializers/jquery-validate.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -945,14 +888,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Custom/ExtractPropertyValue.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="66" column="5" lean-forward="false" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Custom/ExtractPropertyValue.php" />
     <entry file="file://$PROJECT_DIR$/src/Model/Custom/SlipValue.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-459">
@@ -977,14 +913,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Custom/ExtractProperty.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="63" column="5" lean-forward="false" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Custom/ExtractProperty.php" />
     <entry file="file://$PROJECT_DIR$/src/View/Helper/SlipsHelper.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -995,19 +924,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Custom/Extract.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="107" column="59" lean-forward="false" selection-start-line="107" selection-start-column="59" selection-end-line="107" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Custom/Extract.php" />
     <entry file="file://$PROJECT_DIR$/config/Migrations/20171011113919_CreateRecursive.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1015,7 +936,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-62">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1023,7 +943,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
           <caret line="43" column="28" lean-forward="true" selection-start-line="43" selection-start-column="28" selection-end-line="45" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1031,7 +950,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="112" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1039,7 +957,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="27" lean-forward="true" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1048,7 +965,7 @@
         <state relative-caret-position="17">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="58" />
           <folding>
-            <element signature="e#121#147#0#PHP" expanded="true" />
+            <element signature="e#121#147#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1057,7 +974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
           <caret line="46" column="32" lean-forward="false" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1090,7 +1006,7 @@
         <state relative-caret-position="-246">
           <caret line="122" column="54" lean-forward="false" selection-start-line="122" selection-start-column="54" selection-end-line="122" selection-end-column="54" />
           <folding>
-            <element signature="e#124#166#0#PHP" expanded="true" />
+            <element signature="e#124#166#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1099,9 +1015,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="47" column="75" lean-forward="false" selection-start-line="47" selection-start-column="75" selection-end-line="47" selection-end-column="75" />
-          <folding>
-            <element signature="e#34#67#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1133,7 +1046,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4437">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1169,14 +1081,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/UsersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="75" column="25" lean-forward="false" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/Tenants/form.ctp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -1185,42 +1089,59 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/scss/masonry.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="20" lean-forward="false" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/UsersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="41" column="85" lean-forward="false" selection-start-line="41" selection-start-column="85" selection-end-line="41" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/js/properties.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/js/initializers/match-height.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/Users/view.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="223" column="81" lean-forward="false" selection-start-line="223" selection-start-column="81" selection-end-line="223" selection-end-column="81" />
-          <folding>
-            <marker date="1509470331784" expanded="true" signature="9646:9702" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="10038:10094" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="10621:10965" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="11116:11343" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="11169:11343" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="11289:11343" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="11499:11835" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="11548:11835" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="11591:11835" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="11638:11732" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="11781:11835" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="12067:12381" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="12114:12217" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="12266:12381" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="12677:12903" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="12730:12903" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="12849:12903" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="13059:13396" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="13108:13396" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="13151:13396" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="13198:13298" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="13347:13396" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="14125:14448" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="14176:14278" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="14331:14448" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="14708:14902" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="14761:14902" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="14987:15045" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="15301:15428" ph="..." />
-            <marker date="1509470331784" expanded="true" signature="15387:15428" ph="..." />
-          </folding>
+        <state relative-caret-position="533">
+          <caret line="478" column="65" lean-forward="true" selection-start-line="478" selection-start-column="65" selection-end-line="478" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Properties/index.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="6" column="32" lean-forward="false" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="122" column="122" lean-forward="false" selection-start-line="122" selection-start-column="122" selection-end-line="122" selection-end-column="122" />
+          <folding />
         </state>
       </provider>
     </entry>

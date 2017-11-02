@@ -12,6 +12,7 @@ use \App\Model\Table\UsersTable;
 use App\Policy\BrokersPolicy;
 use App\Policy\LocatorsAssociationsPolicy;
 use App\Policy\LocatorsPolicy;
+use App\Policy\PropertiesPolicy;
 use App\Policy\ProsecutorsPolicy;
 use App\Policy\TenantsPolicy;
 use App\Policy\UsersPolicy;
@@ -445,6 +446,48 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                                 </div>
                             </div>
                         <?php } ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
+        <?php if (!empty($user['locator']['properties'])) { ?>
+            <div class="box masonry-sizer-100">
+                <div class="box-header">
+                    <h3 class="box-title">Imóveis</h3>
+                </div>
+
+                <div class="box-body">
+                    <div class="thumbs-list">
+                        <div class="row">
+                            <?php foreach ($user['locator']['properties'] as $p) { ?>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="item">
+                                        <div class="item-wrapper">
+                                            <figure>
+                                                <a href="<?php echo $this->Url->build(['action' => 'view', $p['id']]) ?>">
+                                                    <?php echo $this->Html->image($this->Properties->getMainPhoto($p)) ?>
+                                                </a>
+                                            </figure>
+
+                                            <h1><?php echo $this->Properties->getMainAddress($p) ?></h1>
+
+                                            <h3><?php echo $this->Properties->getStatus($p) ?></h3>
+                                        </div>
+
+                                        <nav class="actions">
+                                            <?php if (PropertiesPolicy::isAuthorized('form', $loggedUser, $p)) { ?>
+                                                <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['action' => 'form', $p['id']], ['escape' => false, 'class' => 'btn btn-primary']) ?>
+                                            <?php } ?>
+
+                                            <?php if (PropertiesPolicy::isAuthorized('delete', $loggedUser, $p)) { ?>
+                                                <?php echo $this->Form->postLink('<i class="fa fa-trash"></i>', ['action' => 'delete', $p['id']], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => 'Tem certeza que deseja excluir?', 'method' => 'delete']) ?>
+                                            <?php } ?>
+                                        </nav>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
             </div>
