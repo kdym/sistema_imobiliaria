@@ -517,4 +517,3 @@ msgstr ""
 #: View/Widget/DateTimeWidget.php:551
 msgid "December"
 msgstr ""
-

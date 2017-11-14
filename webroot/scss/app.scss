@@ -343,7 +343,7 @@ table {
   cursor: pointer;
   margin: 10px;
   text-align: center;
-  color: rgb(25,25,25);
+  color: rgb(25, 25, 25);
   font-family: 'Roboto,Arial,sans-serif';
   font-size: 16px;
   padding: 10px;
@@ -356,4 +356,10 @@ table {
   color: #fff;
   padding: 5px;
   margin: 10px;
+}
+
+.progress {
+  &.small-progress {
+    height: 10px;
+  }
 }

@@ -3,6 +3,7 @@
 namespace App\View\Helper;
 
 use App\Model\Table\ContractsTable;
+use Cake\I18n\Date;
 use Cake\View\Helper;
 use Cake\View\View;
 use DateTime;
@@ -73,4 +74,46 @@ class ContractsHelper extends Helper
         return 'R$ 0,00';
     }
 
+    public function getExemptionRemaining($contract)
+    {
+        $startDate = new DateTime($contract['data_inicio']->format('Y-m-d'));
+        $endDate = new DateTime($contract['data_inicio']->format('Y-m-d'));
+        $today = new DateTime('now');
+
+        $endDate->modify(sprintf('+%d months', $contract['isencao']));
+
+        $diffTotal = $endDate->diff($startDate);
+        $diff = $endDate->diff($today);
+
+        $percent = 0;
+        $text = '';
+
+        if ($diff->invert == 0) {
+            $percent = 100;
+            $text = 'Isento';
+        } else {
+            $buffer = [];
+
+            if ($diff->y != 0) {
+                $buffer[] = __('{0, plural, =1{1 ano} other{# anos}}', $diff->y);
+            }
+
+            if ($diff->m != 0) {
+                $buffer[] = __('{0, plural, =1{1 mês} other{# meses}}', $diff->m);
+            }
+
+            if ($diff->d != 0) {
+                $buffer[] = __('{0, plural, =1{1 dia} other{# dias}}', $diff->d);
+            }
+
+            $text = 'Faltando ' . implode(' e ', $buffer);
+
+            $percent = floor(100 - (($diff->days / $diffTotal->days) * 100));
+        }
+
+        return [
+            'percent' => $percent,
+            'text' => $text
+        ];
+    }
 }

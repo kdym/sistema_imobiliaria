@@ -133,22 +133,24 @@ class ContractsTable extends Table
             ]
         ]);
 
-        $validator->notEmpty('data_fim', 'Campo Obrigatório');
-        $validator->add('data_fim', [
-            'date' => [
-                'rule' => ['date', 'dmy'],
-                'message' => 'Data inválida',
-            ]
-        ]);
-        $validator->add('data_fim', 'custom', [
-            'rule' => function ($value, $context) {
-                $startDate = new DateTime($this->parseDate($context['data']['data_inicio']));
-                $endDate = new DateTime($this->parseDate($value));
+        $validator->notEmpty('isencao');
 
-                return $startDate < $endDate;
-            },
-            'message' => 'Deve ser maior que a Data de Início'
-        ]);
+//        $validator->notEmpty('data_fim', 'Campo Obrigatório');
+//        $validator->add('data_fim', [
+//            'date' => [
+//                'rule' => ['date', 'dmy'],
+//                'message' => 'Data inválida',
+//            ]
+//        ]);
+//        $validator->add('data_fim', 'custom', [
+//            'rule' => function ($value, $context) {
+//                $startDate = new DateTime($this->parseDate($context['data']['data_inicio']));
+//                $endDate = new DateTime($this->parseDate($value));
+//
+//                return $startDate < $endDate;
+//            },
+//            'message' => 'Deve ser maior que a Data de Início'
+//        ]);
 
         $validator->notEmpty('dia_vencimento', 'Campo Obrigatório', 'update');
         $validator->add('dia_vencimento', 'range', [
@@ -160,10 +162,9 @@ class ContractsTable extends Table
         $validator->add('primeiro_vencimento', 'custom', [
             'rule' => function ($value, $context) {
                 $startDate = new DateTime($this->parseDate($context['data']['data_inicio']));
-                $endDate = new DateTime($this->parseDate($context['data']['data_fim']));
                 $firstSalary = new DateTime($this->parseDate($value));
 
-                return $firstSalary >= $startDate && $firstSalary <= $endDate;
+                return $firstSalary >= $startDate;
             },
             'message' => 'Fora do Período do Contrato'
         ]);
@@ -172,10 +173,9 @@ class ContractsTable extends Table
         $validator->add('data_posse', 'custom', [
             'rule' => function ($value, $context) {
                 $startDate = new DateTime($this->parseDate($context['data']['data_inicio']));
-                $endDate = new DateTime($this->parseDate($context['data']['data_fim']));
                 $ownDate = new DateTime($this->parseDate($value));
 
-                return $ownDate >= $startDate && $ownDate <= $endDate;
+                return $ownDate >= $startDate;
             },
             'message' => 'Fora do Período do Contrato'
         ]);

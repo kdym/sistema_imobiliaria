@@ -2,17 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2efe6039-6659-41b6-99c0-8ecbe00eb18c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/Migrations/schema-dump-default.lock" afterPath="$PROJECT_DIR$/config/Migrations/schema-dump-default.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/PropertiesController.php" afterPath="$PROJECT_DIR$/src/Controller/PropertiesController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Policy/PropertiesPolicy.php" afterPath="$PROJECT_DIR$/src/Policy/PropertiesPolicy.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp" afterPath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Properties/index.ctp" afterPath="$PROJECT_DIR$/src/Template/Properties/index.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Properties/view.ctp" afterPath="$PROJECT_DIR$/src/Template/Properties/view.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/View/AppView.php" afterPath="$PROJECT_DIR$/src/View/AppView.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Locale/default.pot" afterPath="$PROJECT_DIR$/src/Locale/default.pot" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Table/ContractsTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/ContractsTable.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Contracts/form.ctp" afterPath="$PROJECT_DIR$/src/Template/Contracts/form.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Template/Contracts/view.ctp" afterPath="$PROJECT_DIR$/src/Template/Contracts/view.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/View/Helper/ContractsHelper.php" afterPath="$PROJECT_DIR$/src/View/Helper/ContractsHelper.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/css/app.min.css" afterPath="$PROJECT_DIR$/webroot/css/app.min.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/css/app.min.css.map" afterPath="$PROJECT_DIR$/webroot/css/app.min.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/js/properties.js" afterPath="$PROJECT_DIR$/webroot/js/properties.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/js/properties.min.js" afterPath="$PROJECT_DIR$/webroot/js/properties.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/scss/app.scss" afterPath="$PROJECT_DIR$/webroot/scss/app.scss" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,24 +25,63 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Template/Properties/index.ctp">
+      <file leaf-file-name="form.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Template/Contracts/form.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="7" column="62" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="62" />
+            <state relative-caret-position="383">
+              <caret line="62" column="163" lean-forward="false" selection-start-line="62" selection-start-column="163" selection-end-line="62" selection-end-column="163" />
               <folding>
-                <marker date="1510664416785" expanded="true" signature="4245:4339" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="1558:1615" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="1793:1850" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="2088:2257" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="2123:2257" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="2157:2257" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="2200:2257" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="2435:2492" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="2669:2726" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="2924:3093" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="2959:3093" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="2993:3093" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="3036:3093" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="3334:3503" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="3369:3503" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="3403:3503" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="3446:3503" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="3747:3800" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="3920:4020" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="3963:4020" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="4245:4398" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="4276:4398" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="4306:4398" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="4345:4398" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="4566:4658" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="4605:4658" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="4830:4883" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="5393:5471" ph="..." />
+                <marker date="1510676721433" expanded="true" signature="5530:5970" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="view.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Template/Properties/view.ctp">
+      <file leaf-file-name="ContractsTable.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/Table/ContractsTable.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="17" column="43" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="43" />
+            <state relative-caret-position="296">
+              <caret line="135" column="40" lean-forward="false" selection-start-line="135" selection-start-column="40" selection-end-line="135" selection-end-column="40" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view.ctp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Template/Contracts/view.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="116" column="68" lean-forward="false" selection-start-line="116" selection-start-column="68" selection-end-line="116" selection-end-column="68" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#h3#0;n#div#1;n#div#4;n#div#0;n#div#1;n#div#0;n#div#0;n#section#1;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -52,48 +89,28 @@
       <file leaf-file-name="app.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webroot/scss/app.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="357" column="15" lean-forward="false" selection-start-line="357" selection-start-column="15" selection-end-line="357" selection-end-column="15" />
+            <state relative-caret-position="703">
+              <caret line="362" column="16" lean-forward="false" selection-start-line="362" selection-start-column="16" selection-end-line="362" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="properties.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/webroot/js/properties.js">
+      <file leaf-file-name="ContractsHelper.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/View/Helper/ContractsHelper.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="655">
-              <caret line="146" column="25" lean-forward="false" selection-start-line="146" selection-start-column="25" selection-end-line="146" selection-end-column="25" />
+            <state relative-caret-position="672">
+              <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PropertiesController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/PropertiesController.php">
+      <file leaf-file-name="ContractsController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/ContractsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="296" column="43" lean-forward="false" selection-start-line="296" selection-start-column="20" selection-end-line="296" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PropertiesPolicy.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Policy/PropertiesPolicy.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="24" lean-forward="true" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="properties.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webroot/scss/properties.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+            <state relative-caret-position="814">
+              <caret line="231" column="75" lean-forward="false" selection-start-line="231" selection-start-column="75" selection-end-line="231" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -144,10 +161,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/config/Migrations/20171025171109_CreatePaidSlips.php" />
-        <option value="$PROJECT_DIR$/webroot/js/initializers/jquery-validate.js" />
-        <option value="$PROJECT_DIR$/webroot/js/slips.js" />
-        <option value="$PROJECT_DIR$/src/Model/Table/PaidSlipsTable.php" />
         <option value="$PROJECT_DIR$/src/View/Helper/SlipsHelper.php" />
         <option value="$PROJECT_DIR$/src/Policy/SlipsPolicy.php" />
         <option value="$PROJECT_DIR$/src/Template/Slips/index.ctp" />
@@ -177,8 +190,6 @@
         <option value="$PROJECT_DIR$/src/Model/Table/UsersTable.php" />
         <option value="$PROJECT_DIR$/src/Template/Users/view.ctp" />
         <option value="$PROJECT_DIR$/src/Template/Contracts/index.ctp" />
-        <option value="$PROJECT_DIR$/src/Template/Contracts/view.ctp" />
-        <option value="$PROJECT_DIR$/src/Template/Contracts/form.ctp" />
         <option value="$PROJECT_DIR$/webroot/js/contracts.js" />
         <option value="$PROJECT_DIR$/src/Model/Entity/Property.php" />
         <option value="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" />
@@ -190,11 +201,17 @@
         <option value="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp" />
         <option value="$PROJECT_DIR$/webroot/scss/properties.scss" />
         <option value="$PROJECT_DIR$/src/Template/Properties/index.ctp" />
-        <option value="$PROJECT_DIR$/webroot/scss/app.scss" />
         <option value="$PROJECT_DIR$/src/Controller/PropertiesController.php" />
         <option value="$PROJECT_DIR$/src/Policy/PropertiesPolicy.php" />
         <option value="$PROJECT_DIR$/src/Template/Properties/view.ctp" />
         <option value="$PROJECT_DIR$/webroot/js/properties.js" />
+        <option value="$PROJECT_DIR$/config/Migrations/20171114161747_AddIsencaoToContracts.php" />
+        <option value="$PROJECT_DIR$/src/Template/Contracts/form.ctp" />
+        <option value="$PROJECT_DIR$/src/Model/Table/ContractsTable.php" />
+        <option value="$PROJECT_DIR$/src/Locale/default.pot" />
+        <option value="$PROJECT_DIR$/webroot/scss/app.scss" />
+        <option value="$PROJECT_DIR$/src/View/Helper/ContractsHelper.php" />
+        <option value="$PROJECT_DIR$/src/Template/Contracts/view.ctp" />
       </list>
     </option>
   </component>
@@ -725,12 +742,12 @@
       <workItem from="1509366456123" duration="7559000" />
       <workItem from="1509446747215" duration="12318000" />
       <workItem from="1509624060797" duration="5014000" />
-      <workItem from="1510659015752" duration="8674000" />
+      <workItem from="1510659015752" duration="11912000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="294125000" />
+    <option name="totallyTimeSpent" value="297363000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -775,23 +792,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Model/Table/LocatorsTable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="56" column="37" lean-forward="false" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Policy/ExtractPolicy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Custom/ExtractProperty.php" />
     <entry file="file://$PROJECT_DIR$/src/View/Helper/SlipsHelper.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -866,14 +866,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Table/ContractsTable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="119" column="48" lean-forward="false" selection-start-line="119" selection-start-column="48" selection-end-line="119" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Table/ExtractsTable.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -930,14 +922,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
           <caret line="46" column="11" lean-forward="true" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/ContractsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
-          <caret line="231" column="75" lean-forward="false" selection-start-line="231" selection-start-column="75" selection-end-line="231" selection-end-column="75" />
           <folding />
         </state>
       </provider>
@@ -1001,22 +985,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="36" column="72" lean-forward="false" selection-start-line="36" selection-start-column="72" selection-end-line="36" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Contracts/view.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="42" column="80" lean-forward="false" selection-start-line="42" selection-start-column="80" selection-end-line="42" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Contracts/form.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="164" column="29" lean-forward="false" selection-start-line="164" selection-start-column="29" selection-end-line="164" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -1127,14 +1095,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/scss/app.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="357" column="15" lean-forward="false" selection-start-line="357" selection-start-column="15" selection-end-line="357" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/Properties/index.ctp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1171,9 +1131,104 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/webroot/js/properties.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="655">
-          <caret line="146" column="25" lean-forward="false" selection-start-line="146" selection-start-column="25" selection-end-line="146" selection-end-column="25" />
+        <state relative-caret-position="298">
+          <caret line="125" column="35" lean-forward="true" selection-start-line="125" selection-start-column="35" selection-end-line="125" selection-end-column="35" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/Migrations/20171114161747_AddIsencaoToContracts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Contracts/form.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="62" column="163" lean-forward="false" selection-start-line="62" selection-start-column="163" selection-end-line="62" selection-end-column="163" />
+          <folding>
+            <marker date="1510676721433" expanded="true" signature="1558:1615" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="1793:1850" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="2088:2257" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="2123:2257" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="2157:2257" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="2200:2257" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="2435:2492" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="2669:2726" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="2924:3093" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="2959:3093" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="2993:3093" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="3036:3093" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="3334:3503" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="3369:3503" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="3403:3503" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="3446:3503" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="3747:3800" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="3920:4020" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="3963:4020" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="4245:4398" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="4276:4398" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="4306:4398" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="4345:4398" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="4566:4658" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="4605:4658" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="4830:4883" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="5393:5471" ph="..." />
+            <marker date="1510676721433" expanded="true" signature="5530:5970" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Locale/default.pot">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="760">
+          <caret line="518" column="9" lean-forward="false" selection-start-line="518" selection-start-column="9" selection-end-line="518" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/ContractsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="814">
+          <caret line="231" column="75" lean-forward="false" selection-start-line="231" selection-start-column="75" selection-end-line="231" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/scss/app.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="362" column="16" lean-forward="false" selection-start-line="362" selection-start-column="16" selection-end-line="362" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Table/ContractsTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="135" column="40" lean-forward="false" selection-start-line="135" selection-start-column="40" selection-end-line="135" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View/Helper/ContractsHelper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Contracts/view.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="116" column="68" lean-forward="false" selection-start-line="116" selection-start-column="68" selection-end-line="116" selection-end-column="68" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#h3#0;n#div#1;n#div#4;n#div#0;n#div#1;n#div#0;n#div#0;n#section#1;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -19,7 +19,7 @@ $editLink = ['action' => 'form', $contract['id']];
 <section class="content">
     <nav class="actions-bar">
         <?php echo $this->Html->link('<i class="fa fa-barcode"></i> Boletos', ['controller' => 'slips', 'action' => 'index', $contract['id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
-<!--        --><?php //echo $this->Html->link('<i class="fa fa-usd"></i> Extrato', ['controller' => 'extract', 'action' => 'index', $contract['property']['locator_id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
+        <!--        --><?php //echo $this->Html->link('<i class="fa fa-usd"></i> Extrato', ['controller' => 'extract', 'action' => 'index', $contract['property']['locator_id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
     </nav>
 
     <div class="masonry-list-50">
@@ -100,11 +100,30 @@ $editLink = ['action' => 'form', $contract['id']];
                         </div>
 
                         <div class="value">
-                            <h1>Período</h1>
+                            <h1>Início</h1>
 
-                            <h2><?php echo sprintf('%s a %s', $contract['data_inicio'], $contract['data_fim']) ?></h2>
+                            <h2><?php echo $contract['data_inicio'] ?></h2>
+                        </div>
+                    </div>
 
-                            <h3><?php echo $this->Contracts->getMonthsInPeriod($contract) ?></h3>
+                    <div class="item">
+                        <div class="icon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+
+                        <div class="value">
+                            <h1>Isenção</h1>
+
+                            <h2><?php echo __('{0, plural, =0{Isento} =1{1 mês} other{# meses}}', [$contract['isencao']]) ?></h2>
+
+                            <h3>
+                                <?php $exemption = $this->Contracts->getExemptionRemaining($contract); ?>
+
+                                <div class="progress small-progress" title="<?php echo $exemption['text'] ?>"
+                                     data-toggle="tooltip">
+                                    <div class="progress-bar" style="width: <?php echo $exemption['percent'] ?>%"></div>
+                                </div>
+                            </h3>
                         </div>
                     </div>
 

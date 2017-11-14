@@ -41,21 +41,15 @@ echo $this->Html->script('contracts.min', ['block' => true]);
         <div class="box">
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-6">
-                        <label>Período</label>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <?php echo $this->Form->control('data_inicio', ['label' => false, 'class' => 'date-picker', 'type' => 'text']) ?>
-                            </div>
-
-                            <div class="col-md-6">
-                                <?php echo $this->Form->control('data_fim', ['label' => false, 'class' => 'date-picker', 'type' => 'text']) ?>
-                            </div>
-                        </div>
+                    <div class="col-md-4">
+                        <?php echo $this->Form->control('data_inicio', ['label' => 'Início', 'class' => 'date-picker', 'type' => 'text']) ?>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <?php echo $this->Form->control('isencao', ['label' => 'Isenção (meses)', 'maxlength' => 2, 'class' => 'number-only', 'type' => 'text']) ?>
+                    </div>
+
+                    <div class="col-md-4">
                         <?php echo $this->Form->control('primeiro_vencimento', ['label' => 'Vencimento 1º Boleto', 'type' => 'text', 'class' => 'date-picker']) ?>
                     </div>
                 </div>
@@ -66,7 +60,7 @@ echo $this->Html->script('contracts.min', ['block' => true]);
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <?php echo $this->Form->control('data_fim', ['label' => 'Término Fidelidade', 'type' => 'text', 'class' => 'date-picker']) ?>
+                        <?php echo $this->Form->control('isencao', ['label' => 'Isenção (meses)', 'maxlength' => 2, 'class' => 'number-only', 'type' => 'text']) ?>
                     </div>
 
                     <div class="col-md-4">
