@@ -252,6 +252,8 @@ table {
 }
 
 .thumbs-list {
+  margin: 10px 0;
+
   .item {
     display: flex;
     flex-direction: column;
@@ -325,4 +327,33 @@ table {
   @media only screen and (max-width: 991px), only screen and (max-device-width: 991px) {
     display: block;
   }
+}
+
+.box {
+  .box-map {
+    height: 40vh;
+    margin: -10px -10px 10px -10px;
+  }
+}
+
+.custom-maps-button {
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  cursor: pointer;
+  margin: 10px;
+  text-align: center;
+  color: rgb(25,25,25);
+  font-family: 'Roboto,Arial,sans-serif';
+  font-size: 16px;
+  padding: 10px;
+}
+
+.maps-toast {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 2px;
+  text-align: center;
+  color: #fff;
+  padding: 5px;
+  margin: 10px;
 }

@@ -40,5 +40,6 @@ class AppView extends View
         $this->loadHelper('Form', ['className' => 'TwitterBootstrap.Form']);
         $this->loadHelper('CompanyData');
         $this->loadHelper('Version');
+        $this->loadHelper('GoogleMaps');
     }
 }

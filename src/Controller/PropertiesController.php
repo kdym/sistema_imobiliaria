@@ -61,8 +61,19 @@ class PropertiesController extends AppController
         ];
         $properties = $this->paginate($this->Properties);
 
-        $this->set(compact('properties'));
-        $this->set('_serialize', ['properties']);
+        $markers = [];
+        foreach ($properties as $p) {
+            $markers[] = [
+                'latitude' => $p['latitude'],
+                'longitude' => $p['longitude'],
+                'photo' => $p['main_photo'],
+                'address' => $p['full_address'],
+                'property_id' => $p['id'],
+                'property_code' => $p['formatted_code'],
+            ];
+        }
+
+        $this->set(compact('properties', 'markers'));
     }
 
     /**
@@ -281,5 +292,17 @@ class PropertiesController extends AppController
             ->limit(10);
 
         $this->response->body(json_encode($properties));
+    }
+
+    public function updateLatitudeLongitude()
+    {
+        $property = $this->Properties->get($this->request->getData('id'));
+
+        $property['latitude'] = $this->request->getData('latitude');
+        $property['longitude'] = $this->request->getData('longitude');
+
+        $this->Properties->save($property);
+
+        $this->autoRender = false;
     }
 }

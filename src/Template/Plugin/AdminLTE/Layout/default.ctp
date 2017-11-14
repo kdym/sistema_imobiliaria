@@ -123,6 +123,8 @@
 <?php echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js'); ?>
 <?php echo $this->Html->script('initializers/match-height.min'); ?>
 
+<?php echo $this->Html->script('https://maps.googleapis.com/maps/api/js?key=' . \App\View\Helper\GoogleMapsHelper::API_KEY); ?>
+
 <?php echo $this->Html->script('general.min') ?>
 
 <!-- AdminLTE App -->

@@ -6,6 +6,8 @@
 
 use App\Model\Table\PropertiesCompositionsTable;
 
+echo $this->Html->script('properties.min', ['block' => true]);
+
 $editLink = ['action' => 'form', $property['id']];
 
 ?>
@@ -13,10 +15,15 @@ $editLink = ['action' => 'form', $property['id']];
     <h1>Imóveis</h1>
 </section>
 
+<input type="hidden" id="property-hidden-id" value="<?php echo $property['id'] ?>"/>
+
 <section class="content">
     <div class="masonry-list-50">
         <div class="box masonry-sizer-50">
             <div class="box-body">
+                <div id="property-map" class="box-map" data-latitude="<?php echo $property['latitude'] ?>"
+                     data-longitude="<?php echo $property['longitude'] ?>"></div>
+
                 <div class="box-tools pull-right">
                     <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
                 </div>

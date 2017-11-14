@@ -1,0 +1,20 @@
+#list-properties-map {
+  margin: 10px;
+  height: 60vh;
+}
+
+.property-info-window-container {
+  display: flex;
+  width: 300px;
+  align-items: center;
+
+  figure {
+    img {
+      height: 10vh;
+    }
+  }
+
+  h1 {
+    font-size: medium;
+  }
+}
