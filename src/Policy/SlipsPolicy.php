@@ -24,7 +24,16 @@ class SlipsPolicy
             case 'addRecursiveFee':
             case 'deleteCustom':
             case 'unPaySlip':
-                return $user['role'] == UsersTable::ROLE_ADMIN;
+            case 'contractBills':
+                if ($user['role'] == UsersTable::ROLE_ADMIN) {
+                    if ($element) {
+                        return $element->getStatus() <> Slip::PAID;
+                    } else {
+                        return true;
+                    }
+                }
+
+                return false;
             case 'edit':
                 if ($element) {
                     if ($user['role'] == UsersTable::ROLE_ADMIN) {

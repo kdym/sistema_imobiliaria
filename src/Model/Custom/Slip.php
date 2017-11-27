@@ -17,6 +17,7 @@ use App\Model\Table\SlipsRecursiveTable;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use DateTime;
+use JsonSerializable;
 
 class Slip
 {
@@ -38,9 +39,11 @@ class Slip
         $propertiesPricesTable = TableRegistry::get('PropertiesPrices');
         $slipsRecursiveTable = TableRegistry::get('SlipsRecursive');
         $slipsCustomValuesTable = TableRegistry::get('SlipsCustomsValues');
+        $customBillsTable = TableRegistry::get('CustomBills');
 
         $firstSalary = new DateTime($contract['primeiro_vencimento']->format('Y-m-d'));
         $ownDate = new DateTime($contract['data_posse']->format('Y-m-d'));
+        $today = new DateTime('now');
 
         $contractValues = $contractsValuesTable->find()
             ->where(['date_format(start_date, "%Y-%m") <=' => $date->format('Y-m')])
@@ -53,24 +56,20 @@ class Slip
             $this->salary = new DateTime(sprintf("%s-%s", $date->format('Y-m'), $contractValues['vencimento_boleto']));
         }
 
+        $this->contract = $contract['id'];
+
         $this->values = [];
 
         //Aluguel
-        $recursiveRent = $slipsRecursiveTable->find()
-            ->where(['contract_id' => $contract['id']])
-            ->where(['tipo' => ContractsTable::RENT])
-            ->where(['DATE_FORMAT(:date, "%Y-%m") BETWEEN DATE_FORMAT(start_date, "%Y-%m") AND DATE_FORMAT(end_date, "%Y-%m")'])
-            ->bind(':date', $date->format('Y-m-d'))
-            ->last();
+        $value = 0;
+        $status = Bills::OPEN;
+        $transactionId = null;
 
-        $recursion = new SlipValueRecursion();
-
-        if ($recursiveRent) {
-            $rent = $recursiveRent['valor'];
-
-            $recursion->setType($this->getRecursionInfo($recursiveRent));
-            $recursion->setStartDate(new DateTime($recursiveRent['start_date']->format('Y-m-d')));
-            $recursion->setEndDate(new DateTime($recursiveRent['end_date']->format('Y-m-d')));
+        if ($billTransaction = $this->checkIfPaid(Bills::RENT, $contract['id'])) {
+            $value = $billTransaction['valor'];
+            $status = Bills::PAID;
+            $this->paidDate = new DateTime($billTransaction['data_pago']->format('Y-m-d'));
+            $transactionId = $billTransaction['id'];
         } else {
             $propertyPrice = $propertiesPricesTable->find()
                 ->where(['date_format(start_date, "%Y-%m") <=' => $date->format('Y-m')])
@@ -83,52 +82,88 @@ class Slip
                     ->last();
             }
 
-            $rent = $propertyPrice['valor'];
+            $value = $propertyPrice['valor'];
 
             if ($date->format('Y-m') == $firstSalary->format('Y-m')) {
                 $diff = $ownDate->diff($firstSalary);
 
-                $rent = ($propertyPrice['valor'] * ($diff->days + 1)) / ContractsTable::DEFAULT_MONTH_DAYS;
+                $value = ($propertyPrice['valor'] * ($diff->days + 1)) / ContractsTable::DEFAULT_MONTH_DAYS;
             }
 
-            $recursion->setType(SlipsRecursiveTable::RECURSION_ALL);
+            if ($today->format('Y-m-d') > $this->getSalary()->format('Y-m-d')) {
+                $status = Bills::LATE;
+            }
         }
+
+//        $recursiveRent = $slipsRecursiveTable->find()
+//            ->where(['contract_id' => $contract['id']])
+//            ->where(['tipo' => ContractsTable::RENT])
+//            ->where(['DATE_FORMAT(:date, "%Y-%m") BETWEEN DATE_FORMAT(start_date, "%Y-%m") AND DATE_FORMAT(end_date, "%Y-%m")'])
+//            ->bind(':date', $date->format('Y-m-d'))
+//            ->last();
+//
+//        $recursion = new SlipValueRecursion();
+//
+//        if ($recursiveRent) {
+//            $rent = $recursiveRent['valor'];
+//
+//            $recursion->setType($this->getRecursionInfo($recursiveRent));
+//            $recursion->setStartDate(new DateTime($recursiveRent['start_date']->format('Y-m-d')));
+//            $recursion->setEndDate(new DateTime($recursiveRent['end_date']->format('Y-m-d')));
+//        } else {
+//            $propertyPrice = $propertiesPricesTable->find()
+//                ->where(['date_format(start_date, "%Y-%m") <=' => $date->format('Y-m')])
+//                ->where(['property_id' => $contract['property_id']])
+//                ->last();
+//
+//            if (!$propertyPrice) {
+//                $propertyPrice = $propertiesPricesTable->find()
+//                    ->where(['property_id' => $contract['property_id']])
+//                    ->last();
+//            }
+//
+//            $rent = $propertyPrice['valor'];
+//
+//            if ($date->format('Y-m') == $firstSalary->format('Y-m')) {
+//                $diff = $ownDate->diff($firstSalary);
+//
+//                $rent = ($propertyPrice['valor'] * ($diff->days + 1)) / ContractsTable::DEFAULT_MONTH_DAYS;
+//            }
+//
+//            $recursion->setType(SlipsRecursiveTable::RECURSION_ALL);
+//        }
 
         $sum = 0;
 
         $slipValue = new SlipValue();
 
-        $slipValue->setName(ContractsTable::$feesNames[ContractsTable::RENT]);
-        $slipValue->setValue($rent);
-        $slipValue->setType(ContractsTable::RENT);
-        $slipValue->setRecursion($recursion);
+        $slipValue->setName(Bills::$bills[Bills::RENT]);
+        $slipValue->setValue($value);
+        $slipValue->setType(Bills::RENT);
+        $slipValue->setStatus($status);
+        $slipValue->setTransactionId($transactionId);
 
         $this->values[] = $slipValue;
 
-        $sum += $rent;
+        $sum += $value;
 
         //Taxas Extras
         foreach (ContractsValuesTable::$generalFees as $f) {
             if (!empty($contractValues[$f->getKey()]) && $f->getKey() <> ContractsValuesTable::CPMF) {
-                $recursiveFee = $slipsRecursiveTable->find()
-                    ->where(['contract_id' => $contract['id']])
-                    ->where(['tipo' => $f->getKey()])
-                    ->where(['DATE_FORMAT(:date, "%Y-%m") BETWEEN DATE_FORMAT(start_date, "%Y-%m") AND DATE_FORMAT(end_date, "%Y-%m")'])
-                    ->bind(':date', $date->format('Y-m-d'))
-                    ->last();
-
-                $recursion = new SlipValueRecursion();
-
-                if ($recursiveFee) {
-                    $value = $recursiveFee['valor'];
-
-                    $recursion->setType($this->getRecursionInfo($recursiveFee));
-                    $recursion->setStartDate(new DateTime($recursiveFee['start_date']->format('Y-m-d')));
-                    $recursion->setEndDate(new DateTime($recursiveFee['end_date']->format('Y-m-d')));
+                $value = 0;
+                $status = Bills::OPEN;
+                $transactionId = null;
+                if ($billTransaction = $this->checkIfPaid($f->getKey(), $contract['id'])) {
+                    $value = $billTransaction['valor'];
+                    $status = Bills::PAID;
+                    $this->paidDate = new DateTime($billTransaction['data_pago']->format('Y-m-d'));
+                    $transactionId = $billTransaction['id'];
                 } else {
                     $value = $f->getValue($date);
 
-                    $recursion->setType(SlipsRecursiveTable::RECURSION_ALL);
+                    if ($today->format('Y-m-d') > $this->getSalary()->format('Y-m-d')) {
+                        $status = Bills::LATE;
+                    }
                 }
 
                 $slipValue = new SlipValue();
@@ -136,7 +171,8 @@ class Slip
                 $slipValue->setName($f->getName());
                 $slipValue->setValue($value);
                 $slipValue->setType($f->getKey());
-                $slipValue->setRecursion($recursion);
+                $slipValue->setStatus($status);
+                $slipValue->setTransactionId($transactionId);
 
                 $this->values[] = $slipValue;
 
@@ -144,82 +180,212 @@ class Slip
             }
         }
 
-        $today = new DateTime('now');
+//        foreach (ContractsValuesTable::$generalFees as $f) {
+//            if (!empty($contractValues[$f->getKey()]) && $f->getKey() <> ContractsValuesTable::CPMF) {
+//                $recursiveFee = $slipsRecursiveTable->find()
+//                    ->where(['contract_id' => $contract['id']])
+//                    ->where(['tipo' => $f->getKey()])
+//                    ->where(['DATE_FORMAT(:date, "%Y-%m") BETWEEN DATE_FORMAT(start_date, "%Y-%m") AND DATE_FORMAT(end_date, "%Y-%m")'])
+//                    ->bind(':date', $date->format('Y-m-d'))
+//                    ->last();
+//
+//                $recursion = new SlipValueRecursion();
+//
+//                if ($recursiveFee) {
+//                    $value = $recursiveFee['valor'];
+//
+//                    $recursion->setType($this->getRecursionInfo($recursiveFee));
+//                    $recursion->setStartDate(new DateTime($recursiveFee['start_date']->format('Y-m-d')));
+//                    $recursion->setEndDate(new DateTime($recursiveFee['end_date']->format('Y-m-d')));
+//                } else {
+//                    $value = $f->getValue($date);
+//
+//                    $recursion->setType(SlipsRecursiveTable::RECURSION_ALL);
+//                }
+//
+//                $slipValue = new SlipValue();
+//
+//                $slipValue->setName($f->getName());
+//                $slipValue->setValue($value);
+//                $slipValue->setType($f->getKey());
+//                $slipValue->setRecursion($recursion);
+//
+//                $this->values[] = $slipValue;
+//
+//                $sum += $value;
+//            }
+//        }
 
         //Taxas Custom
-        $customValues = $slipsCustomValuesTable->find()
-            ->contain('SlipsRecursive')
-            ->where(['contract_id' => $contract['id']]);
+        $customBill = $customBillsTable->find()
+            ->where(['reference_id' => $contract['id']])
+            ->where(['pagante' => Bills::PAYER_RECEIVER_TENANT]);
 
-        foreach ($customValues as $c) {
-            foreach ($c['slips_recursive'] as $r) {
-                $recursion = new SlipValueRecursion();
+        foreach ($customBill as $c) {
+            $value = 0;
+            $status = Bills::OPEN;
+            $transactionId = null;
 
-                $recursion->setType($this->getRecursionInfo($r));
-                $recursion->setStartDate($r['start_date']);
-                $recursion->setEndDate($r['end_date']);
+            if ($billTransaction = $this->checkIfPaid($c['categoria'], $contract['id'])) {
+                $value = $billTransaction['valor'];
+                $status = Bills::PAID;
+                $this->paidDate = new DateTime($billTransaction['data_pago']->format('Y-m-d'));
+                $transactionId = $billTransaction['id'];
+            } else {
+                $value = $c['valor'];
 
-                switch ($recursion->getType()) {
-                    case SlipsRecursiveTable::RECURSION_NONE:
-                        if ($date->format('Y-m') <> $recursion->getStartDate()->format('Y-m')) {
-                            continue 2;
-                        }
-
-                        break;
-
-                    case SlipsRecursiveTable::RECURSION_PERIOD:
-                        if (!($date->format('Y-m') >= $recursion->getStartDate()->format('Y-m') && $date->format('Y-m') <= $recursion->getEndDate()->format('Y-m'))) {
-                            continue 2;
-                        }
-
-                        break;
-
-                    case SlipsRecursiveTable::RECURSION_START_AT:
-                        if (!($date->format('Y-m') >= $recursion->getStartDate()->format('Y-m'))) {
-                            continue 2;
-                        }
-
-                        break;
+                if ($today->format('Y-m-d') > $this->getSalary()->format('Y-m-d')) {
+                    $status = Bills::LATE;
                 }
+            }
 
-                if ($r['deleted'] == true) {
+            $slipValue = new SlipValue();
+
+            $slipValue->setName(sprintf('%s (%s)', $c['descricao'], Bills::$bills[$c['categoria']]));
+            $slipValue->setValue($value);
+            $slipValue->setType($c['categoria']);
+            $slipValue->setStatus($status);
+            $slipValue->setTransactionId($transactionId);
+
+            $recursivity = new Recursivity($c);
+
+            if (!empty($c['data_inicio'])) {
+                $startDate = new DateTime($c['data_inicio']->format('Y-m-d'));
+            }
+
+            if (!empty($c['data_fim'])) {
+                $endDate = new DateTime($c['data_fim']->format('Y-m-d'));
+            }
+
+            switch ($recursivity->getType()) {
+                case Recursivity::RECURSIVITY_ALWAYS:
+                    $this->values[] = $slipValue;
+
+                    $sum += $value;
+
                     break;
-                }
 
-                $slipValue = new SlipValue();
+                case Recursivity::RECURSION_NONE:
+                    if ($this->getSalary()->format('Y-m') == $startDate->format('Y-m')) {
+                        $this->values[] = $slipValue;
 
-                $slipValue->setName($c['descricao']);
-                $slipValue->setValue($r['valor']);
-                $slipValue->setType(ContractsTable::CUSTOM_FEE);
-                $slipValue->setRecursion($recursion);
-                $slipValue->setCustomId($c['id']);
+                        $sum += $value;
+                    }
 
-                $this->values[] = $slipValue;
+                    break;
+
+                case Recursivity::RECURSION_START_AT:
+                    if ($this->getSalary()->format('Y-m') >= $startDate->format('Y-m')) {
+                        $this->values[] = $slipValue;
+
+                        $sum += $value;
+                    }
+
+                    break;
+
+                case Recursivity::RECURSION_PERIOD:
+                    if (
+                        $this->getSalary()->format('Y-m') >= $startDate->format('Y-m') &&
+                        $this->getSalary()->format('Y-m') <= $endDate->format('Y-m')
+                    ) {
+                        $this->values[] = $slipValue;
+
+                        $sum += $value;
+                    }
+
+                    break;
+            }
+        }
+
+//        $customValues = $slipsCustomValuesTable->find()
+//            ->contain('SlipsRecursive')
+//            ->where(['contract_id' => $contract['id']]);
+//
+//        foreach ($customValues as $c) {
+//            foreach ($c['slips_recursive'] as $r) {
+//                $recursion = new SlipValueRecursion();
+//
+//                $recursion->setType($this->getRecursionInfo($r));
+//                $recursion->setStartDate($r['start_date']);
+//                $recursion->setEndDate($r['end_date']);
+//
+//                switch ($recursion->getType()) {
+//                    case SlipsRecursiveTable::RECURSION_NONE:
+//                        if ($date->format('Y-m') <> $recursion->getStartDate()->format('Y-m')) {
+//                            continue 2;
+//                        }
+//
+//                        break;
+//
+//                    case SlipsRecursiveTable::RECURSION_PERIOD:
+//                        if (!($date->format('Y-m') >= $recursion->getStartDate()->format('Y-m') && $date->format('Y-m') <= $recursion->getEndDate()->format('Y-m'))) {
+//                            continue 2;
+//                        }
+//
+//                        break;
+//
+//                    case SlipsRecursiveTable::RECURSION_START_AT:
+//                        if (!($date->format('Y-m') >= $recursion->getStartDate()->format('Y-m'))) {
+//                            continue 2;
+//                        }
+//
+//                        break;
+//                }
+//
+//                if ($r['deleted'] == true) {
+//                    break;
+//                }
+//
+//                $slipValue = new SlipValue();
+//
+//                $slipValue->setName($c['descricao']);
+//                $slipValue->setValue($r['valor']);
+//                $slipValue->setType(ContractsTable::CUSTOM_FEE);
+//                $slipValue->setRecursion($recursion);
+//                $slipValue->setCustomId($c['id']);
+//
+//                $this->values[] = $slipValue;
+//
+//                break;
+//            }
+//        }
+
+        //Status do Boleto
+        $this->setStatus(self::NORMAL);
+
+        foreach ($this->values as $v) {
+            if ($v->getStatus() == Bills::LATE) {
+                $this->setStatus(self::LATE);
+
+                break;
+            }
+
+            if ($v->getStatus() == Bills::PAID) {
+                $this->setStatus(self::PAID);
 
                 break;
             }
         }
 
-        //Status do Boleto
-        $paidSlipsTable = TableRegistry::get('PaidSlips');
-
-        $slipPaid = $paidSlipsTable->find()
-            ->where(['vencimento' => $this->getSalary()->format('Y-m-d')])
-            ->where(['contract_id' => $contract['id']])
-            ->first();
-
-        if ($slipPaid) {
-            $this->setStatus(self::PAID);
-            $this->setPaidDate(new DateTime($slipPaid['data_pago']->format('Y-m-d')));
-        } else {
-            $this->setPaidDate(null);
-
-            if ($today->format('Y-m-d') > $this->getSalary()->format('Y-m-d')) {
-                $this->setStatus(self::LATE);
-            } else {
-                $this->setStatus(self::NORMAL);
-            }
-        }
+//        $paidSlipsTable = TableRegistry::get('PaidSlips');
+//
+//        $slipPaid = $paidSlipsTable->find()
+//            ->where(['vencimento' => $this->getSalary()->format('Y-m-d')])
+//            ->where(['contract_id' => $contract['id']])
+//            ->first();
+//
+//        if ($slipPaid) {
+//            $this->setStatus(self::PAID);
+//            $this->setPaidDate(new DateTime($slipPaid['data_pago']->format('Y-m-d')));
+//        } else {
+//            $this->setPaidDate(null);
+//
+//            if ($today->format('Y-m-d') > $this->getSalary()->format('Y-m-d')) {
+//                $this->setStatus(self::LATE);
+//            } else {
+//                $this->setStatus(self::NORMAL);
+//            }
+//        }
 
         //Desconto/Multa
         $isFee = false;
@@ -235,20 +401,33 @@ class Slip
             } else {
                 $isDiscount = true;
             }
+        } else {
+            if ($today->format('Y-m-d') > $this->getSalary()->format('Y-m-d')) {
+                $isFee = true;
+            } else {
+                $isDiscount = true;
+            }
         }
-
-        $recursion = new SlipValueRecursion();
-
-        $recursion->setType(SlipsRecursiveTable::RECURSION_ALL);
 
         if ($isFee) {
             if (!empty($contractValues['multa'])) {
+                $value = 0;
+                $transactionId = null;
+
+                if ($billTransaction = $this->checkIfPaid(Bills::FINE_CONTRACT, $contract['id'])) {
+                    $value = $billTransaction['valor'];
+                    $this->paidDate = new DateTime($billTransaction['data_pago']->format('Y-m-d'));
+                    $transactionId = $billTransaction['id'];
+                } else {
+                    $value = ($sum * $contractValues['multa']) / 100;
+                }
+
                 $slipValue = new SlipValue();
 
-                $slipValue->setName(ContractsTable::$discountOrFine[ContractsTable::FINE]);
-                $slipValue->setValue(($sum * $contractValues['multa']) / 100);
-                $slipValue->setType(ContractsTable::FINE);
-                $slipValue->setRecursion($recursion);
+                $slipValue->setName(Bills::$bills[Bills::FINE_CONTRACT]);
+                $slipValue->setValue($value);
+                $slipValue->setType(Bills::FINE_CONTRACT);
+                $slipValue->setTransactionId($transactionId);
 
                 $this->values[] = $slipValue;
             }
@@ -256,16 +435,46 @@ class Slip
 
         if ($isDiscount) {
             if (!empty($contractValues['desconto'])) {
+                $value = 0;
+                $transactionId = null;
+
+                if ($billTransaction = $this->checkIfPaid(Bills::DISCOUNT_CONTRACT, $contract['id'])) {
+                    $value = $billTransaction['valor'];
+                    $this->paidDate = new DateTime($billTransaction['data_pago']->format('Y-m-d'));
+                    $transactionId = $billTransaction['id'];
+                } else {
+                    $value = (($sum * $contractValues['desconto']) / 100) * -1;
+                }
+
                 $slipValue = new SlipValue();
 
-                $slipValue->setName(ContractsTable::$discountOrFine[ContractsTable::DISCOUNT]);
-                $slipValue->setValue((($sum * $contractValues['desconto']) / 100) * -1);
-                $slipValue->setType(ContractsTable::DISCOUNT);
-                $slipValue->setRecursion($recursion);
+                $slipValue->setName(Bills::$bills[Bills::DISCOUNT_CONTRACT]);
+                $slipValue->setValue($value);
+                $slipValue->setType(Bills::DISCOUNT_CONTRACT);
+                $slipValue->setTransactionId($transactionId);
 
                 $this->values[] = $slipValue;
             }
         }
+
+        usort($this->values, [$this, 'cmp']);
+    }
+
+    public function checkIfPaid($key, $reference)
+    {
+        $billsTransactionsTable = TableRegistry::get('BillsTransactions');
+
+        return $billsTransactionsTable->find()
+            ->where(['reference_id' => $reference])
+            ->where(['categoria' => $key])
+            ->where(['DATE_FORMAT(data_vencimento, "%Y-%m") = :date'])
+            ->bind(':date', $this->getSalary()->format('Y-m'))
+            ->last();
+    }
+
+    function cmp($a, $b)
+    {
+        return strcmp($a->getName(), $b->getName());
     }
 
     public function getSalary()
@@ -327,5 +536,41 @@ class Slip
     public function setPaidDate($paidDate)
     {
         $this->paidDate = $paidDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContract()
+    {
+        return $this->contract;
+    }
+
+    /**
+     * @param mixed $contract
+     */
+    public function setContract($contract)
+    {
+        $this->contract = $contract;
+    }
+
+    public function toJSON()
+    {
+        $data = [
+            'salary' => $this->getSalary()->format('Y-m-d'),
+            'contract' => $this->getContract(),
+            'values' => []
+        ];
+
+        /* @var SlipValue $v */
+        foreach ($this->getValues() as $v) {
+            $data['values'][] = [
+                'category' => $v->getType(),
+                'value' => $v->getValue(),
+                'transaction_id' => $v->getTransactionId(),
+            ];
+        }
+
+        return json_encode($data);
     }
 }

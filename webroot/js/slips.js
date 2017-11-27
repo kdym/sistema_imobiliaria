@@ -6,6 +6,13 @@ $('#new-fee-button').click(function () {
     addFee();
 });
 
+$('#recursive-none-option').click(function () {
+    $('.recursive-inputs').val('');
+    $('.recursive-inputs').attr('readonly', 'readonly');
+
+    $('#specific-date').removeAttr('readonly');
+});
+
 $('#recursive-all-option').click(function () {
     $('.recursive-inputs').val('');
     $('.recursive-inputs').attr('readonly', 'readonly');
@@ -22,25 +29,64 @@ $('#recursive-period-option').click(function () {
     $('.recursive-inputs').val('');
     $('.recursive-inputs').attr('readonly', 'readonly');
 
-    $('#period-input').removeAttr('readonly');
+    $('#period-start-date').removeAttr('readonly');
+    $('#period-end-date').removeAttr('readonly');
 });
 
 $('#recursive-fee-form').validate({
+    ignore: [],
     rules: {
+        'category_hidden': 'required',
         'name': 'required',
         'value': 'required',
+        'specific_date': {
+            required: function () {
+                return $('#recursive-none-option').prop('checked');
+            }
+        },
         'start_at_input': {
             required: function () {
                 return $('#recursive-start-at-option').prop('checked');
             }
         },
-        'period_input': {
+        'period_start_date': {
             required: function () {
                 return $('#recursive-period-option').prop('checked');
             }
+        },
+        'period_end_date': {
+            required: function () {
+                return $('#recursive-period-option').prop('checked');
+            },
+            validPeriod: ['period_start_date', 'period_end_date']
+        }
+    },
+    'messages': {
+        'category_hidden': 'Tipo Inválido'
+    },
+    'errorPlacement': function (error, element) {
+        switch (element.attr('name')) {
+            case 'category_hidden':
+                error.insertAfter('#category');
+
+                break;
+            default:
+                error.insertAfter(element);
         }
     }
 });
+
+if ($('#category').length) {
+    $('#category').autocomplete({
+        source: $('#category').data('valids'),
+        select: function (event, ui) {
+            $('#category').val(ui.item.label);
+            $('#category-hidden').val(ui.item.value);
+
+            return false;
+        }
+    });
+}
 
 $('.delete-custom-button').click(function () {
     deleteCustom(this);
@@ -48,8 +94,14 @@ $('.delete-custom-button').click(function () {
     return false;
 });
 
-$('[data-pay-slip]').click(function () {
+$('.slip-pay-button').click(function () {
     paySlip(this);
+
+    return false;
+});
+
+$('.slip-unpay-button').click(function () {
+    unpaySlip(this);
 
     return false;
 });
@@ -151,18 +203,20 @@ function deleteCustom(element) {
 }
 
 function paySlip(element) {
-    var salary = $(element).data('pay-slip');
+    var slip = $(element).data('slip');
+    var salary = moment(slip.salary);
 
-    $('#pay-slip-salary').html(salary);
+    $('#pay-slip-salary').html(salary.format('DD/MM/YYYY'));
+    $('#pay-slip-hidden').val(JSON.stringify(slip));
 
-    $('#pay-slip-salary-hidden').val(salary);
+    // $('#pay-slip-salary-hidden').val(salary);
 
     $('#pay-slip-calendar').datepicker({
         language: 'pt-BR',
         todayHighlight: true,
         endDate: '0d'
     }).on('changeDate', function (e) {
-        $('#pay-slip-selected-date').val(e.date.getDate() + '/' + (e.date.getMonth() + 1) + '/' + e.date.getFullYear());
+        $('#pay-slip-selected-date').val(e.date.getFullYear() + '-' + (e.date.getMonth() + 1) + '-' + e.date.getDate());
     });
 
     $('#pay-slip-modal').modal('show');
@@ -188,5 +242,25 @@ function checkPayMultipleSlipsInputs() {
     if ($('#pay-multiple-choice-period').prop('checked')) {
         $('#multiple-start-date').removeAttr('readonly');
         $('#multiple-end-date').removeAttr('readonly');
+    }
+}
+
+function unpaySlip(element) {
+    if (confirm('Tem certeza que deseja desfazer este pagamento?')) {
+        $(element).html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+        $(element).prop('disabled', true);
+        $(element).unbind('click');
+        $(element).click(function () {
+            return false;
+        });
+
+        $.ajax({
+            url: '/slips/un-pay-slip',
+            data: $(element).data('slip'),
+            type: 'post',
+            success: function () {
+                location.reload();
+            }
+        });
     }
 }

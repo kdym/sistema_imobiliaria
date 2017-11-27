@@ -7,6 +7,8 @@
 
 use App\Model\Table\ContractsTable;
 use App\Model\Table\ContractsValuesTable;
+use App\Policy\ConfigPolicy;
+use App\Policy\PropertiesPolicy;
 
 $editLink = ['action' => 'form', $contract['id']];
 
@@ -19,6 +21,7 @@ $editLink = ['action' => 'form', $contract['id']];
 <section class="content">
     <nav class="actions-bar">
         <?php echo $this->Html->link('<i class="fa fa-barcode"></i> Boletos', ['controller' => 'slips', 'action' => 'index', $contract['id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
+        <?php echo $this->Html->link('<i class="fa fa-usd"></i> Contas', ['controller' => 'slips', 'action' => 'contract_bills', $contract['id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
         <!--        --><?php //echo $this->Html->link('<i class="fa fa-usd"></i> Extrato', ['controller' => 'extract', 'action' => 'index', $contract['property']['locator_id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
     </nav>
 
@@ -150,9 +153,9 @@ $editLink = ['action' => 'form', $contract['id']];
             <div class="box-header with-border">
                 <h3 class="box-title">Taxas</h3>
 
-                <div class="box-tools pull-right">
-                    <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
-                </div>
+                <!--                <div class="box-tools pull-right">-->
+                <!--                    --><?php //echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
+                <!--                </div>-->
             </div>
 
             <div class="icon-view-list">
@@ -162,7 +165,13 @@ $editLink = ['action' => 'form', $contract['id']];
                     </div>
 
                     <div class="value">
-                        <h1>Valor do Contrato</h1>
+                        <h1>
+                            Valor do Contrato
+
+                            <?php if (PropertiesPolicy::isAuthorized('form', $loggedUser)) { ?>
+                                <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['controller' => 'properties', 'action' => 'form', $contract['property_id']], ['escape' => false]) ?>
+                            <?php } ?>
+                        </h1>
 
                         <h2><?php echo $this->Contracts->getContractValue($contract) ?></h2>
                     </div>
@@ -174,7 +183,11 @@ $editLink = ['action' => 'form', $contract['id']];
                     </div>
 
                     <div class="value">
-                        <h1>Taxa Contratual</h1>
+                        <h1>
+                            Taxa Contratual
+
+                            <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
+                        </h1>
 
                         <h2><?php echo $this->Contracts->getContractualFee($contract) ?></h2>
                     </div>
@@ -186,7 +199,11 @@ $editLink = ['action' => 'form', $contract['id']];
                     </div>
 
                     <div class="value">
-                        <h1><?php echo $this->Contracts->getDiscountOrFineTitle($contract) ?></h1>
+                        <h1>
+                            <?php echo $this->Contracts->getDiscountOrFineTitle($contract) ?>
+
+                            <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
+                        </h1>
 
                         <h2><?php echo $this->Contracts->getDiscountOrFine($contract) ?></h2>
                     </div>
@@ -200,7 +217,13 @@ $editLink = ['action' => 'form', $contract['id']];
                             </div>
 
                             <div class="value">
-                                <h1><?php echo $f->getName() ?></h1>
+                                <h1>
+                                    <?php echo $f->getName() ?>
+
+                                    <?php if (ConfigPolicy::isAuthorized('general', $loggedUser)) { ?>
+                                        <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['controller' => 'config', 'action' => 'general'], ['escape' => false]) ?>
+                                    <?php } ?>
+                                </h1>
 
                                 <h2><?php echo $f->getFormattedValue() ?></h2>
                             </div>

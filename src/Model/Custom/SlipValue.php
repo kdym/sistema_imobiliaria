@@ -16,6 +16,24 @@ class SlipValue
     private $type;
     private $recursion;
     private $customId;
+    private $status;
+    private $transactionId;
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 
     /**
      * @return mixed
@@ -95,5 +113,21 @@ class SlipValue
     public function setCustomId($customId)
     {
         $this->customId = $customId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTransactionId()
+    {
+        return $this->transactionId;
+    }
+
+    /**
+     * @param mixed $transactionId
+     */
+    public function setTransactionId($transactionId)
+    {
+        $this->transactionId = $transactionId;
     }
 }

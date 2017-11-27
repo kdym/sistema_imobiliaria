@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Custom\Bills;
+use App\Model\Custom\ContractBill;
+use App\Model\Custom\Recursivity;
 use App\Model\Custom\Slip;
 use App\Model\Custom\SlipValue;
 use App\Model\Table\ContractsTable;
@@ -30,6 +33,8 @@ use DateTime;
  * @property \App\Model\Table\SlipsCustomsValuesTable $SlipsCustomsValues
  * @property \App\Model\Table\PaidSlipsTable $PaidSlips
  * @property \App\Model\Table\ExtractsTable $Extracts
+ * @property \App\Model\Table\CustomBillsTable $CustomBills
+ * @property \App\Model\Table\BillsTransactionsTable $BillsTransactions
  *
  */
 class SlipsController extends AppController
@@ -53,6 +58,8 @@ class SlipsController extends AppController
         $this->loadModel('SlipsCustomsValues');
         $this->loadModel('PaidSlips');
         $this->loadModel('Extracts');
+        $this->loadModel('CustomBills');
+        $this->loadModel('BillsTransactions');
     }
 
     public function beforeRender(Event $event)
@@ -289,55 +296,117 @@ class SlipsController extends AppController
 
     public function addRecursiveFee($contractId)
     {
-        $customValue = $this->SlipsCustomsValues->newEntity();
+        $contract = $this->Contracts->get($contractId, [
+            'contain' => ['ContractsValues']
+        ]);
 
-        $customValue['descricao'] = $this->request->getData('name');
-        $customValue['valor'] = $this->Contracts->parseDecimal($this->request->getData('value'));
-        $customValue['contract_id'] = $contractId;
+        $customBill = $this->CustomBills->newEntity();
 
-        if ($this->SlipsCustomsValues->save($customValue)) {
-            $recursion = $this->SlipsRecursive->newEntity();
+        $customBill['categoria'] = $this->request->getData('category_hidden');
+        $customBill['descricao'] = $this->request->getData('name');
+        $customBill['pagante'] = Bills::PAYER_RECEIVER_TENANT;
+        $customBill['recebedor'] = $this->request->getData('receiver');
 
-            switch ($this->request->getData('recursive')) {
-                case SlipsRecursiveTable::RECURSION_NONE:
-                    $recursion['start_date'] = $this->request->getData('slip_date');
-                    $recursion['end_date'] = $this->request->getData('slip_date');
+        $salaryDay = $contract['contracts_values'][0]['vencimento_boleto'];
 
-                    break;
+        switch ($this->request->getData('recursive')) {
+            case Recursivity::RECURSIVITY_ALWAYS:
+                $customBill['repeat_year'] = '*';
+                $customBill['repeat_month'] = '*';
+                $customBill['repeat_day'] = $salaryDay;
+                $customBill['data_inicio'] = null;
+                $customBill['data_fim'] = null;
 
-                case SlipsRecursiveTable::RECURSION_ALL:
-                    $recursion['start_date'] = null;
-                    $recursion['end_date'] = null;
+                break;
 
-                    break;
+            case Recursivity::RECURSION_NONE:
+                $specificDate = new DateTime($this->Contracts->parseDate($this->request->getData('specific_date')));
 
-                case SlipsRecursiveTable::RECURSION_START_AT:
-                    $recursion['start_date'] = $this->Contracts->parseDate($this->request->getData('start_at_input'));
-                    $recursion['end_date'] = null;
+                $customBill['repeat_year'] = $specificDate->format('Y');
+                $customBill['repeat_month'] = $specificDate->format('m');
+                $customBill['repeat_day'] = $specificDate->format('d');
+                $customBill['data_inicio'] = $specificDate->format('Y-m-d');
+                $customBill['data_fim'] = null;
 
-                    break;
+                break;
 
-                case SlipsRecursiveTable::RECURSION_PERIOD:
-                    $period = explode(' a ', $this->request->getData('period_input'));
+            case Recursivity::RECURSION_START_AT:
+                $customBill['repeat_year'] = '*';
+                $customBill['repeat_month'] = '*';
+                $customBill['repeat_day'] = $salaryDay;
+                $customBill['data_inicio'] = $this->Contracts->parseDate($this->request->getData('start_at_input'));
+                $customBill['data_fim'] = null;
 
-                    $recursion['start_date'] = $this->Contracts->parseDate($period[0]);
-                    $recursion['end_date'] = $this->Contracts->parseDate($period[1]);
+                break;
 
-                    break;
-            }
+            case Recursivity::RECURSION_PERIOD:
+                $customBill['repeat_year'] = '*';
+                $customBill['repeat_month'] = '*';
+                $customBill['repeat_day'] = $salaryDay;
+                $customBill['data_inicio'] = $this->Contracts->parseDate($this->request->getData('period_start_date'));
+                $customBill['data_fim'] = $this->Contracts->parseDate($this->request->getData('period_end_date'));
 
-            $recursion['deleted'] = false;
-            $recursion['slip_custom_id'] = $customValue['id'];
-            $recursion['tipo'] = ContractsTable::CUSTOM_FEE;
-            $recursion['contract_id'] = $contractId;
-            $recursion['valor'] = $this->Contracts->parseDecimal($this->request->getData('value'));
-
-            if ($this->SlipsRecursive->save($recursion)) {
-                $this->Flash->success('Salvo com sucesso');
-
-                $this->redirect(['controller' => 'slips', 'action' => 'index', $contractId]);
-            }
+                break;
         }
+
+        $customBill['valor'] = $this->Contracts->parseDecimal($this->request->getData('value'));
+        $customBill['reference_id'] = $contractId;
+
+        if ($this->CustomBills->save($customBill)) {
+            $this->Flash->success('Salvo com sucesso');
+
+            $this->redirect(['action' => 'contract_bills', $contractId]);
+        }
+
+//        $customValue = $this->SlipsCustomsValues->newEntity();
+//
+//        $customValue['descricao'] = $this->request->getData('name');
+//        $customValue['valor'] = $this->Contracts->parseDecimal($this->request->getData('value'));
+//        $customValue['contract_id'] = $contractId;
+//
+//        if ($this->SlipsCustomsValues->save($customValue)) {
+//            $recursion = $this->SlipsRecursive->newEntity();
+//
+//            switch ($this->request->getData('recursive')) {
+//                case SlipsRecursiveTable::RECURSION_NONE:
+//                    $recursion['start_date'] = $this->request->getData('slip_date');
+//                    $recursion['end_date'] = $this->request->getData('slip_date');
+//
+//                    break;
+//
+//                case SlipsRecursiveTable::RECURSION_ALL:
+//                    $recursion['start_date'] = null;
+//                    $recursion['end_date'] = null;
+//
+//                    break;
+//
+//                case SlipsRecursiveTable::RECURSION_START_AT:
+//                    $recursion['start_date'] = $this->Contracts->parseDate($this->request->getData('start_at_input'));
+//                    $recursion['end_date'] = null;
+//
+//                    break;
+//
+//                case SlipsRecursiveTable::RECURSION_PERIOD:
+//                    $period = explode(' a ', $this->request->getData('period_input'));
+//
+//                    $recursion['start_date'] = $this->Contracts->parseDate($period[0]);
+//                    $recursion['end_date'] = $this->Contracts->parseDate($period[1]);
+//
+//                    break;
+//            }
+//
+//            $recursion['deleted'] = false;
+//            $recursion['slip_custom_id'] = $customValue['id'];
+//            $recursion['tipo'] = ContractsTable::CUSTOM_FEE;
+//            $recursion['contract_id'] = $contractId;
+//            $recursion['valor'] = $this->Contracts->parseDecimal($this->request->getData('value'));
+//
+//            if ($this->SlipsRecursive->save($recursion)) {
+//                $this->Flash->success('Salvo com sucesso');
+//
+//                $this->redirect(['controller' => 'slips', 'action' => 'index', $contractId]);
+//            }
+//        }
     }
 
     public function deleteCustom()
@@ -380,78 +449,66 @@ class SlipsController extends AppController
         $this->redirect(['action' => 'index', $this->request->getData('contract_id')]);
     }
 
-    public function pay(DateTime $salary, $contract, DateTime $paidDate)
+    public function pay($slip, DateTime $paidDate)
     {
-        $paidSlip = $this->PaidSlips->find()
-            ->where(['vencimento' => $salary->format('Y-m-d')])
-            ->where(['contract_id' => $contract['id']])
-            ->first();
+        foreach ($slip->values as $v) {
+            $billTransaction = $this->BillsTransactions->newEntity();
 
-        if (!$paidSlip) {
-            $paidSlip = $this->PaidSlips->newEntity();
+            $billTransaction['categoria'] = $v->category;
+            $billTransaction['data_pago'] = $paidDate->format('Y-m-d');
+            $billTransaction['data_vencimento'] = $slip->salary;
+            $billTransaction['reference_id'] = $slip->contract;
+            $billTransaction['valor'] = $v->value;
+            $billTransaction['ausente'] = false;
+            $billTransaction['debitada'] = null;
+            $billTransaction['diferenca'] = null;
 
-            $paidSlip['vencimento'] = $salary->format('Y-m-d');
-            $paidSlip['data_pago'] = $paidDate->format('Y-m-d');
-            $paidSlip['contract_id'] = $contract['id'];
-
-            if ($this->PaidSlips->save($paidSlip)) {
-//                $slip = new Slip($contract, $salary);
-//
-//                $propertyFees = $this->PropertiesFees->find()
-//                    ->where(['property_id' => $contract['property_id']])
-//                    ->where(['date_format(start_date, "%Y-%m") <= :date'])
-//                    ->bind(':date', $salary->format('Y-m'))
-//                    ->last();
-//
-//                /* @var SlipValue $v */
-//                foreach ($slip->getValues() as $v) {
-//                    //Aluguel
-//                    if ($v->getType() == ContractsTable::RENT) {
-//                        $extract = $this->Extracts->newEntity();
-//
-//                        $extract['data'] = $paidDate->format('Y-m-d');
-//                        $extract['descricao'] = sprintf('Aluguel %s/%s', $slip->getSalary()->format('m'), $slip->getSalary()->format('Y'));
-//                        $extract['valor'] = $v->getValue();
-//                        $extract['tipo'] = ExtractsTable::IN;
-//                        $extract['property_id'] = $contract['property_id'];
-//
-//                        $this->Extracts->save($extract);
-//
-//                        //Taxa Administrativa sobre o Aluguel
-//                        if ($propertyFees['taxa_administrativa_incidencia'] == PropertiesFeesTable::INCIDENCE_RENT) {
-//                            $extract = $this->Extracts->newEntity();
-//
-//                            $extract['data'] = $paidDate->format('Y-m-d');
-//                            $extract['descricao'] = sprintf('Comissão da Imobiliária (Aluguel %s/%s)', $slip->getSalary()->format('m'), $slip->getSalary()->format('Y'));
-//                            $extract['valor'] = ($v->getValue() * $propertyFees['taxa_administrativa']) / 100;
-//                            $extract['tipo'] = ExtractsTable::OUT;
-//                            $extract['property_id'] = $contract['property_id'];
-//
-//                            $this->Extracts->save($extract);
-//                        }
-//                    }
-//                }
-            }
+            $this->BillsTransactions->save($billTransaction);
         }
+
+//        $paidSlip = $this->PaidSlips->find()
+//            ->where(['vencimento' => $salary->format('Y-m-d')])
+//            ->where(['contract_id' => $contract['id']])
+//            ->first();
+//
+//        if (!$paidSlip) {
+//            $paidSlip = $this->PaidSlips->newEntity();
+//
+//            $paidSlip['vencimento'] = $salary->format('Y-m-d');
+//            $paidSlip['data_pago'] = $paidDate->format('Y-m-d');
+//            $paidSlip['contract_id'] = $contract['id'];
+//
+//            if ($this->PaidSlips->save($paidSlip)) {
+//            }
+//        }
     }
 
-    public function unPay(DateTime $salary, $contract)
+    public function unPay()
     {
-        $paidSlip = $this->PaidSlips->find()
-            ->where(['vencimento' => $salary->format('Y-m-d')])
-            ->where(['contract_id' => $contract['id']])
-            ->first();
+        debug($this->request->getData('values'));
 
-        $this->PaidSlips->delete($paidSlip);
+        foreach ($this->request->getData('values') as $v) {
+            $billTransaction = $this->BillsTransactions->get($v['transaction_id']);
+
+            $this->BillsTransactions->delete($billTransaction);
+        }
+
+//        $this->autoRender = false;
+
+//        $paidSlip = $this->PaidSlips->find()
+//            ->where(['vencimento' => $salary->format('Y-m-d')])
+//            ->where(['contract_id' => $contract['id']])
+//            ->first();
+//
+//        $this->PaidSlips->delete($paidSlip);
     }
 
     public function paySlip()
     {
-        $salary = new DateTime($this->Contracts->parseDate($this->request->getData('pay_slip_salary_hidden')));
-        $selectedDate = new DateTime($this->Contracts->parseDate($this->request->getData('pay_slip_selected_date')));
-        $contract = $this->Contracts->get($this->request->getData('pay_slip_contract_hidden'));
+        $selectedDate = new DateTime($this->request->getData('pay_slip_selected_date'));
+        $slip = json_decode($this->request->getData('pay_slip_hidden'));
 
-        $this->pay($salary, $contract, $selectedDate);
+        $this->pay($slip, $selectedDate);
 
         $this->Flash->success('Pago com sucesso');
 
@@ -460,14 +517,13 @@ class SlipsController extends AppController
 
     public function unPaySlip()
     {
-        $salary = new DateTime($this->request->getQuery('salary'));
-        $contract = $this->Contracts->get($this->request->getQuery('contract'));
+        foreach ($this->request->getData('values') as $v) {
+            $billTransaction = $this->BillsTransactions->get($v['transaction_id']);
 
-        $this->unPay($salary, $contract);
+            $this->BillsTransactions->delete($billTransaction);
+        }
 
-        $this->Flash->success('Pagamento cancelado com sucesso');
-
-        $this->redirect($this->referer());
+        $this->autoRender = false;
     }
 
     public function payMultiple()
@@ -492,12 +548,116 @@ class SlipsController extends AppController
 
         $slips = $this->findSlipsInPeriod($contract, $startDate, $endDate);
 
+        /* @var Slip $s */
         foreach ($slips as $s) {
-            $this->pay($s->getSalary(), $contract, $s->getSalary());
+            $this->pay(json_decode($s->toJSON()), $s->getSalary());
         }
 
         $this->Flash->success('Pagos com sucesso');
 
         $this->redirect($this->referer());
+    }
+
+    public function contractBills($contractId)
+    {
+        $this->set('referrer', $this->referer());
+
+        $contract = $this->Contracts->get($contractId, [
+            'contain' => ['Properties.PropertiesPrices', 'ContractsValues']
+        ]);
+
+        $this->set(compact('contract'));
+
+        $bills = [];
+
+        //Aluguel
+        $bill = new ContractBill();
+
+        $bill->setName(Bills::$bills[Bills::RENT]);
+
+        $recursivity = new Recursivity();
+        $recursivity->setType(Recursivity::RECURSIVITY_ALWAYS);
+
+        $bill->setRecursivity($recursivity->toString());
+
+        $propertyPrice = $this->PropertiesPrices->find()
+            ->where(['property_id' => $contract['property_id']])
+            ->last();
+
+        $bill->setValue($propertyPrice['valor']);
+        $bill->setDeletable(false);
+
+        $bills[] = $bill;
+
+        //Taxas Extras
+        foreach (ContractsValuesTable::$generalFees as $f) {
+            if (!empty($contract['contracts_values'][0][$f->getKey()]) && $f->getKey() <> ContractsValuesTable::CPMF) {
+                $bill = new ContractBill();
+
+                $bill->setName($f->getName());
+
+                $recursivity = new Recursivity();
+                $recursivity->setType(Recursivity::RECURSIVITY_ALWAYS);
+
+                $bill->setRecursivity($recursivity->toString());
+
+                $bill->setValue($f->getValue());
+                $bill->setDeletable(false);
+
+                $bills[] = $bill;
+            }
+        }
+
+        //Taxas Custom
+        $jsonBills = [];
+        foreach (Bills::$bills as $key => $b) {
+            if (in_array($b, Bills::getValidContractBills())) {
+                $jsonBills[] = ['value' => $key, 'label' => $b];
+
+                $customBill = $this->CustomBills->find()
+                    ->where(['categoria' => $key])
+                    ->where(['reference_id' => $contract['id']]);
+
+                foreach ($customBill as $c) {
+                    $bill = new ContractBill();
+
+                    if (!empty($c['descricao'])) {
+                        $bill->setName(sprintf('%s (%s)', $c['descricao'], $b));
+                    } else {
+                        $bill->setName($b);
+                    }
+
+                    $recursivity = new Recursivity($c);
+
+                    $bill->setRecursivity($recursivity->toString());
+
+                    $bill->setValue($c['valor']);
+                    $bill->setDeletable(true);
+                    $bill->setCustomBillId($c['id']);
+
+                    $bills[] = $bill;
+                }
+            }
+        }
+
+        usort($bills, [$this, 'cmpContractBills']);
+
+        $this->set(compact('fixedBills', 'bills', 'jsonBills'));
+
+        $receivers = array_filter(Bills::$payersReceivers, function ($k) {
+            $validReceivers = [
+                Bills::PAYER_RECEIVER_LOCATOR,
+                Bills::PAYER_RECEIVER_REAL_ESTATE,
+            ];
+
+            return in_array($k, $validReceivers);
+        }, ARRAY_FILTER_USE_KEY);
+
+        $this->set(compact('receivers'));
+    }
+
+    function cmpContractBills($a, $b)
+    {
+        return strcmp($a->getName(), $b->getName());
     }
 }

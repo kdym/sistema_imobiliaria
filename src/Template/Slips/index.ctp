@@ -164,6 +164,7 @@ echo $this->Html->script('slips.min', ['block' => true]);
             <?php } else { ?>
                 <?php if (!empty($slips)) { ?>
                     <div id="slips-info">
+                        <?php /* @var Slip $s */ ?>
                         <?php foreach ($slips as $s) { ?>
                             <div class="slip">
                                 <div class="row equal-height-row">
@@ -178,31 +179,30 @@ echo $this->Html->script('slips.min', ['block' => true]);
                                                 <?php } ?>
 
                                                 <div class="actions">
-                                                    <?php if (SlipsPolicy::isAuthorized('edit', $loggedUser, $s)) { ?>
-                                                        <?php echo $this->Html->link('<i class="fa fa-pencil fa-fw"></i>', ['action' => 'edit', $contract['id'], '?' => ['slip' => $s->getSalary()->format('d/m/Y')]], ['escape' => false, 'class' => 'btn btn-default', 'title' => 'Editar Boleto', 'data-toggle' => 'tooltip']) ?>
+                                                    <?php if (SlipsPolicy::isAuthorized('contractBills', $loggedUser, $s)) { ?>
+                                                        <?php echo $this->Html->link('<i class="fa fa-plus fa-fw"></i>', ['action' => 'contract_bills', $contract['id']], ['escape' => false, 'class' => 'btn btn-default', 'title' => 'Adicionar Valores', 'data-toggle' => 'tooltip']) ?>
                                                     <?php } ?>
 
                                                     <?php if (SlipsPolicy::isAuthorized('pay', $loggedUser, $s)) { ?>
-                                                        <?php echo $this->Html->link('<i class="fa fa-usd fa-fw"></i>', '', ['escape' => false, 'class' => 'btn btn-default', 'data-pay-slip' => $s->getSalary()->format('d/m/Y'), 'title' => 'Pagar Boleto', 'data-toggle' => 'tooltip']) ?>
+                                                        <a
+                                                                href=""
+                                                                class="btn btn-default slip-pay-button"
+                                                                data-slip='<?php echo $s->toJSON() ?>'
+                                                                title="Pagar Boleto"
+                                                                data-toggle="tooltip">
+                                                            <i class="fa fa-usd fa-fw"></i>
+                                                        </a>
                                                     <?php } ?>
 
                                                     <?php if (SlipsPolicy::isAuthorized('unPay', $loggedUser, $s)) { ?>
-                                                        <?php echo $this->Html->link(
-                                                            '<i class="fa fa-ban fa-fw"></i>',
-                                                            [
-                                                                'action' => 'unPaySlip',
-                                                                '?' => [
-                                                                    'contract' => $contract['id'],
-                                                                    'salary' => $s->getSalary()->format('Y-m-d'),
-                                                                ]
-                                                            ],
-                                                            [
-                                                                'escape' => false,
-                                                                'class' => 'btn btn-default',
-                                                                'confirm' => 'Tem certeza que deseja cancelar esse pagamento?',
-                                                                'title' => 'Cancelar Pagamento',
-                                                                'data-toggle' => 'tooltip'
-                                                            ]) ?>
+                                                        <a
+                                                                href=""
+                                                                class="btn btn-default slip-unpay-button"
+                                                                data-slip='<?php echo $s->toJSON() ?>'
+                                                                title="Desfazer Pagamento"
+                                                                data-toggle="tooltip">
+                                                            <i class="fa fa-ban fa-fw"></i>
+                                                        </a>
                                                     <?php } ?>
 
                                                     <?php if ($s->getStatus() <> Slip::PAID) { ?>
@@ -259,9 +259,8 @@ echo $this->Html->script('slips.min', ['block' => true]);
 
             <?php echo $this->Form->create(null, ['url' => ['action' => 'pay_slip']]) ?>
 
-            <?php echo $this->Form->control('pay_slip_salary_hidden', ['type' => 'hidden']) ?>
-            <?php echo $this->Form->control('pay_slip_contract_hidden', ['type' => 'hidden', 'value' => $contract['id']]) ?>
-            <?php echo $this->Form->control('pay_slip_selected_date', ['type' => 'hidden', 'value' => date('d/m/Y')]) ?>
+            <?php echo $this->Form->control('pay_slip_selected_date', ['type' => 'hidden', 'value' => date('Y-m-d')]) ?>
+            <?php echo $this->Form->control('pay_slip_hidden', ['type' => 'hidden']) ?>
 
             <div class="modal-body">
                 <h3>Boleto com vencimento em <span id="pay-slip-salary"></span></h3>
