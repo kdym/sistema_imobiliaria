@@ -5,7 +5,9 @@
  */
 
 use App\Model\Table\PropertiesCompositionsTable;
+use App\Policy\LocatorsAssociationsPolicy;
 
+echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js', ['block' => true]);
 echo $this->Html->script('properties.min', ['block' => true]);
 
 $editLink = ['action' => 'form', $property['id']];
@@ -191,6 +193,27 @@ $editLink = ['action' => 'form', $property['id']];
                         </div>
                     <?php } ?>
                 </div>
+            </div>
+        </div>
+
+        <div class="box masonry-sizer-50">
+            <div class="box-header with-border">
+                <h3 class="box-title">Locadores Associados</h3>
+
+                <?php if (LocatorsAssociationsPolicy::isAuthorized('form', $loggedUser)) { ?>
+                    <div class="box-tools pull-right">
+                        <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['controller' => 'locators_associations', 'action' => 'form', $property['id']], ['escape' => false]) ?>
+                    </div>
+                <?php } ?>
+            </div>
+
+            <div class="box-body">
+                <?php if (!empty($locatorsAssociationsDataset)) { ?>
+                    <canvas id="locators-associations-chart" class="graph-container"
+                            data-dataset='<?php echo json_encode($locatorsAssociationsDataset['dataset']) ?>'
+                            data-labels='<?php echo json_encode($locatorsAssociationsDataset['labels']) ?>'
+                            data-colors='<?php echo json_encode($locatorsAssociationsDataset['colors']) ?>'></canvas>
+                <?php } ?>
             </div>
         </div>
 

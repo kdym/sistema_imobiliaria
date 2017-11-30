@@ -14,6 +14,7 @@ use Cake\Event\Event;
  * @property \App\Model\Table\PropertiesCompositionsTable $PropertiesCompositions
  * @property \App\Model\Table\PropertiesFeesTable $PropertiesFees
  * @property \App\Model\Table\PropertiesPricesTable $PropertiesPrices
+ * @property \App\Model\Table\LocatorsAssociationsTable $LocatorsAssociations
  *
  * @method \App\Model\Entity\Property[] paginate($object = null, array $settings = [])
  */
@@ -34,10 +35,12 @@ class PropertiesController extends AppController
 
         $this->loadComponent('GoogleMaps');
         $this->loadComponent('Formatter');
+        $this->loadComponent('GraphUtil');
 
         $this->loadModel('PropertiesCompositions');
         $this->loadModel('PropertiesFees');
         $this->loadModel('PropertiesPrices');
+        $this->loadModel('LocatorsAssociations');
     }
 
     public function beforeRender(Event $event)
@@ -93,6 +96,20 @@ class PropertiesController extends AppController
                 'PropertiesPrices',
             ]
         ]);
+
+        $locatorsAssociationsDataset = [];
+
+        $associations = $this->LocatorsAssociations->find()
+            ->contain('Associateds.Users')
+            ->where(['property_id' => $id]);
+
+        foreach ($associations as $a) {
+            $locatorsAssociationsDataset['labels'][] = sprintf('%s - %s', $a['associated']['user']['formatted_username'], $a['associated']['user']['nome']);
+            $locatorsAssociationsDataset['dataset'][] = $a['porcentagem'];
+            $locatorsAssociationsDataset['colors'][] = $this->GraphUtil->getRandomColor();
+        }
+
+        $this->set(compact('locatorsAssociationsDataset'));
 
         $this->set('property', $property);
         $this->set('_serialize', ['property']);

@@ -14,7 +14,7 @@ echo $this->Html->script('locators-associations.min', ['block' => true]);
 
 <section class="content-header">
     <h1>Locadores Associados
-        <small><?php echo $locator['nome'] ?></small>
+        <small><?php echo $property['full_address'] ?></small>
     </h1>
 </section>
 
@@ -25,7 +25,7 @@ echo $this->Html->script('locators-associations.min', ['block' => true]);
                 <div class="box-body">
                     <div class="percentage-sliders">
                         <div class="row vertical-center-row" id="main-locator"
-                             data-locator-id="<?php echo $locator['locator']['id'] ?>">
+                             data-locator-id="<?php echo $property['locator']['id'] ?>">
                             <div class="col-md-2 col-sm-12">
                                 <div class="icon">
                                     <i class="fa fa-user"></i>
@@ -34,22 +34,22 @@ echo $this->Html->script('locators-associations.min', ['block' => true]);
 
                             <div class="col-md-10 col-sm-12">
                                 <h1>
-                                    <?php echo $locator['nome'] ?>
+                                    <?php echo $property['locator']['user']['nome'] ?>
 
-                                    <small><?php echo $locator['formatted_username'] ?></small>
+                                    <small><?php echo $property['locator']['user']['formatted_username'] ?></small>
                                 </h1>
 
                                 <div class="row vertical-center-row">
                                     <div class="col-md-10 col-sm-10 col-xs-10">
                                         <input type="text" value="" id="main-slider" class="form-control"
-                                               data-slider-enabled="<?php echo !empty($locator['locator']['locators_associations']) ?>"
-                                               data-slider-value="<?php echo $locator['owner_percentage'] ?>">
+                                               data-slider-enabled="<?php echo !$associations->isEmpty() ?>"
+                                               data-slider-value="<?php echo $ownerPercentage ?>">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <?php foreach ($locator['locator']['locators_associations'] as $a) { ?>
+                        <?php foreach ($associations as $a) { ?>
                             <div class="row vertical-center-row associated-locator-row"
                                  data-locator-id="<?php echo $a['locator_2'] ?>">
                                 <div class="col-md-2 col-sm-12">
