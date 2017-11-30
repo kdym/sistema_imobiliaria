@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Model\Table\PropertiesCompositionsTable;
+use App\Model\Table\UsersTable;
 use App\Policy\PropertiesPolicy;
 use Cake\Event\Event;
 
@@ -15,6 +16,7 @@ use Cake\Event\Event;
  * @property \App\Model\Table\PropertiesFeesTable $PropertiesFees
  * @property \App\Model\Table\PropertiesPricesTable $PropertiesPrices
  * @property \App\Model\Table\LocatorsAssociationsTable $LocatorsAssociations
+ * @property \App\Model\Table\UsersTable $Users
  *
  * @method \App\Model\Entity\Property[] paginate($object = null, array $settings = [])
  */
@@ -41,6 +43,7 @@ class PropertiesController extends AppController
         $this->loadModel('PropertiesFees');
         $this->loadModel('PropertiesPrices');
         $this->loadModel('LocatorsAssociations');
+        $this->loadModel('Users');
     }
 
     public function beforeRender(Event $event)
@@ -90,6 +93,7 @@ class PropertiesController extends AppController
     {
         $property = $this->Properties->get($id, [
             'contain' => [
+                'Users',
                 'Locators.Users',
                 'PropertiesCompositions',
                 'PropertiesFees',
@@ -191,6 +195,7 @@ class PropertiesController extends AppController
         } else {
             $property = $this->Properties->get($id, [
                 'contain' => [
+                    'Users',
                     'Locators.Users',
                     'PropertiesCompositions',
                     'PropertiesFees',
@@ -223,6 +228,10 @@ class PropertiesController extends AppController
 
             if (!empty($property['locator'])) {
                 $property['locator_search'] = sprintf('%s - %s', $property['locator']['user']['nome'], $property['locator']['user']['formatted_username']);
+            }
+
+            if (!empty($property['user'])) {
+                $property['broker_search'] = sprintf('%s - %s', $property['user']['nome'], $property['user']['formatted_username']);
             }
         }
 
@@ -309,6 +318,32 @@ class PropertiesController extends AppController
             ->limit(10);
 
         $this->response->body(json_encode($properties));
+    }
+
+    public function fetchBroker()
+    {
+        $this->autoRender = false;
+        $this->response->type('json');
+
+        $search = $this->Users->parseSearch($this->Users->parseUsername($this->request->getQuery('name')));
+
+        $brokers = $this->Users->find()
+            ->where(['or' => [
+                ['role' => UsersTable::ROLE_BROKER],
+                ['role' => UsersTable::ROLE_ADMIN],
+            ]])
+            ->where([
+                "OR" => [
+                    "Users.nome LIKE" => $search,
+                    "Users.username LIKE" => $search,
+                ],
+            ])
+            ->limit(10);
+
+//        $this->set(compact("locators"));
+//        $this->set('_serialize', ['locators']);
+
+        $this->response->body(json_encode($brokers));
     }
 
     public function updateLatitudeLongitude()

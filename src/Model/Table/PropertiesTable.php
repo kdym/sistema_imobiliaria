@@ -80,6 +80,9 @@ class PropertiesTable extends Table
         $this->belongsTo('Locators', [
             'foreignKey' => 'locator_id'
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'broker'
+        ]);
         $this->hasMany('PropertiesCompositions', [
             'foreignKey' => 'property_id',
             'sort' => ['id' => 'desc']
@@ -135,6 +138,8 @@ class PropertiesTable extends Table
         $validator->notEmpty('taxa_administrativa');
 
         $validator->notEmpty('locator_id');
+
+        $validator->notEmpty('broker');
 
         return $validator;
     }

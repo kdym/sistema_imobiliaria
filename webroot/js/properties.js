@@ -37,6 +37,36 @@ $('#locator-search').autocomplete({
         .appendTo(ul);
 };
 
+$('#broker-search').autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            url: "/properties/fetch-broker.json",
+            data: {
+                name: request.term
+            },
+            dataType: 'json',
+            success: function (data) {
+                response(data);
+            }
+        });
+    },
+    select: function (event, ui) {
+        $('#broker-search').val(ui.item.nome + ' - ' + ui.item.formatted_username);
+        $('#broker').val(ui.item.id);
+
+        return false;
+    }
+}).autocomplete("instance")._renderItem = function (ul, item) {
+    var data = {
+        name: item.nome,
+        username: item.formatted_username,
+    };
+
+    return $('<li>')
+        .append($('#brokers-search-template').tmpl(data))
+        .appendTo(ul);
+};
+
 if ($('#locators-associations-chart').length) {
     new Chart($('#locators-associations-chart')[0].getContext('2d'), {
         type: 'doughnut',

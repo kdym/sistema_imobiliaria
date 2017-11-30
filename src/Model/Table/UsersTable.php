@@ -70,6 +70,9 @@ class UsersTable extends Table
         $this->hasOne('Locators');
         $this->hasOne('Tenants');
         $this->hasMany('Prosecutors');
+        $this->hasMany('Properties', [
+            'foreignKey' => 'broker',
+        ]);
     }
 
     /**

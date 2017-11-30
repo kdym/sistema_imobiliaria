@@ -459,7 +459,7 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
             </div>
 
             <div class="box masonry-sizer-50">
-                <div class="box-header with-border">
+                <div class="box-header">
                     <h3 class="box-title">Procuradores</h3>
 
                     <?php if (ProsecutorsPolicy::isAuthorized('form', $loggedUser)) { ?>
@@ -526,7 +526,7 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
             </div>
         <?php } ?>
 
-        <?php if (!empty($user['locator']['properties'])) { ?>
+        <?php if (!empty($properties)) { ?>
             <div class="box masonry-sizer-100">
                 <div class="box-header">
                     <h3 class="box-title">Imóveis</h3>
@@ -535,12 +535,12 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                 <div class="box-body">
                     <div class="thumbs-list">
                         <div class="row">
-                            <?php foreach ($user['locator']['properties'] as $p) { ?>
+                            <?php foreach ($properties as $p) { ?>
                                 <div class="col-md-3 col-sm-6">
                                     <div class="item">
                                         <div class="item-wrapper">
                                             <figure>
-                                                <a href="<?php echo $this->Url->build(['controller' => 'properties', 'action' => 'view', $p['id']]) ?>">
+                                                <a href="<?php echo $this->Url->build(['action' => 'view', $p['id']]) ?>">
                                                     <?php echo $this->Html->image($this->Properties->getMainPhoto($p)) ?>
                                                 </a>
                                             </figure>
@@ -550,23 +550,21 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                                                 <small><?php echo $p['formatted_code'] ?></small>
                                             </h1>
 
+                                            <?php if ($user['role'] != UsersTable::ROLE_LOCATOR) { ?>
+                                                <h2><?php echo $p['locator']['user']['nome'] ?>
+                                                    <small><?php echo $p['locator']['user']['formatted_username'] ?></small>
+                                                </h2>
+                                            <?php } ?>
+
                                             <h3><?php echo $this->Properties->getStatus($p) ?></h3>
                                         </div>
-
-                                        <nav class="actions">
-                                            <?php if (PropertiesPolicy::isAuthorized('form', $loggedUser, $p)) { ?>
-                                                <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['controller' => 'properties', 'action' => 'form', $p['id']], ['escape' => false, 'class' => 'btn btn-primary']) ?>
-                                            <?php } ?>
-
-                                            <?php if (PropertiesPolicy::isAuthorized('delete', $loggedUser, $p)) { ?>
-                                                <?php echo $this->Form->postLink('<i class="fa fa-trash"></i>', ['controller' => 'properties', 'action' => 'delete', $p['id']], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => 'Tem certeza que deseja excluir?', 'method' => 'delete']) ?>
-                                            <?php } ?>
-                                        </nav>
                                     </div>
                                 </div>
                             <?php } ?>
                         </div>
                     </div>
+
+                    <?php echo $this->Pagination->buildPagination($this->Paginator) ?>
                 </div>
             </div>
         <?php } ?>

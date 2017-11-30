@@ -19,6 +19,7 @@ class PropertiesPolicy
             case 'form':
             case 'view':
             case 'fetch':
+            case 'fetchBroker':
             case 'updateLatitudeLongitude':
                 return $user['role'] == UsersTable::ROLE_ADMIN || $user['role'] == UsersTable::ROLE_BROKER;
             case 'delete':

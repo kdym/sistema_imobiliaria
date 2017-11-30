@@ -38,6 +38,7 @@ class LocatorsAssociationsTable extends Table
         $this->belongsTo('Locators', [
             'foreignKey' => 'locator_1',
         ]);
+        $this->belongsTo('Properties');
 
         $this->belongsTo('Associateds', [
             'className' => 'Locators',

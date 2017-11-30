@@ -100,6 +100,20 @@ $editLink = ['action' => 'form', $property['id']];
                             <h3><?php echo $property['locator']['user']['formatted_username'] ?></h3>
                         </div>
                     </div>
+
+                    <div class="item">
+                        <div class="icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+
+                        <div class="value">
+                            <h1>Corretor</h1>
+
+                            <h2><?php echo $property['user']['nome'] ?></h2>
+
+                            <h3><?php echo $property['user']['formatted_username'] ?></h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -123,9 +123,19 @@ echo $this->Html->script('properties.min', ['block' => true]);
 
     <div class="box">
         <div class="box-body">
-            <?php echo $this->Form->control('locator_search', ['label' => 'Locador', 'placeholder' => 'Buscar...']) ?>
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('locator_search', ['label' => 'Locador', 'placeholder' => 'Buscar...']) ?>
 
-            <?php echo $this->Form->control('locator_id', ['type' => 'hidden']) ?>
+                    <?php echo $this->Form->control('locator_id', ['type' => 'hidden']) ?>
+                </div>
+
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('broker_search', ['label' => 'Corretor', 'placeholder' => 'Buscar...']) ?>
+
+                    <?php echo $this->Form->control('broker', ['type' => 'hidden']) ?>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -141,6 +151,13 @@ echo $this->Html->script('properties.min', ['block' => true]);
 </section>
 
 <script type="text/html" id="locators-search-template">
+    <p>
+        ${name}
+        <small>${username}</small>
+    </p>
+</script>
+
+<script type="text/html" id="brokers-search-template">
     <p>
         ${name}
         <small>${username}</small>
