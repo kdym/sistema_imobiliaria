@@ -6,11 +6,11 @@ $('#tenants-list').DataTable({
     responsive: true
 });
 
-$('#cep').blur(function () {
+$('#tenant-cep').blur(function () {
     getCep($(this), function (data) {
-        $('#endereco').val(data.logradouro);
-        $('#bairro').val(data.bairro);
-        $('#cidade').val(data.localidade);
-        $('#uf').val(data.uf);
+        $('#tenant-endereco').val(data.logradouro);
+        $('#tenant-bairro').val(data.bairro);
+        $('#tenant-cidade').val(data.localidade);
+        $('#tenant-uf').val(data.uf);
     });
 });
