@@ -540,7 +540,7 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                                     <div class="item">
                                         <div class="item-wrapper">
                                             <figure>
-                                                <a href="<?php echo $this->Url->build(['action' => 'view', $p['id']]) ?>">
+                                                <a href="<?php echo $this->Url->build(['controller' => 'properties', 'action' => 'view', $p['id']]) ?>">
                                                     <?php echo $this->Html->image($this->Properties->getMainPhoto($p)) ?>
                                                 </a>
                                             </figure>
@@ -550,7 +550,7 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                                                 <small><?php echo $p['formatted_code'] ?></small>
                                             </h1>
 
-                                            <?php if ($user['role'] != UsersTable::ROLE_LOCATOR) { ?>
+                                            <?php if ($user['locator']['id'] != $p['locator_id']) { ?>
                                                 <h2><?php echo $p['locator']['user']['nome'] ?>
                                                     <small><?php echo $p['locator']['user']['formatted_username'] ?></small>
                                                 </h2>

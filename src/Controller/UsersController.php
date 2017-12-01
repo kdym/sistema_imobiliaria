@@ -97,11 +97,17 @@ class UsersController extends AppController
 
         if ($user['role'] == UsersTable::ROLE_LOCATOR) {
             $queryProperties = $this->Properties->find()
+                ->select(TableRegistry::get('Properties'))
+                ->select(TableRegistry::get('Locators'))
+                ->select(TableRegistry::get('Users'))
+                ->contain('Locators.Users')
                 ->where(['locator_id' => $user['locator']['id']]);
 
             $queryAssociateds = $this->LocatorsAssociations->find()
                 ->select(TableRegistry::get('Properties'))
-                ->innerJoinWith('Properties')
+                ->select(TableRegistry::get('Locators'))
+                ->select(TableRegistry::get('Users'))
+                ->contain('Properties.Locators.Users')
                 ->where(['locator_1' => $user['locator']['id']]);
 
             $query = $queryProperties->union($queryAssociateds)->limit(8);

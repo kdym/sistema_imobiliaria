@@ -4,7 +4,9 @@ namespace App\View\Helper;
 
 use App\Model\Table\PropertiesFeesTable;
 use App\Model\Table\PropertiesTable;
+use Cake\ORM\TableRegistry;
 use Cake\View\Helper;
+use Cake\View\Helper\UrlHelper;
 use Cake\View\View;
 
 /**
@@ -39,7 +41,25 @@ class PropertiesHelper extends Helper
 
     public function getStatus($property)
     {
-        return '<span class="text-success">Disponível</span>';
+        $contractsTable = TableRegistry::get('Contracts');
+
+        $urlHelper = new UrlHelper(new View());
+
+        $contract = $contractsTable->find()
+            ->contain('Tenants.Users')
+            ->where(['property_id' => $property['id']])
+            ->where(['finalizado is null'])
+            ->last();
+
+        if ($contract) {
+            return sprintf('<a href="%s"><span class="text-danger">Alugado por %s - %s</span></a>',
+                $urlHelper->build(['controller' => 'contracts', 'action' => 'view', $contract['id']]),
+                $contract['tenant']['user']['formatted_username'],
+                $contract['tenant']['user']['nome']
+            );
+        } else {
+            return '<span class="text-success">Disponível</span>';
+        }
     }
 
     public function getType($property)
