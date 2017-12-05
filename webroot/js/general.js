@@ -14,3 +14,10 @@ $('[readonly="readonly"]').click(function () {
 
 $.fn.bstooltip = $.fn.tooltip.noConflict();
 $("body").bstooltip({selector: '[data-toggle=tooltip]'});
+
+$('form').submit(function () {
+    var submitButton = $(this).find('button[type="submit"]');
+
+    submitButton.html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+    submitButton.attr('disabled', true);
+});
