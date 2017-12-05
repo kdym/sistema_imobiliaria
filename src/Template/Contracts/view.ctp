@@ -20,9 +20,12 @@ $editLink = ['action' => 'form', $contract['id']];
 
 <section class="content">
     <nav class="actions-bar">
-        <?php echo $this->Html->link('<i class="fa fa-barcode"></i> Boletos', ['controller' => 'slips', 'action' => 'index', $contract['id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
-        <?php echo $this->Html->link('<i class="fa fa-usd"></i> Contas', ['controller' => 'slips', 'action' => 'contract_bills', $contract['id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
-        <!--        --><?php //echo $this->Html->link('<i class="fa fa-usd"></i> Extrato', ['controller' => 'extract', 'action' => 'index', $contract['property']['locator_id']], ['escape' => false, 'class' => 'btn btn-app']) ?>
+        <a href="<?php echo $this->Url->build(['controller' => 'slips', 'action' => 'index', $contract['id']]) ?>"
+           class="btn btn-app"><i class="fa fa-barcode"></i> Boletos</a>
+        <a href="<?php echo $this->Url->build(['controller' => 'slips', 'action' => 'contract_bills', $contract['id']]) ?>"
+           class="btn btn-app"><i class="fa fa-usd"></i> Contas</a>
+        <a href="<?php echo $this->Url->build(['controller' => 'contracts', 'action' => 'report', $contract['id']]) ?>"
+           class="btn btn-app" target="_blank"><i class="fa fa-file-text"></i> Contrato</a>
     </nav>
 
     <div class="masonry-list-50">

@@ -44,6 +44,17 @@ class CompanyDataHelper extends Helper
         }
     }
 
+    public function getAppAbsoluteLogo()
+    {
+        $fileName = sprintf('%s/file/logo.png', WWW_ROOT);
+
+        if (file_exists($fileName)) {
+            return WWW_ROOT . '/file/logo.png';
+        } else {
+            return WWW_ROOT . '/img/new_logo_kdym.png';
+        }
+    }
+
     public function getAppSmallLogo()
     {
         $fileName = sprintf('%s/file/logo_small.png', WWW_ROOT);

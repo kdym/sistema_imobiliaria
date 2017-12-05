@@ -16,6 +16,8 @@ use Cake\Event\Event;
  * @property \App\Model\Table\TenantsTable $Tenants
  * @property \App\Model\Table\UsersTable $Users
  * @property \App\Model\Table\PropertiesTable $Properties
+ * @property \App\Model\Table\CompanyDataTable $CompanyData
+ * @property \App\Model\Table\PropertiesPricesTable $PropertiesPrices
  * @property \App\Controller\Component\FormatterComponent $Formatter
  *
  * @method \App\Model\Entity\Contract[] paginate($object = null, array $settings = [])
@@ -39,9 +41,11 @@ class ContractsController extends AppController
         $this->loadComponent('Formatter');
 
         $this->loadModel('ContractsValues');
+        $this->loadModel('CompanyData');
         $this->loadModel('Tenants');
         $this->loadModel('Users');
         $this->loadModel('Properties');
+        $this->loadModel('PropertiesPrices');
     }
 
     public function beforeRender(Event $event)
@@ -235,5 +239,38 @@ class ContractsController extends AppController
         }
 
         $this->set(compact('contract'));
+    }
+
+    public function report($id)
+    {
+        $this->viewBuilder()->setLayout('contract');
+        $this->response->type('pdf');
+
+        $companyData = $this->CompanyData->find()->first();
+
+        $this->set(compact('companyData'));
+
+        $contract = $this->Contracts->get($id, [
+            'contain' => [
+                'Tenants.Users',
+                'Properties' => [
+                    'Locators.Users'
+                ],
+            ]
+        ]);
+
+        $propertyPrice = $this->PropertiesPrices->find()
+            ->where(['property_id' => $contract['property_id']])
+            ->where(['start_date <= :date'])
+            ->bind(':date', $contract['created']->format('Y-m-d'))
+            ->last();
+
+        $contractValues = $this->ContractsValues->find()
+            ->where(['contract_id' => $id])
+            ->where(['start_date <= :date'])
+            ->bind(':date', $contract['created']->format('Y-m-d'))
+            ->last();
+
+        $this->set(compact('contract', 'propertyPrice', 'contractValues'));
     }
 }

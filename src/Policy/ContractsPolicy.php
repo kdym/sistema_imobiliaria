@@ -18,6 +18,7 @@ class ContractsPolicy
             case 'index':
             case 'form':
             case 'view':
+            case 'report':
                 return $user['role'] == UsersTable::ROLE_ADMIN || $user['role'] == UsersTable::ROLE_BROKER;
         }
     }

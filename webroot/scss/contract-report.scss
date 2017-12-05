@@ -1,0 +1,94 @@
+$primaryColor: #bdbdbd;
+$lightColor: #efefef;
+$darkColor: #8d8d8d;
+
+@page {
+  margin: 4cm 1.5cm 2cm 1.5cm;
+}
+
+#header {
+  position: fixed;
+  top: -2.5cm;
+
+  table {
+    width: 100%;
+
+    td {
+      font-size: 12px;
+      padding: 2px 5px;
+      //color: #fff;
+
+      &#logo {
+        background: $primaryColor;
+        padding: 5px;
+        width: 140px;
+        border-radius: 2px;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+
+#main {
+  h1 {
+    text-align: center;
+    font-size: medium;
+  }
+
+  p {
+    text-align: justify;
+  }
+
+  .page-break {
+    page-break-after: always;
+  }
+
+  .signatures {
+    width: 100%;
+
+    td {
+      padding-top: 2cm;
+
+      .signature {
+        border-top: solid 1px #000;
+        margin-right: 100px;
+        margin-left: 0;
+
+        p {
+          margin: 0;
+        }
+      }
+
+      &:nth-child(even) {
+        .signature {
+          margin-right: 0;
+          margin-left: 100px;
+          text-align: right !important;
+        }
+      }
+    }
+  }
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  text-align: right;
+
+  .page-number {
+    &:after {
+      content: counter(page);
+    }
+  }
+}
+
+.to-right {
+  text-align: right !important;
+}
