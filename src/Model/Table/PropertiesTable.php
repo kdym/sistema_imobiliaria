@@ -95,6 +95,10 @@ class PropertiesTable extends Table
             'foreignKey' => 'property_id',
             'sort' => ['id' => 'desc']
         ]);
+        $this->hasMany('PropertiesPhotos', [
+            'foreignKey' => 'property_id',
+            'sort' => ['ordem' => 'asc']
+        ]);
         $this->hasMany('Contracts');
         $this->hasOne('ActiveContract', [
             'className' => 'Contracts',

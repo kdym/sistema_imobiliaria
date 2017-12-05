@@ -4,6 +4,7 @@ namespace App\Model\Entity;
 
 use App\Model\Table\PropertiesTable;
 use Cake\ORM\Entity;
+use Cake\ORM\TableRegistry;
 
 /**
  * Property Entity
@@ -67,7 +68,18 @@ class Property extends Entity
 
     protected function _getMainPhoto()
     {
-        return '/img/no_photo.png';
+        $propertiesPhotosTable = TableRegistry::get('PropertiesPhotos');
+
+        $photo = $propertiesPhotosTable->find()
+            ->where(['property_id' => $this['id']])
+            ->order('ordem')
+            ->first();
+
+        if ($photo) {
+            return sprintf('/file/properties/%s/%s', $this['id'], $photo['url']);
+        } else {
+            return '/img/no_photo.png';
+        }
     }
 
     protected function _getFormattedCode()

@@ -62,7 +62,7 @@ class PropertiesController extends AppController
     {
         $this->paginate = [
             'order' => ['id' => 'desc'],
-            'contain' => ['Locators.Users'],
+            'contain' => ['Locators.Users', 'PropertiesPhotos'],
             'limit' => 8,
         ];
         $properties = $this->paginate($this->Properties);

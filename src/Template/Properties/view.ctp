@@ -8,7 +8,12 @@ use App\Model\Table\PropertiesCompositionsTable;
 use App\Policy\LocatorsAssociationsPolicy;
 
 echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js', ['block' => true]);
+
+echo $this->Html->script("https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js", ['block' => true]);
+echo $this->Html->css("https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.css", ['block' => true]);
+
 echo $this->Html->script('properties.min', ['block' => true]);
+echo $this->Html->css('properties.min', ['block' => true]);
 
 $editLink = ['action' => 'form', $property['id']];
 
@@ -246,5 +251,69 @@ $editLink = ['action' => 'form', $property['id']];
                 </div>
             </div>
         </div>
+
+        <div class="box masonry-sizer-100" id="photo-gallery-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Fotos</h3>
+            </div>
+
+            <div class="box-body">
+                <div id="photo-gallery-view"></div>
+
+                <div class="actions-bar">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <i class="fa fa-lightbulb-o"></i> Arraste as fotos para alterar a ordem de exibição das
+                            imagens
+                        </div>
+
+                        <div class="col-md-6 to-right">
+                            <button class="btn btn-danger" disabled="disabled" id="delete-photos"><i
+                                        class="fa fa-trash"></i> Excluir
+                                selecionados
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box masonry-sizer-100">
+            <div class="box-header with-border">
+                <h3 class="box-title">Enviar Fotos</h3>
+            </div>
+
+            <div class="box-body">
+                <div class="image-gallery" data-property="<?php echo $property['id'] ?>">
+                    <div class='upload-form'>
+                        <button id="gallery-add-button" class='btn btn-primary add-photos-buttton'><i
+                                    class="glyphicon glyphicon-plus"></i> Adicionar fotos...
+                        </button>
+                        <button id="gallery-upload-button" disabled="disabled"
+                                class='btn btn-success upload-photos-button'><i
+                                    class="glyphicon glyphicon-upload"></i> Iniciar Upload
+                        </button>
+                        <button id="gallery-cancel-button" disabled="disabled"
+                                class='btn btn-danger cancel-upload-button'><i
+                                    class="glyphicon glyphicon-remove"></i> Cancelar
+                        </button>
+                    </div>
+
+                    <div class='dropzone image-previews' id="images-preview">
+                        <div class="images-preview-instructions">
+                            <i class="fa fa-files-o"></i> Arraste os arquivos aqui para iniciar o upload
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+<script type="text/html" id="photo-gallery-template">
+    <div class="photo-container" id="image_${id}">
+        <input type="checkbox" class="gallery-checkbox" value="${id}"/>
+
+        <img src="${photo}"/>
+    </div>
+</script>

@@ -108,6 +108,151 @@ if ($('#property-map').length) {
     loadPropertyMap();
 }
 
+if ($('.upload-form').length) {
+    Dropzone.autoDiscover = false;
+
+    var propertiesUploader = new Dropzone(document.body, {
+        url: '/properties-photos/add',
+        maxFilesize: 2,
+        dictFileTooBig: 'Tamanho máximo 2MB',
+        acceptedFiles: 'image/jpeg,image/png',
+        dictInvalidFileType: 'Somente arquivos de imagem (JPG ou PNG)',
+        autoQueue: false,
+        addRemoveLinks: true,
+        dictRemoveFile: "Remover",
+        previewsContainer: "#images-preview",
+        clickable: ".add-photos-buttton"
+    });
+
+    propertiesUploader.on('addedfile', function (file) {
+        $('.images-preview-instructions').hide();
+
+        $('.cancel-upload-button, .upload-photos-button').attr('disabled', false);
+
+        $('.masonry-list-50').masonry();
+    });
+
+    propertiesUploader.on('removedfile', function (file) {
+        if (this.files.length == 0) {
+            $('.images-preview-instructions').show();
+
+            $('.cancel-upload-button, .upload-photos-button').attr('disabled', true);
+            $('.add-photos-buttton').attr('disabled', false);
+        }
+
+        $('.masonry-list-50').masonry();
+    });
+
+    $('.cancel-upload-button').click(function () {
+        // $('.images-preview-instructions').show();
+
+        propertiesUploader.removeAllFiles(true);
+
+        // $('.cancel-upload-button, .upload-photos-button').attr('disabled', true);
+    });
+
+    $('.upload-photos-button').click(function () {
+        propertiesUploader.enqueueFiles(propertiesUploader.getFilesWithStatus(Dropzone.ADDED));
+
+        $('.add-photos-buttton, .cancel-upload-button, .upload-photos-button').attr('disabled', true);
+    });
+
+    propertiesUploader.on("sending", function (file, xhr, formData) {
+        formData.append("property_id", $('.image-gallery').data('property'));
+    });
+
+    propertiesUploader.on("queuecomplete", function (file) {
+        // $('#properties-uploader .dz-message').fadeIn();
+        //
+        // propertiesUploader.removeAllFiles(true);
+        //
+        // $('#properties-add-photos, #properties-cancel-upload, #properties-upload').attr('disabled', false);
+
+        propertiesUploader.removeAllFiles(true);
+
+        loadPhotos();
+    });
+
+    loadPhotos();
+}
+
+$('#delete-photos').click(function () {
+    if (confirm('Tem certeza que deseja excluir estas fotos?')) {
+        var selected = [];
+        $('.gallery-checkbox').each(function () {
+            if ($(this).prop('checked') == true) {
+                selected.push($(this).val());
+            }
+        });
+
+        if (selected.length != 0) {
+            startLoading($('#photo-gallery-box'));
+            $('#delete-photos').prop('disabled', true);
+
+            $.ajax({
+                url: '/properties-photos/delete',
+                type: 'delete',
+                data: {
+                    ids: selected.toString()
+                },
+                success: function () {
+                    loadPhotos();
+                }
+            });
+        }
+    }
+});
+
+function loadPhotos() {
+    startLoading($('#photo-gallery-box'));
+
+    $('#photo-gallery-view').html('');
+
+    $.ajax({
+        url: '/properties-photos/fetch/' + $('.image-gallery').data('property'),
+        dataType: 'json',
+        success: function (data) {
+            var count = 0;
+            $.each(data, function () {
+                var photoPath = '/file/properties/' + $('.image-gallery').data('property') + '/' + this.url;
+
+                var jsonData = {
+                    id: this.id,
+                    photo: photoPath
+                };
+
+                $('#photo-gallery-template').tmpl(jsonData).appendTo('#photo-gallery-view');
+
+                count++;
+            });
+
+            $('#photo-gallery-view').sortable({
+                placeholder: "photo-gallery-state-highlight",
+                revert: true,
+                update: sortPhotos
+            });
+
+            $('.masonry-list-50').masonry();
+
+            if (count != 0) {
+                $('#delete-photos').prop('disabled', false);
+            }
+
+            stopLoading($('#photo-gallery-box'));
+        }
+    });
+}
+
+function sortPhotos() {
+    $.ajax({
+        url: '/properties-photos/update-order',
+        type: 'post',
+        data: {
+            images: $(this).sortable("serialize")
+        }
+    });
+}
+
 function loadListMap() {
     var markers = $('#list-properties-map').data('properties');
 

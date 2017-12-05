@@ -24,7 +24,18 @@ class PropertiesHelper extends Helper
 
     public function getMainPhoto($property)
     {
-        return 'no_photo.png';
+        $propertiesPhotosTable = TableRegistry::get('PropertiesPhotos');
+
+        $photo = $propertiesPhotosTable->find()
+            ->where(['property_id' => $property['id']])
+            ->order('ordem')
+            ->first();
+
+        if ($photo) {
+            return sprintf('/file/properties/%s/%s', $property['id'], $photo['url']);
+        } else {
+            return '/img/no_photo.png';
+        }
     }
 
     public function getMainAddress($property)
