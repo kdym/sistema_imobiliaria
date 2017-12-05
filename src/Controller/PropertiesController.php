@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Model\Table\PropertiesCompositionsTable;
+use App\Model\Table\PropertiesTable;
 use App\Model\Table\UsersTable;
 use App\Policy\PropertiesPolicy;
+use App\View\Helper\GlobalCombosHelper;
 use Cake\Event\Event;
 
 /**
@@ -269,7 +271,7 @@ class PropertiesController extends AppController
                     $propertyFees = $this->PropertiesFees->newEntity();
 
                     $propertyFees['taxa_administrativa'] = $this->Properties->parseDecimal($property['taxa_administrativa']);
-                    $propertyFees['taxa_administrativa_tipo'] = $property['taxa_administrativa_tipo'];
+                    $propertyFees['taxa_administrativa_tipo'] = GlobalCombosHelper::COMISSION_TYPE_PERCENTAGE;
                     $propertyFees['taxa_administrativa_incidencia'] = $property['taxa_administrativa_incidencia'];
                     $propertyFees['parcelas_13_taxa_administrativa'] = $property['parcelas_13_taxa_administrativa'];
                     $propertyFees['start_date'] = date('Y-m-d');

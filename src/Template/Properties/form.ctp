@@ -96,15 +96,11 @@ echo $this->Html->script('properties.min', ['block' => true]);
                     <label>Taxa Administrativa</label>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <?php echo $this->Form->control('taxa_administrativa_incidencia', ['label' => false, 'options' => PropertiesFeesTable::$incidences, 'empty' => true]) ?>
                         </div>
 
-                        <div class="col-md-4">
-                            <?php echo $this->Form->control('taxa_administrativa_tipo', ['label' => false, 'options' => GlobalCombosHelper::$comissionTypes, 'empty' => true]) ?>
-                        </div>
-
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <?php echo $this->Form->control('taxa_administrativa', ['label' => false, 'class' => 'mask-number']) ?>
                         </div>
                     </div>
