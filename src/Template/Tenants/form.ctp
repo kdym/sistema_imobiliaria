@@ -46,35 +46,38 @@ echo $this->Html->script('tenants.min', ['block' => true]);
                 </div>
             </div>
 
-            <!--div class="row">
+            <?php echo $this->Form->control('profissao', ['label' => 'Profissão']) ?>
+            <?php echo $this->Form->control('nacionalidade') ?>
+
+            <div class="row">
                 <div class="col-md-6">
                     <?php echo $this->Form->control('estado_civil', ['options' => GlobalCombosHelper::$civilStates, 'empty' => true]) ?>
                 </div>
-            </div-->
+            </div>
         </div>
     </div>
 
-    <!--div class="box" id="married-box" data-accepted-choice="<?php echo GlobalCombosHelper::CIVIL_STATE_MARRIED ?>">
+    <div class="box" id="married-box" data-accepted-choice="<?php echo GlobalCombosHelper::CIVIL_STATE_MARRIED ?>">
         <div class="box-header">
             <h3 class="box-title">Dados do Cônjuge</h3>
         </div>
 
         <div class="box-body">
-            <?php echo $this->Form->control('locator.nome_conjuge', ['label' => 'Nome']) ?>
+            <?php echo $this->Form->control('spouse.nome', ['label' => 'Nome']) ?>
 
             <div class="row">
                 <div class="col-md-6">
-                    <?php echo $this->Form->control('locator.cpf_conjuge', ['label' => 'CPF', 'class' => 'cpf-mask']) ?>
+                    <?php echo $this->Form->control('spouse.cpf', ['label' => 'CPF', 'class' => 'cpf-mask']) ?>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6">
-                    <?php echo $this->Form->control('locator.data_nascimento_conjuge', ['label' => 'Data de Nascimento', 'class' => 'date-mask', 'type' => 'text']) ?>
+                    <?php echo $this->Form->control('spouse.data_nascimento', ['label' => 'Data de Nascimento', 'class' => 'date-mask', 'type' => 'text']) ?>
                 </div>
             </div>
         </div>
-    </div-->
+    </div>
 
     <div class="box">
         <div class="box-header">

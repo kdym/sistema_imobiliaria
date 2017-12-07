@@ -156,25 +156,26 @@ class TenantsController extends AppController
 
                 $user['username'] = $this->Users->getLastUsername() + 1;
                 $user['password'] = $password;
+                $user['tenant']['password'] = $password;
             } else {
                 $user['password'] = (new DefaultPasswordHasher)->hash($user['tenant']['password']);
             }
 
             if ($this->Users->save($user)) {
-                if (!$id) {
-                    $tenant = $this->Tenants->newEntity();
-
-                    $tenant['password'] = $password;
-                    $tenant['user_id'] = $user['id'];
-
-                    $this->Tenants->save($tenant);
-                }
+//                if (!$id) {
+//                    $tenant = $this->Tenants->newEntity();
+//
+//                    $tenant['password'] = $password;
+//                    $tenant['user_id'] = $user['id'];
+//
+//                    $this->Tenants->save($tenant);
+//                }
 
                 $this->Flash->success('Salvo com sucesso');
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error('Existem erros no formulário, favor verificar');
+                debug($user);
             }
         }
 

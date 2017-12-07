@@ -90,6 +90,18 @@ echo $this->Html->css(WWW_ROOT . '/css/contract-report.min.css');
             $contract['property']['uf'],
             $contract['property']['cep'],
         ]));
+
+        $spouse = '';
+
+        if ($contract['tenant']['user']['estado_civil'] == GlobalCombosHelper::CIVIL_STATE_MARRIED) {
+            if (!empty($contract['tenant']['user']['spouse']['nome'])) {
+                $spouse = ' com <b>' . $contract['tenant']['user']['spouse']['nome'] . '</b>';
+
+                if (!empty($contract['tenant']['user']['spouse']['cpf'])) {
+                    $spouse .= ', CPF <b>' . $contract['tenant']['user']['spouse']['cpf'] . '</b>';
+                }
+            }
+        }
         ?>
 
         Por este instrumento particular e na melhor forma de direito,
@@ -97,7 +109,8 @@ echo $this->Html->css(WWW_ROOT . '/css/contract-report.min.css');
         localizado em <b><?php echo $locatorAddress ?></b>, adiante designado abreviadamente <b>LOCADOR</b>, neste ato
         representado por seu bastante procurador <b><?php echo $companyData['razao_social'] ?></b>, dá em locação
         <b><?php echo $contract['tenant']['user']['nome'] ?></b>, <b><?php echo $cpfCnpjTenant ?></b>,
-        <b><?php echo GlobalCombosHelper::$civilStates[$contract['tenant']['user']['estado_civil']] ?></b>, a seguir
+        <b><?php echo GlobalCombosHelper::$civilStates[$contract['tenant']['user']['estado_civil']] ?></b><?php echo $spouse ?>
+        , a seguir
         denominado simplesmente <b>LOCATÁRIO</b>, o imóvel de posse do <b>LOCADOR</b>, sito
         <b><?php echo $propertyAddress ?></b>, mediante cláusulas e condições:
     </p>
@@ -441,7 +454,14 @@ echo $this->Html->css(WWW_ROOT . '/css/contract-report.min.css');
         'name' => $contract['tenant']['user']['nome']
     ];
 
-    //Cônjuge do Locatário
+    if ($contract['tenant']['user']['estado_civil'] == GlobalCombosHelper::CIVIL_STATE_MARRIED) {
+        if (!empty($contract['tenant']['user']['spouse']['nome'])) {
+            $signatures[] = [
+                'key' => 'Cônjuge',
+                'name' => $contract['tenant']['user']['spouse']['nome']
+            ];
+        }
+    }
 
     //Fiadores
     ?>

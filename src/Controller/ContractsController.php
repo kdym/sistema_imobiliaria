@@ -252,7 +252,7 @@ class ContractsController extends AppController
 
         $contract = $this->Contracts->get($id, [
             'contain' => [
-                'Tenants.Users',
+                'Tenants.Users.Spouses',
                 'Properties' => [
                     'Locators.Users'
                 ],

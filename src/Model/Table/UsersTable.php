@@ -68,6 +68,7 @@ class UsersTable extends Table
 
         $this->hasOne('Brokers');
         $this->hasOne('Locators');
+        $this->hasOne('Spouses');
         $this->hasOne('Tenants');
         $this->hasMany('Prosecutors');
         $this->hasMany('Properties', [
@@ -188,6 +189,10 @@ class UsersTable extends Table
             $entity->set('data_nascimento', $this->parseDate($entity['data_nascimento']));
         }
 
+        if (empty($entity['id'])) {
+            $entity->set('codigo_unilar', $this->getRealEstateCode($entity));
+        }
+
         return true;
     }
 
@@ -220,5 +225,39 @@ class UsersTable extends Table
         } else {
             return $username;
         }
+    }
+
+    public function getRealEstateCode($entity)
+    {
+        $buffer = explode(' ', $entity->get('nome'));
+        $firstNameLetter = strtoupper($this->removeSpecialChars(substr($buffer[0], 0, 1)));
+
+        if (!empty($buffer[1])) {
+            $secondNameLetter = strtoupper($this->removeSpecialChars(substr($buffer[1], 0, 1)));
+        } else {
+            $secondNameLetter = strtoupper($this->removeSpecialChars(substr($buffer[0], 1, 1)));
+        }
+
+        $firsCodePart = $firstNameLetter . $secondNameLetter;
+
+        $lastCode = $this->find()
+            ->where(['codigo_unilar like' => $firsCodePart . '%'])
+            ->order(['codigo_unilar' => 'desc'])
+            ->first();
+
+        if ($lastCode) {
+            $buffer = explode('-', $lastCode['codigo_unilar']);
+
+            $secondCodePart = $buffer[1] + 1;
+        } else {
+            $secondCodePart = 1;
+        }
+
+        return sprintf('%s-%s', $firsCodePart, str_pad($secondCodePart, 2, '0', STR_PAD_LEFT));
+    }
+
+    public function removeSpecialChars($string)
+    {
+        return preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $string);
     }
 }

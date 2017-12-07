@@ -72,7 +72,7 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                         </div>
 
                         <div class="value">
-                            <h1><?php echo $this->Users->getUsername($user) ?></h1>
+                            <h1><?php echo $this->Users->getUsername($user) ?> <?php echo $user['codigo_unilar'] ?></h1>
 
                             <h2><?php echo $user['nome'] ?></h2>
 
@@ -146,6 +146,34 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                                 <h1>Data de Nascimento</h1>
 
                                 <h2><?php echo $user['data_nascimento'] ?></h2>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (!empty($user['profissao'])) { ?>
+                        <div class="item">
+                            <div class="icon">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+
+                            <div class="value">
+                                <h1>Profissão</h1>
+
+                                <h2><?php echo $user['profissao'] ?></h2>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (!empty($user['nacionalidade'])) { ?>
+                        <div class="item">
+                            <div class="icon">
+                                <i class="fa fa-flag"></i>
+                            </div>
+
+                            <div class="value">
+                                <h1>Nacionalidade</h1>
+
+                                <h2><?php echo $user['nacionalidade'] ?></h2>
                             </div>
                         </div>
                     <?php } ?>
@@ -369,7 +397,7 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
             </div>
         <?php } ?>
 
-        <?php if ($this->Locators->hasSpouse($user['locator'])) { ?>
+        <?php if (!empty($user['spouse'])) { ?>
             <div class="box masonry-sizer-50">
                 <div class="box-header with-border">
                     <h3 class="box-title">Dados do Cônjuge</h3>
@@ -387,9 +415,9 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                             </div>
 
                             <div class="value">
-                                <h2><?php echo $user['locator']['nome_conjuge'] ?></h2>
+                                <h2><?php echo $user['spouse']['nome'] ?></h2>
 
-                                <h3><?php echo $user['locator']['cpf_conjuge'] ?></h3>
+                                <h3><?php echo $user['spouse']['cpf'] ?></h3>
                             </div>
                         </div>
 
@@ -401,7 +429,7 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                             <div class="value">
                                 <h1>Data de Nascimento</h1>
 
-                                <h2><?php echo $user['locator']['data_nascimento_conjuge'] ?></h2>
+                                <h2><?php echo $user['spouse']['data_nascimento'] ?></h2>
                             </div>
                         </div>
                     </div>

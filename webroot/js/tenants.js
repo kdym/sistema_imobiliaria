@@ -14,3 +14,19 @@ $('#tenant-cep').blur(function () {
         $('#tenant-uf').val(data.uf);
     });
 });
+
+if ($('#married-box').length) {
+    getCivilState();
+}
+
+$('#estado-civil').change(function () {
+    getCivilState();
+});
+
+function getCivilState() {
+    $('#married-box').hide();
+
+    if ($('#estado-civil').val() == $('#married-box').data('accepted-choice')) {
+        $('#married-box').fadeIn();
+    }
+}

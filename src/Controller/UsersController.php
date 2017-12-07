@@ -73,6 +73,7 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($id, [
             'contain' => [
+                'Spouses',
                 'Brokers',
                 'Locators' => [
                     'LocatorsAssociations.Associateds.Users',
