@@ -5,16 +5,18 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/config/Migrations/schema-dump-default.lock" afterPath="$PROJECT_DIR$/config/Migrations/schema-dump-default.lock" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ContractsController.php" afterPath="$PROJECT_DIR$/src/Controller/ContractsController.php" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TenantsController.php" afterPath="$PROJECT_DIR$/src/Controller/TenantsController.php" />
       <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Table/ContractsTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/ContractsTable.php" />
       <change beforePath="$PROJECT_DIR$/src/Model/Table/UsersTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/UsersTable.php" />
       <change beforePath="$PROJECT_DIR$/src/Template/Contracts/report.ctp" afterPath="$PROJECT_DIR$/src/Template/Contracts/report.ctp" />
-      <change beforePath="$PROJECT_DIR$/src/Template/Locators/form.ctp" afterPath="$PROJECT_DIR$/src/Template/Locators/form.ctp" />
-      <change beforePath="$PROJECT_DIR$/src/Template/Slips/contract_bills.ctp" afterPath="$PROJECT_DIR$/src/Template/Slips/contract_bills.ctp" />
-      <change beforePath="$PROJECT_DIR$/src/Template/Tenants/form.ctp" afterPath="$PROJECT_DIR$/src/Template/Tenants/form.ctp" />
+      <change beforePath="$PROJECT_DIR$/src/Template/Contracts/view.ctp" afterPath="$PROJECT_DIR$/src/Template/Contracts/view.ctp" />
+      <change beforePath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/sidebar-menu.ctp" afterPath="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/sidebar-menu.ctp" />
       <change beforePath="$PROJECT_DIR$/src/Template/Users/view.ctp" afterPath="$PROJECT_DIR$/src/Template/Users/view.ctp" />
-      <change beforePath="$PROJECT_DIR$/webroot/js/tenants.js" afterPath="$PROJECT_DIR$/webroot/js/tenants.js" />
-      <change beforePath="$PROJECT_DIR$/webroot/js/tenants.min.js" afterPath="$PROJECT_DIR$/webroot/js/tenants.min.js" />
+      <change beforePath="$PROJECT_DIR$/src/View/Helper/ContractsHelper.php" afterPath="$PROJECT_DIR$/src/View/Helper/ContractsHelper.php" />
+      <change beforePath="$PROJECT_DIR$/src/View/Helper/PropertiesHelper.php" afterPath="$PROJECT_DIR$/src/View/Helper/PropertiesHelper.php" />
+      <change beforePath="$PROJECT_DIR$/webroot/css/contract-report.min.css" afterPath="$PROJECT_DIR$/webroot/css/contract-report.min.css" />
+      <change beforePath="$PROJECT_DIR$/webroot/css/contract-report.min.css.map" afterPath="$PROJECT_DIR$/webroot/css/contract-report.min.css.map" />
+      <change beforePath="$PROJECT_DIR$/webroot/scss/contract-report.scss" afterPath="$PROJECT_DIR$/webroot/scss/contract-report.scss" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,36 +25,134 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="DONT_SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="DONT_SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ContractsHelper.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/View/Helper/ContractsHelper.php">
+      <file leaf-file-name="view.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Template/Contracts/view.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="412">
+              <caret line="338" column="136" lean-forward="false" selection-start-line="338" selection-start-column="136" selection-end-line="338" selection-end-column="136" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="view.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Template/Contracts/view.ctp">
+        <entry file="file://$PROJECT_DIR$/src/Template/Users/view.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="133" column="26" lean-forward="true" selection-start-line="102" selection-start-column="20" selection-end-line="133" selection-end-column="26" />
+            <state relative-caret-position="514">
+              <caret line="594" column="26" lean-forward="false" selection-start-line="594" selection-start-column="26" selection-end-line="594" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="contract_bills.ctp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Template/Slips/contract_bills.ctp">
+      <file leaf-file-name="report.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Template/Contracts/report.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+            <state relative-caret-position="647">
+              <caret line="621" column="25" lean-forward="false" selection-start-line="621" selection-start-column="25" selection-end-line="621" selection-end-column="25" />
+              <folding>
+                <marker date="1513338305348" expanded="true" signature="19403:21607" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="21624:22174" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="21867:21907" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="22191:22498" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="22540:22752" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="22795:23313" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="23322:23543" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="23552:24203" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="23756:23826" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="24212:24308" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="24327:25049" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="24552:24749" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="24762:24891" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="24904:25039" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="25058:25233" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="25242:25575" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="25584:25791" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="25867:26209" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="26235:26310" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="27165:27330" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="27977:28417" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="28006:28190" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="28046:28172" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="28219:28403" ph="..." />
+                <marker date="1513338305348" expanded="true" signature="28259:28385" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contract-report.scss" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/webroot/scss/contract-report.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="681">
+              <caret line="98" column="19" lean-forward="false" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContractsHelper.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/View/Helper/ContractsHelper.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="463">
+              <caret line="295" column="39" lean-forward="false" selection-start-line="295" selection-start-column="20" selection-end-line="295" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContractsController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/ContractsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="259" column="33" lean-forward="false" selection-start-line="259" selection-start-column="33" selection-end-line="259" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GuarantorsController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/GuarantorsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1292">
+              <caret line="78" column="24" lean-forward="false" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
+              <folding>
+                <element signature="e#34#67#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UsersTable.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/Table/UsersTable.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1122">
+              <caret line="75" column="34" lean-forward="false" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UsersController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/UsersController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="121" column="31" lean-forward="false" selection-start-line="121" selection-start-column="31" selection-end-line="121" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PropertiesHelper.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/View/Helper/PropertiesHelper.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="222">
+              <caret line="105" column="16" lean-forward="false" selection-start-line="105" selection-start-column="16" selection-end-line="105" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -94,6 +194,9 @@
       <find>not</find>
       <find>center</find>
       <find>cônjui</find>
+      <find>prosecu</find>
+      <find>procu</find>
+      <find>termo de vis</find>
     </findStrings>
     <replaceStrings>
       <replace>Form</replace>
@@ -117,14 +220,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Controller/CustomBillsController.php" />
-        <option value="$PROJECT_DIR$/src/Model/Table/BillsTransactionsTable.php" />
-        <option value="$PROJECT_DIR$/config/Migrations/20171124131905_ChangeCategoriaInBillsTransactions.php" />
-        <option value="$PROJECT_DIR$/src/Template/Slips/index.ctp" />
-        <option value="$PROJECT_DIR$/src/Policy/SlipsPolicy.php" />
-        <option value="$PROJECT_DIR$/src/Model/Custom/SlipValue.php" />
-        <option value="$PROJECT_DIR$/webroot/js/slips.js" />
-        <option value="$PROJECT_DIR$/src/Model/Custom/Slip.php" />
         <option value="$PROJECT_DIR$/src/Controller/SlipsController.php" />
         <option value="$PROJECT_DIR$/config/Migrations/20171130111732_AddColumnsToTenants.php" />
         <option value="$PROJECT_DIR$/webroot/js/initializers/maskedinput.js" />
@@ -135,13 +230,10 @@
         <option value="$PROJECT_DIR$/config/Migrations/20171130172625_AddBrokerToProperties.php" />
         <option value="$PROJECT_DIR$/src/Policy/PropertiesPolicy.php" />
         <option value="$PROJECT_DIR$/src/Model/Table/LocatorsAssociationsTable.php" />
-        <option value="$PROJECT_DIR$/src/Template/Contracts/view.ctp" />
         <option value="$PROJECT_DIR$/src/Policy/ContractsPolicy.php" />
         <option value="$PROJECT_DIR$/src/Template/Layout/report.ctp" />
-        <option value="$PROJECT_DIR$/src/View/Helper/ContractsHelper.php" />
         <option value="$PROJECT_DIR$/src/View/Helper/CompanyDataHelper.php" />
         <option value="$PROJECT_DIR$/src/Template/Layout/contract.ctp" />
-        <option value="$PROJECT_DIR$/webroot/scss/contract-report.scss" />
         <option value="$PROJECT_DIR$/webroot/js/general.js" />
         <option value="$PROJECT_DIR$/config/Migrations/20171205113910_CreatePropertiesPhotos.php" />
         <option value="$PROJECT_DIR$/webroot/js/initializers/masonry.js" />
@@ -152,22 +244,33 @@
         <option value="$PROJECT_DIR$/webroot/js/properties.js" />
         <option value="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" />
         <option value="$PROJECT_DIR$/src/Model/Entity/Property.php" />
-        <option value="$PROJECT_DIR$/src/View/Helper/PropertiesHelper.php" />
         <option value="$PROJECT_DIR$/src/Template/Properties/form.ctp" />
         <option value="$PROJECT_DIR$/src/Controller/PropertiesController.php" />
         <option value="$PROJECT_DIR$/config/Migrations/20171205191930_AddExtraDataToUsers.php" />
         <option value="$PROJECT_DIR$/config/Migrations/20171205192547_CreateSpouses.php" />
         <option value="$PROJECT_DIR$/src/Template/Locators/form.ctp" />
         <option value="$PROJECT_DIR$/src/Model/Table/SpousesTable.php" />
-        <option value="$PROJECT_DIR$/src/Model/Table/UsersTable.php" />
-        <option value="$PROJECT_DIR$/src/Controller/UsersController.php" />
-        <option value="$PROJECT_DIR$/src/Template/Users/view.ctp" />
         <option value="$PROJECT_DIR$/src/Template/Tenants/form.ctp" />
         <option value="$PROJECT_DIR$/webroot/js/tenants.js" />
         <option value="$PROJECT_DIR$/src/Controller/TenantsController.php" />
+        <option value="$PROJECT_DIR$/src/Template/Slips/contract_bills.ctp" />
+        <option value="$PROJECT_DIR$/config/Migrations/20171214163744_CreateGuarantors.php" />
+        <option value="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/sidebar-menu.ctp" />
+        <option value="$PROJECT_DIR$/src/Template/Guarantors/add.ctp" />
+        <option value="$PROJECT_DIR$/src/Template/Guarantors/form.ctp" />
+        <option value="$PROJECT_DIR$/webroot/js/guarantors.js" />
+        <option value="$PROJECT_DIR$/src/Model/Table/ContractsTable.php" />
+        <option value="$PROJECT_DIR$/src/Policy/GuarantorsPolicy.php" />
+        <option value="$PROJECT_DIR$/src/Template/Contracts/view.ctp" />
+        <option value="$PROJECT_DIR$/src/Controller/GuarantorsController.php" />
+        <option value="$PROJECT_DIR$/src/Model/Table/UsersTable.php" />
+        <option value="$PROJECT_DIR$/src/View/Helper/PropertiesHelper.php" />
+        <option value="$PROJECT_DIR$/src/Controller/UsersController.php" />
+        <option value="$PROJECT_DIR$/src/Template/Users/view.ctp" />
+        <option value="$PROJECT_DIR$/src/View/Helper/ContractsHelper.php" />
         <option value="$PROJECT_DIR$/src/Controller/ContractsController.php" />
         <option value="$PROJECT_DIR$/src/Template/Contracts/report.ctp" />
-        <option value="$PROJECT_DIR$/src/Template/Slips/contract_bills.ctp" />
+        <option value="$PROJECT_DIR$/webroot/scss/contract-report.scss" />
       </list>
     </option>
   </component>
@@ -241,10 +344,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1570" />
-    <option name="y" value="-140" />
-    <option name="width" value="1080" />
-    <option name="height" value="646" />
+    <option name="x" value="-1448" />
+    <option name="y" value="116" />
+    <option name="width" value="1296" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -264,7 +367,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -394,6 +497,13 @@
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Template" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Extract" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="unilar_intranet" type="b2602c69:ProjectViewProjectNode" />
+              <item name="unilar_intranet" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Template" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Guarantors" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="unilar_intranet" type="b2602c69:ProjectViewProjectNode" />
@@ -552,7 +662,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -563,15 +673,15 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Plugin\AdminLTE\Layout" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Guarantors" />
       <recent name="E:\ProjetosNoob\unilar_intranet\src\Policy" />
       <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Layout" />
       <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Slips" />
       <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Tenants" />
-      <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Locators" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\ProjetosNoob\unilar_intranet\src\Template\Plugin\AdminLTE\Layout" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -712,12 +822,15 @@
       <workItem from="1512394252991" duration="921000" />
       <workItem from="1512410009433" duration="25820000" />
       <workItem from="1512501029179" duration="2929000" />
-      <workItem from="1512644417590" duration="2611000" />
+      <workItem from="1512644417590" duration="2991000" />
+      <workItem from="1513268417645" duration="30000" />
+      <workItem from="1513268547740" duration="9288000" />
+      <workItem from="1513334355470" duration="3992000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="391133000" />
+    <option name="totallyTimeSpent" value="404823000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -729,26 +842,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1432" y="-132" width="1296" height="1000" extended-state="6" />
+    <frame x="-1448" y="116" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.225" sideWeight="0.4002255" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.41939712" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38269988" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.225" sideWeight="0.59977454" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28297633" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.5806029" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28178245" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896462" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -768,142 +881,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Policy/ContractsPolicy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="24" lean-forward="true" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Layout/default.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="53" column="96" lean-forward="false" selection-start-line="53" selection-start-column="64" selection-end-line="53" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Slips/report.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="105" column="88" lean-forward="false" selection-start-line="105" selection-start-column="46" selection-end-line="105" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/AppController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View/Helper/BrokersHelper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Behavior/ParserBehavior.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="34" column="65" lean-forward="true" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View/Helper/UsersHelper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="24" column="93" lean-forward="false" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="93" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/SlipsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="204" column="55" lean-forward="false" selection-start-line="202" selection-start-column="7" selection-end-line="204" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/scss/slips.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="17" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Layout/contract.old.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="57" column="10" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="57" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Layout/contract.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/scss/contract-report.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="55" column="8" lean-forward="false" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/js/slips.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="249" column="8" lean-forward="false" selection-start-line="249" selection-start-column="8" selection-end-line="254" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/Migrations/20171130172625_AddBrokerToProperties.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/Migrations/20171130125248_AddColumnToLocatorsAssociations.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="113" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="113" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/scss/app.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="227" column="20" lean-forward="false" selection-start-line="227" selection-start-column="14" selection-end-line="227" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View/Helper/CompanyDataHelper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="54" column="9" lean-forward="true" selection-start-line="48" selection-start-column="8" selection-end-line="54" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/js/general.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="3" lean-forward="false" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/scss/masonry.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webroot/js/initializers/masonry.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -915,7 +892,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1292">
           <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -937,9 +913,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2227">
           <caret line="132" column="26" lean-forward="false" selection-start-line="132" selection-start-column="20" selection-end-line="132" selection-end-column="26" />
-          <folding>
-            <element signature="e#34#67#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -950,18 +923,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/ProsecutorsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="26" column="5" lean-forward="true" selection-start-line="20" selection-start-column="3" selection-end-line="26" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Table/PropertiesTable.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1581">
           <caret line="100" column="11" lean-forward="false" selection-start-line="100" selection-start-column="11" selection-end-line="100" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -969,13 +934,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1343">
           <caret line="81" column="9" lean-forward="false" selection-start-line="70" selection-start-column="8" selection-end-line="81" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View/Helper/PropertiesHelper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="29" column="55" lean-forward="true" selection-start-line="29" selection-start-column="55" selection-end-line="29" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -997,7 +955,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="517">
           <caret line="269" column="46" lean-forward="false" selection-start-line="269" selection-start-column="46" selection-end-line="269" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1008,18 +965,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/Migrations/20171205192547_CreateSpouses.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="27" lean-forward="true" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Table/LocatorsTable.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1224">
           <caret line="79" column="11" lean-forward="false" selection-start-line="67" selection-start-column="8" selection-end-line="79" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,17 +976,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="850">
           <caret line="54" column="44" lean-forward="false" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="44" />
-          <folding>
-            <element signature="e#34#71#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/LocatorsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2380">
-          <caret line="144" column="20" lean-forward="false" selection-start-line="144" selection-start-column="20" selection-end-line="144" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1045,39 +983,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="635">
           <caret line="68" column="93" lean-forward="true" selection-start-line="68" selection-start-column="19" selection-end-line="68" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Table/UsersTable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2822">
-          <caret line="194" column="0" lean-forward="false" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/UsersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="75" column="24" lean-forward="false" selection-start-line="75" selection-start-column="24" selection-end-line="75" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Users/view.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="175" column="67" lean-forward="false" selection-start-line="175" selection-start-column="67" selection-end-line="175" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Locators/form.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="48" column="63" lean-forward="false" selection-start-line="47" selection-start-column="12" selection-end-line="48" selection-end-column="63" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1085,15 +990,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="45" column="22" lean-forward="false" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/js/locators.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="64" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1101,23 +997,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="31" column="1" lean-forward="false" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/ContractsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="254" column="38" lean-forward="false" selection-start-line="254" selection-start-column="38" selection-end-line="254" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Contracts/report.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="455" column="0" lean-forward="true" selection-start-line="455" selection-start-column="0" selection-end-line="455" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1125,30 +1004,280 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
           <caret line="156" column="72" lean-forward="false" selection-start-line="156" selection-start-column="72" selection-end-line="156" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Slips/contract_bills.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/Migrations/20171205192547_CreateSpouses.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="33" column="11" lean-forward="true" selection-start-line="33" selection-start-column="11" selection-end-line="34" selection-end-column="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/Migrations/20171214163744_CreateGuarantors.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/ExtractController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Extract/index.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="179" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Slips/index.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="18" column="164" lean-forward="true" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="164" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Slips/edit.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/sidebar-menu.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="99" column="63" lean-forward="false" selection-start-line="99" selection-start-column="63" selection-end-line="99" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Contracts/form.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="147" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/js/contracts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="28" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Guarantors/add.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="42" column="34" lean-forward="false" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Locators/form.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="78" column="10" lean-forward="true" selection-start-line="58" selection-start-column="4" selection-end-line="78" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Prosecutors/form.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1785">
+          <caret line="124" column="42" lean-forward="false" selection-start-line="124" selection-start-column="42" selection-end-line="124" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/js/locators.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="23" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/js/guarantors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/js/prosecutors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="613">
+          <caret line="69" column="1" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="69" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Guarantors/form.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-935">
+          <caret line="23" column="55" lean-forward="false" selection-start-line="23" selection-start-column="55" selection-end-line="23" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Table/ContractsTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="95" column="42" lean-forward="false" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/View/Helper/ContractsHelper.php">
+    <entry file="file://$PROJECT_DIR$/src/Policy/ProsecutorsPolicy.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="306">
+          <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="19" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Policy/GuarantorsPolicy.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="27" lean-forward="false" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/ProsecutorsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2108">
+          <caret line="126" column="4" lean-forward="false" selection-start-line="126" selection-start-column="4" selection-end-line="136" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/LocatorsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="41" column="5" lean-forward="false" selection-start-line="36" selection-start-column="4" selection-end-line="41" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/GuarantorsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="78" column="24" lean-forward="false" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
+          <folding>
+            <element signature="e#34#67#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Table/UsersTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="75" column="34" lean-forward="false" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View/Helper/PropertiesHelper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="105" column="16" lean-forward="false" selection-start-line="105" selection-start-column="16" selection-end-line="105" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/UsersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="121" column="31" lean-forward="false" selection-start-line="121" selection-start-column="31" selection-end-line="121" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/Contracts/view.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="133" column="26" lean-forward="true" selection-start-line="102" selection-start-column="20" selection-end-line="133" selection-end-column="26" />
+        <state relative-caret-position="412">
+          <caret line="338" column="136" lean-forward="false" selection-start-line="338" selection-start-column="136" selection-end-line="338" selection-end-column="136" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Slips/contract_bills.ctp">
+    <entry file="file://$PROJECT_DIR$/src/Template/Users/view.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+        <state relative-caret-position="514">
+          <caret line="594" column="26" lean-forward="false" selection-start-line="594" selection-start-column="26" selection-end-line="594" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View/Helper/ContractsHelper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="295" column="39" lean-forward="false" selection-start-line="295" selection-start-column="20" selection-end-line="295" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/ContractsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="259" column="33" lean-forward="false" selection-start-line="259" selection-start-column="33" selection-end-line="259" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/scss/contracts.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Contracts/report.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="647">
+          <caret line="621" column="25" lean-forward="false" selection-start-line="621" selection-start-column="25" selection-end-line="621" selection-end-column="25" />
+          <folding>
+            <marker date="1513338305348" expanded="true" signature="19403:21607" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="21624:22174" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="21867:21907" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="22191:22498" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="22540:22752" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="22795:23313" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="23322:23543" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="23552:24203" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="23756:23826" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="24212:24308" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="24327:25049" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="24552:24749" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="24762:24891" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="24904:25039" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="25058:25233" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="25242:25575" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="25584:25791" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="25867:26209" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="26235:26310" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="27165:27330" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="27977:28417" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="28006:28190" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="28046:28172" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="28219:28403" ph="..." />
+            <marker date="1513338305348" expanded="true" signature="28259:28385" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/scss/contract-report.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="681">
+          <caret line="98" column="19" lean-forward="false" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
           <folding />
         </state>
       </provider>

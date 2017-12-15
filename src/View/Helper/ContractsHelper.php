@@ -292,4 +292,15 @@ class ContractsHelper extends Helper
             $this->numberInWords($value, false)
         );
     }
+
+    public function naturalLanguageJoin(array $list, $conjunction = 'e')
+    {
+        $last = array_pop($list);
+
+        if ($list) {
+            return implode(', ', $list) . ' ' . $conjunction . ' ' . $last;
+        }
+
+        return $last;
+    }
 }

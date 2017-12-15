@@ -88,7 +88,8 @@ class ContractsController extends AppController
                     'PropertiesPrices',
                     'Locators.Users'
                 ],
-                'ContractsValues'
+                'ContractsValues',
+                'Guarantors.Users',
             ]
         ]);
 
@@ -256,6 +257,7 @@ class ContractsController extends AppController
                 'Properties' => [
                     'Locators.Users'
                 ],
+                'Guarantors.Users',
             ]
         ]);
 

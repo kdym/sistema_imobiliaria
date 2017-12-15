@@ -36,6 +36,7 @@ class UsersTable extends Table
     const ROLE_LOCATOR = 2;
     const ROLE_TENANT = 3;
     const ROLE_PROSECUTOR = 4;
+    const ROLE_GUARANTOR = 5;
 
     public static $roles = [
         self::ROLE_ADMIN => 'Administrador',
@@ -43,6 +44,7 @@ class UsersTable extends Table
         self::ROLE_LOCATOR => 'Locador',
         self::ROLE_TENANT => 'Locatário',
         self::ROLE_PROSECUTOR => 'Procurador',
+        self::ROLE_GUARANTOR => 'Fiador',
     ];
 
     const MAX_PHONE_NUMBERS = 4;
@@ -71,6 +73,7 @@ class UsersTable extends Table
         $this->hasOne('Spouses');
         $this->hasOne('Tenants');
         $this->hasMany('Prosecutors');
+        $this->hasMany('Guarantors');
         $this->hasMany('Properties', [
             'foreignKey' => 'broker',
         ]);

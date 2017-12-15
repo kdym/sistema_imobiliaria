@@ -40,8 +40,10 @@ class ContractsTable extends Table
     ];
 
     const NO_WARRANTY = 0;
+    const GUARANTOR = 1;
 
     public static $warranties = [
+        self::GUARANTOR => 'Fiador',
         self::NO_WARRANTY => 'Sem Garantia',
     ];
 
@@ -89,6 +91,9 @@ class ContractsTable extends Table
         $this->hasMany('ContractsValues', [
             'foreignKey' => 'contract_id',
             'sort' => ['id' => 'desc']
+        ]);
+        $this->hasMany('Guarantors', [
+            'foreignKey' => 'contract_id',
         ]);
     }
 

@@ -72,7 +72,7 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                         </div>
 
                         <div class="value">
-                            <h1><?php echo $this->Users->getUsername($user) ?> <?php echo $user['codigo_unilar'] ?></h1>
+                            <h1><?php echo $this->Users->getUsername($user) ?><?php echo $user['codigo_unilar'] ?></h1>
 
                             <h2><?php echo $user['nome'] ?></h2>
 
@@ -563,36 +563,36 @@ if (UsersPolicy::isAuthorized('show_edit_profile', $loggedUser, $user)) {
                 <div class="box-body">
                     <div class="thumbs-list">
                         <div class="row">
-                            <?php foreach ($properties as $p) { ?>
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="item">
-                                        <div class="item-wrapper">
-                                            <figure>
-                                                <a href="<?php echo $this->Url->build(['controller' => 'properties', 'action' => 'view', $p['id']]) ?>">
-                                                    <?php echo $this->Html->image($this->Properties->getMainPhoto($p)) ?>
-                                                </a>
-                                            </figure>
+                            <?php foreach ($properties as $type => $props) { ?>
+                                <?php foreach ($props as $p) { ?>
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="item">
+                                            <div class="item-wrapper">
+                                                <figure>
+                                                    <a href="<?php echo $this->Url->build(['controller' => 'properties', 'action' => 'view', $p['id']]) ?>">
+                                                        <?php echo $this->Html->image($this->Properties->getMainPhoto($p)) ?>
+                                                    </a>
+                                                </figure>
 
-                                            <h1>
-                                                <?php echo $this->Properties->getMainAddress($p) ?>
-                                                <small><?php echo $p['formatted_code'] ?></small>
-                                            </h1>
+                                                <h1>
+                                                    <?php echo $this->Properties->getMainAddress($p) ?>
+                                                    <small><?php echo $p['formatted_code'] ?></small>
+                                                </h1>
 
-                                            <?php if ($user['locator']['id'] != $p['locator_id']) { ?>
-                                                <h2><?php echo $p['locator']['user']['nome'] ?>
-                                                    <small><?php echo $p['locator']['user']['formatted_username'] ?></small>
-                                                </h2>
-                                            <?php } ?>
+                                                <?php if ($user['locator']['id'] != $p['locator_id']) { ?>
+                                                    <h2><?php echo $p['locator']['user']['nome'] ?>
+                                                        <small><?php echo $p['locator']['user']['formatted_username'] ?></small>
+                                                    </h2>
+                                                <?php } ?>
 
-                                            <h3><?php echo $this->Properties->getStatus($p) ?></h3>
+                                                <h3><?php echo $type ?></h3>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                <?php } ?>
                             <?php } ?>
                         </div>
                     </div>
-
-                    <?php echo $this->Pagination->buildPagination($this->Paginator) ?>
                 </div>
             </div>
         <?php } ?>

@@ -367,7 +367,100 @@ echo $this->Html->css(WWW_ROOT . '/css/contract-report.min.css');
         sob a alegação de não terem sido atendidas exigências porventura solicitadas.
     </p>
 
-    <!-- Garantias do Contrato -->
+    <?php if ($contract['tipo_garantia'] == ContractsTable::GUARANTOR) { ?>
+        <?php if (!empty($contract['guarantors'])) { ?>
+            <?php
+            $guarantors = [];
+
+            foreach ($contract['guarantors'] as $g) {
+                $cpfCnpj = '';
+
+                if (!empty($g['user']['cpf_cnpj'])) {
+                    if (strlen($g['user']['cpf_cnpj']) > 14) {
+                        $cpfCnpj = ', <b>CNPJ ' . $g['user']['cpf_cnpj'] . '</b>';
+                    } else {
+                        $cpfCnpj = ', <b>CPF ' . $g['user']['cpf_cnpj'] . '</b>';
+                    }
+                }
+
+                $complement = '';
+
+                if (!empty($cpfCnpj)) {
+                    $complement .= $cpfCnpj;
+                }
+
+                if (!empty($g['user']['estado_civil'])) {
+                    $complement .= ', <b>' . GlobalCombosHelper::$civilStates[$g['user']['estado_civil']] . '</b>';
+                }
+
+                if (!empty($g['user']['profissao'])) {
+                    $complement .= ', <b>' . $g['user']['profissao'] . '</b>';
+                }
+
+                $address = implode(', ', array_filter([
+                    $g['user']['endereco'],
+                    $g['user']['numero'],
+                    $g['user']['complemento'],
+                    $g['user']['bairro'],
+                    $g['user']['cidade'],
+                    $g['user']['uf'],
+                    $g['user']['cep'],
+                ]));
+
+                if (!empty($address)) {
+                    $complement .= ', localizado em <b>' . $address . '</b>';
+                }
+
+                $guarantors[] = '<b>' . $g['user']['nome'] . '</b>' . $complement;
+            }
+            ?>
+
+            <p>
+                <b><?php echo $this->Contracts->clause(++$clause) ?></b> - Assinam o presente
+                contrato de locação, na qualidade de fiadores e principais pagadores e devedores solidários, com
+                expressa renúncia ao Art. 827 do Código Civil, obrigando-se por si e seus herdeiros e sucessores, em
+                conjunto ou isoladamente, caso assim interessar ao <b>LOCADOR</b>, a bem e fielmente
+                cumprir o avençado, <?php echo $this->Contracts->naturalLanguageJoin($guarantors) ?>; os quais ficam
+                solidariamente responsáveis com o <b>LOCATÁRIO</b>, mesmo que não venham a ser citados
+                para a ação de despejo, assumindo todas as obrigações do presente contrato, até a desocupação do
+                imóvel e de sua entrega nas mesmas condições em que o <b>LOCATÁRIO</b> o recebeu. Se o
+                consentimento da esposa do fiador for obtido por meio de qualquer vício, ou se o fiador ocultar o
+                seu verdadeiro estado civil, responderá, pelo descumprimento das obrigações contratuais, à metade
+                dos bens que lhe cabe na totalidade dos bens do casal. O fiador responde, por ser a fiança ilimitada
+                em prazo e valor, a qualquer tempo, por todas as obrigações contratuais, pelos aumentos dos
+                alugueres, pelos consertos e repinturas do imóvel, pelos demais encargos e que incumbem ao
+                <b>LOCATÁRIO</b>
+                e pelas despesas judiciais e honorários advocatícios. O fiador não se eximirá das obrigações ora
+                assumidas, ainda que ocorra a prorrogação da locação ou do contrato. Desde já, o fiador permite que
+                o <b>LOCADOR</b> faça acordo com o <b>LOCATÁRIO</b> para o recebimento da dívida
+                sem que o ora fiador possa invocar o Art. 838 e seus itens do Código Civil, os quais também
+                expressamente renuncia, declarando ainda que não usará a faculdade permitida pelo Art. 835 do Código
+                Civil. Caso um dos cônjuges que assinou a fiança venha a falecer, ficará o sobrevivente responsável
+                pela obrigação, nos mesmos termos desta cláusula.
+            </p>
+
+            <p>
+                <?php $paragraphCount = 0; ?>
+
+                <b><?php echo $this->Contracts->paragraph(++$paragraph) ?></b> - Em caso de morte,
+                falência ou insolvência do fiador, o <b>LOCATÁRIO</b> obriga-se a, dentro de <b>15
+                    (quinze) dias</b>, contados da data da morte, de decretação da falência ou da que for
+                fixada pelo <b>LOCADOR</b>, apresentar substituto idôneo, a juízo deste. Caso contrário,
+                pagará a multa prevista na cláusula vigésima deste contrato.
+            </p>
+
+            <p>
+                <b><?php echo $this->Contracts->paragraph(++$paragraph) ?></b> - No caso do
+                <b>LOCATÁRIO</b> ter apresentado mais de um fiador, o <b>LOCADOR</b> se reserva
+                o direito de cobrar a totalidade do débito de qualquer deles, ou deles conjuntamente.
+            </p>
+        <?php } else { ?>
+            <p>
+                <b><?php echo $this->Contracts->clause(++$clause) ?></b> - Não havendo fiadores e
+                principais pagadores e devedores solidários para o presente contrato de locação.
+            </p>
+        <?php } ?>
+    <?php } ?>
 
     <p>
         <b><?php echo $this->Contracts->clause(++$clause) ?></b> - Em hipótese alguma poderá o
@@ -463,7 +556,12 @@ echo $this->Html->css(WWW_ROOT . '/css/contract-report.min.css');
         }
     }
 
-    //Fiadores
+    foreach ($contract['guarantors'] as $g) {
+        $signatures[] = [
+            'key' => 'Fiador',
+            'name' => $g['user']['nome']
+        ];
+    }
     ?>
 
     <table class="signatures">
@@ -519,4 +617,8 @@ echo $this->Html->css(WWW_ROOT . '/css/contract-report.min.css');
             </td>
         </tr>
     </table>
+</div>
+
+<div class="obs-warning">
+    OBS.: AS ASSINATURAS DOS(AS) FIADORES(AS) E/OU CÔNJUGES DEVERÃO TER O RECONHECIMENTO DE FIRMA.
 </div>

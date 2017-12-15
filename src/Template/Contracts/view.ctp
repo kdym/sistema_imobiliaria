@@ -8,6 +8,7 @@
 use App\Model\Table\ContractsTable;
 use App\Model\Table\ContractsValuesTable;
 use App\Policy\ConfigPolicy;
+use App\Policy\GuarantorsPolicy;
 use App\Policy\PropertiesPolicy;
 
 $editLink = ['action' => 'form', $contract['id']];
@@ -309,5 +310,41 @@ $editLink = ['action' => 'form', $contract['id']];
                 </div>
             </div>
         </div>
+
+        <?php if ($contract['tipo_garantia'] == ContractsTable::GUARANTOR) { ?>
+            <div class="box masonry-sizer-50">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Fiadores</h3>
+
+                    <div class="box-tools pull-right">
+                        <a href="<?php echo $this->Url->build(['controller' => 'guarantors', 'action' => 'form', $contract['id']]) ?>"><i
+                                    class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <?php if (!empty($contract['guarantors'])) { ?>
+                        <ul class="vertical-icon-list">
+                            <?php foreach ($contract['guarantors'] as $g) { ?>
+                                <li>
+                                    <i class="fa fa-user"></i> <?php echo $g['user']['nome'] ?>
+                                    <small><?php echo $g['user']['formatted_username'] ?></small>
+
+                                    <div class="pull-right">
+                                        <?php if (GuarantorsPolicy::isAuthorized('edit', $loggedUser, $g['user'])) { ?>
+                                            <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['controller' => 'guarantors', 'action' => 'form', $contract['id'], $g['id']], ['escape' => false]) ?>
+                                        <?php } ?>
+
+                                        <?php if (GuarantorsPolicy::isAuthorized('delete', $loggedUser)) { ?>
+                                            <?php echo $this->Form->postLink('<i class="fa fa-trash"></i>', ['controller' => 'guarantors', 'action' => 'delete', $g['id']], ['escape' => false, 'class' => 'text-danger', 'confirm' => 'Tem certeza que deseja excluir?', 'method' => 'delete']) ?>
+                                        <?php } ?>
+                                    </div>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </section>

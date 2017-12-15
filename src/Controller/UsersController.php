@@ -14,6 +14,7 @@ use Cake\ORM\TableRegistry;
  * @property \App\Model\Table\UsersTable $Users
  * @property \App\Model\Table\PropertiesTable $Properties
  * @property \App\Model\Table\LocatorsAssociationsTable $LocatorsAssociations
+ * @property \App\Model\Table\GuarantorsTable $Guarantors
  *
  * @method \App\Model\Entity\User[] paginate($object = null, array $settings = [])
  */
@@ -28,6 +29,7 @@ class UsersController extends AppController
 
         $this->loadModel('Properties');
         $this->loadModel('LocatorsAssociations');
+        $this->loadModel('Guarantors');
 
         $this->Auth->allow(['firstUser', 'notAuthorized']);
     }
@@ -80,7 +82,8 @@ class UsersController extends AppController
                     'Prosecutors.Users',
                 ],
                 'Prosecutors.Locators.Users',
-                'Tenants.ActiveContract.Properties'
+                'Tenants.ActiveContract.Properties',
+                'Guarantors'
             ],
             'withDeleted'
         ]);
@@ -89,34 +92,57 @@ class UsersController extends AppController
 
         $query = $this->Properties->find()
             ->contain('Locators.Users')
-            ->where(['broker' => $id])
-            ->limit(8);
+            ->where(['broker' => $id]);
 
-        if (!$query->isEmpty()) {
-            $properties = $this->paginate($query);
+        foreach ($query as $q) {
+            $properties['Corretor'][$q['id']] = $q;
         }
 
-        if ($user['role'] == UsersTable::ROLE_LOCATOR) {
-            $queryProperties = $this->Properties->find()
-                ->select(TableRegistry::get('Properties'))
-                ->select(TableRegistry::get('Locators'))
-                ->select(TableRegistry::get('Users'))
-                ->contain('Locators.Users')
-                ->where(['locator_id' => $user['locator']['id']]);
+        $query = $this->Properties->find()
+            ->contain('Locators.Users')
+            ->where(['locator_id' => @$user['locator']['id']]);
 
-            $queryAssociateds = $this->LocatorsAssociations->find()
-                ->select(TableRegistry::get('Properties'))
-                ->select(TableRegistry::get('Locators'))
-                ->select(TableRegistry::get('Users'))
-                ->contain('Properties.Locators.Users')
-                ->where(['locator_1' => $user['locator']['id']]);
-
-            $query = $queryProperties->union($queryAssociateds)->limit(8);
-
-            if (!$query->isEmpty()) {
-                $properties = $this->paginate($query);
-            }
+        foreach ($query as $q) {
+            $properties['Proprietário'][$q['id']] = $q;
         }
+
+        $query = $this->LocatorsAssociations->find()
+            ->contain('Properties.Locators.Users')
+            ->where(['locator_1' => @$user['locator']['id']]);
+
+        foreach ($query as $q) {
+            $properties['Locador Associado'][$q['id']] = $q['property'];
+        }
+
+        $query = $this->Guarantors->find()
+            ->contain('Contracts.Properties.Locators.Users')
+            ->where(['Guarantors.user_id' => $id]);
+
+        foreach ($query as $q) {
+            $properties['Fiador'][$q['id']] = $q['contract']['property'];
+        }
+
+//        if ($user['role'] == UsersTable::ROLE_LOCATOR) {
+//            $queryProperties = $this->Properties->find()
+//                ->select(TableRegistry::get('Properties'))
+//                ->select(TableRegistry::get('Locators'))
+//                ->select(TableRegistry::get('Users'))
+//                ->contain('Locators.Users')
+//                ->where(['locator_id' => $user['locator']['id']]);
+//
+//            $queryAssociateds = $this->LocatorsAssociations->find()
+//                ->select(TableRegistry::get('Properties'))
+//                ->select(TableRegistry::get('Locators'))
+//                ->select(TableRegistry::get('Users'))
+//                ->contain('Properties.Locators.Users')
+//                ->where(['locator_1' => $user['locator']['id']]);
+//
+//            $query = $queryProperties->union($queryAssociateds)->limit(8);
+//
+//            if (!$query->isEmpty()) {
+//                $properties = $this->paginate($query);
+//            }
+//        }
 
         $this->set(compact('user', 'properties'));
     }

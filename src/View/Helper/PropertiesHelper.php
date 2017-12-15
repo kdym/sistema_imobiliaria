@@ -107,4 +107,27 @@ class PropertiesHelper extends Helper
             return $value . ' Parcelas';
         }
     }
+
+    public function getUserStatus($property, $user)
+    {
+        if (!empty($user['locator'])) {
+            if ($property['locator_id'] == $user['locator']['id']) {
+                return 'Proprietário';
+            }
+
+            if (!empty($user['locator']['locators_associations'])) {
+                foreach ($user['locator']['locators_associations'] as $a) {
+                    if ($property['locator_id'] == $a['locator_2']) {
+                        return 'Locador Associado';
+                    }
+                }
+            }
+        }
+
+        if ($property['broker'] == $user['id']) {
+            return 'Corretor';
+        }
+
+
+    }
 }
