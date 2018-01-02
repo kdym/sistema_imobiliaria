@@ -87,27 +87,39 @@ echo $this->Html->script('contracts.min', ['block' => true]);
         </div>
     <?php } ?>
 
-    <?php if (!$id) { ?>
-        <div class="box">
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <?php echo $this->Form->control('finalidade', ['options' => ContractsTable::$finalities, 'empty' => true]) ?>
-                    </div>
+    <div class="box">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('finalidade', ['options' => ContractsTable::$finalities, 'empty' => true]) ?>
                 </div>
+            </div>
 
-                <div id="non-residential-div" data-accept="<?php echo ContractsTable::FINALITY_NON_RESIDENTIAL ?>">
-                    <?php echo $this->Form->control('finalidade_nao_residencial', ['label' => 'Especificação']) ?>
-                </div>
+            <div id="non-residential-div" data-accept="<?php echo ContractsTable::FINALITY_NON_RESIDENTIAL ?>">
+                <?php echo $this->Form->control('finalidade_nao_residencial', ['label' => 'Especificação']) ?>
+            </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <?php echo $this->Form->control('tipo_garantia', ['label' => 'Garantia', 'options' => ContractsTable::$warranties, 'empty' => true]) ?>
-                    </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('tipo_garantia', ['label' => 'Garantia', 'options' => ContractsTable::$warranties, 'empty' => true]) ?>
                 </div>
             </div>
         </div>
-    <?php } ?>
+    </div>
+
+    <div class="box" data-accept-warranty="<?php echo ContractsTable::INSURANCE_BOND ?>">
+        <div class="box-header">
+            <h3 class="box-title">Seguro Fiança</h3>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control('bond_insurance.vencimento', ['label' => 'Vencimento (dia/mês)', 'class' => 'day-month-mask']) ?>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="box">
         <div class="box-body">

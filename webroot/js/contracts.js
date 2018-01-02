@@ -69,10 +69,26 @@ $('#finalidade').change(function () {
     checkFinality();
 });
 
+if ($('#tipo-garantia').length) {
+    checkWarranty();
+}
+
+$('#tipo-garantia').change(function () {
+    checkWarranty();
+});
+
 function checkFinality() {
     $('#non-residential-div').hide();
 
     if ($('#finalidade').val() == $('#non-residential-div').data('accept')) {
         $('#non-residential-div').fadeIn();
+    }
+}
+
+function checkWarranty() {
+    $('[data-accept-warranty]').hide();
+
+    if ($('#tipo-garantia').val() != '') {
+        $('[data-accept-warranty=' + $('#tipo-garantia').val() + ']').fadeIn();
     }
 }

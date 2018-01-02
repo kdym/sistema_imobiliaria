@@ -18,6 +18,7 @@ use Cake\Event\Event;
  * @property \App\Model\Table\PropertiesTable $Properties
  * @property \App\Model\Table\CompanyDataTable $CompanyData
  * @property \App\Model\Table\PropertiesPricesTable $PropertiesPrices
+ * @property \App\Model\Table\BondInsurancesTable $BondInsurances
  * @property \App\Controller\Component\FormatterComponent $Formatter
  *
  * @method \App\Model\Entity\Contract[] paginate($object = null, array $settings = [])
@@ -46,6 +47,7 @@ class ContractsController extends AppController
         $this->loadModel('Users');
         $this->loadModel('Properties');
         $this->loadModel('PropertiesPrices');
+        $this->loadModel('BondInsurances');
     }
 
     public function beforeRender(Event $event)
@@ -90,6 +92,7 @@ class ContractsController extends AppController
                 ],
                 'ContractsValues',
                 'Guarantors.Users',
+                'BondInsurances',
             ]
         ]);
 
@@ -173,7 +176,7 @@ class ContractsController extends AppController
 
         if ($id) {
             $contract = $this->Contracts->get($id, [
-                'contain' => ['Tenants.Users', 'Properties', 'ContractsValues']
+                'contain' => ['Tenants.Users', 'Properties', 'ContractsValues', 'BondInsurances']
             ]);
         } else {
             $contract = $this->Contracts->newEntity();

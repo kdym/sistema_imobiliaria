@@ -346,5 +346,34 @@ $editLink = ['action' => 'form', $contract['id']];
                 </div>
             </div>
         <?php } ?>
+
+        <?php if ($contract['tipo_garantia'] == ContractsTable::INSURANCE_BOND) { ?>
+            <div class="box masonry-sizer-50">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Seguro Fiança</h3>
+
+                    <div class="box-tools pull-right">
+                        <a href="<?php echo $this->Url->build($editLink) ?>"><i
+                                    class="fa fa-pencil"></i></a>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div class="icon-view-list">
+                        <div class="item">
+                            <div class="icon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+
+                            <div class="value">
+                                <h1>Vencimento</h1>
+
+                                <h2><?php echo $contract['bond_insurance']['vencimento'] ?></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </section>

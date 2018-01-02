@@ -5,6 +5,7 @@ namespace App\Model\Table;
 use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
+use Cake\I18n\Date;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -41,9 +42,11 @@ class ContractsTable extends Table
 
     const NO_WARRANTY = 0;
     const GUARANTOR = 1;
+    const INSURANCE_BOND = 2;
 
     public static $warranties = [
         self::GUARANTOR => 'Fiador',
+        self::INSURANCE_BOND => 'Seguro Fiança',
         self::NO_WARRANTY => 'Sem Garantia',
     ];
 
@@ -93,6 +96,9 @@ class ContractsTable extends Table
             'sort' => ['id' => 'desc']
         ]);
         $this->hasMany('Guarantors', [
+            'foreignKey' => 'contract_id',
+        ]);
+        $this->hasOne('BondInsurances', [
             'foreignKey' => 'contract_id',
         ]);
     }
