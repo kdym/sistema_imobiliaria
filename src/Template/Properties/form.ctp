@@ -136,6 +136,18 @@ echo $this->Html->script('properties.min', ['block' => true]);
     </div>
 
     <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Contas</h3>
+        </div>
+
+        <div class="box-body">
+            <?php foreach (PropertiesTable::$propertiesBills as $key => $b) { ?>
+                <?php echo $this->Form->control($key, ['label' => $b, 'type' => 'checkbox']) ?>
+            <?php } ?>
+        </div>
+    </div>
+
+    <div class="box">
         <div class="box-body">
             <?php echo $this->Form->control('descricao', ['label' => 'Descrição']) ?>
         </div>

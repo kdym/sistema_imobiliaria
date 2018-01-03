@@ -5,6 +5,7 @@
  */
 
 use App\Model\Table\PropertiesCompositionsTable;
+use App\Model\Table\PropertiesTable;
 use App\Policy\LocatorsAssociationsPolicy;
 
 echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js', ['block' => true]);
@@ -233,6 +234,34 @@ $editLink = ['action' => 'form', $property['id']];
                             data-labels='<?php echo json_encode($locatorsAssociationsDataset['labels']) ?>'
                             data-colors='<?php echo json_encode($locatorsAssociationsDataset['colors']) ?>'></canvas>
                 <?php } ?>
+            </div>
+        </div>
+
+        <div class="box masonry-sizer-50">
+            <div class="box-header with-border">
+                <h3 class="box-title">Contas</h3>
+
+                <div class="box-tools pull-right">
+                    <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="icon-view-list">
+                    <?php foreach (PropertiesTable::$propertiesBills as $key => $b) { ?>
+                        <?php if ($property['properties_fees'][0][$key] == true) { ?>
+                            <div class="item">
+                                <div class="icon">
+                                    <i class="fa fa-<?php echo PropertiesTable::$propertiesBillsIcons[$key] ?>"></i>
+                                </div>
+
+                                <div class="value">
+                                    <h2><?php echo $b ?></h2>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
             </div>
         </div>
 

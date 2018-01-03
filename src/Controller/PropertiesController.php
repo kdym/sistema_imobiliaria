@@ -226,6 +226,10 @@ class PropertiesController extends AppController
                 $property['taxa_administrativa_tipo'] = $property['properties_fees'][0]['taxa_administrativa_tipo'];
                 $property['taxa_administrativa_incidencia'] = $property['properties_fees'][0]['taxa_administrativa_incidencia'];
                 $property['parcelas_13_taxa_administrativa'] = $property['properties_fees'][0]['parcelas_13_taxa_administrativa'];
+
+                foreach (PropertiesTable::$propertiesBills as $key => $b) {
+                    $property[$key] = $property['properties_fees'][0][$key];
+                }
             }
 
             if (!empty($property['locator'])) {
@@ -274,6 +278,11 @@ class PropertiesController extends AppController
                     $propertyFees['taxa_administrativa_tipo'] = GlobalCombosHelper::COMISSION_TYPE_PERCENTAGE;
                     $propertyFees['taxa_administrativa_incidencia'] = $property['taxa_administrativa_incidencia'];
                     $propertyFees['parcelas_13_taxa_administrativa'] = $property['parcelas_13_taxa_administrativa'];
+
+                    foreach (PropertiesTable::$propertiesBills as $key => $b) {
+                        $propertyFees[$key] = $property[$key];
+                    }
+
                     $propertyFees['start_date'] = date('Y-m-d');
                     $propertyFees['property_id'] = $property['id'];
 

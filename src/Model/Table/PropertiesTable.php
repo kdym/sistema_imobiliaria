@@ -60,6 +60,16 @@ class PropertiesTable extends Table
 
     const MAX_CODE_CHARS = 5;
 
+    const BILL_WATER = 'agua';
+
+    public static $propertiesBills = [
+        self::BILL_WATER => 'Água'
+    ];
+
+    public static $propertiesBillsIcons = [
+        self::BILL_WATER => 'tint'
+    ];
+
     /**
      * Initialize method
      *
