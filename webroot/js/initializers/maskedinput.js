@@ -6,6 +6,7 @@ var PHONE_DDD_8_DIGITS_MASK = '(99) 9999[9]-9999';
 var PHONE_DDD_9_DIGITS_MASK = '(99) 9999-9999[9]';
 var DATE_MASK = '99/99/9999';
 var DAY_MONTH_MASK = '99/99';
+var MONTH_YEAR_MASK = '99/9999';
 
 var CPF_LENGTH = 11;
 var CEP_LENGTH = 8;
@@ -20,6 +21,7 @@ $('.cep-mask').inputmask(CEP_MASK);
 $('.cpf-mask').inputmask(CPF_MASK);
 $('.cnpj-mask').inputmask(CNPJ_MASK);
 $('.day-month-mask').inputmask(DAY_MONTH_MASK);
+$('.month-year-mask').inputmask(MONTH_YEAR_MASK);
 
 $('.cpf-cnpj-mask').keyup(function () {
     if ($(this).inputmask('unmaskedvalue').length > CPF_LENGTH) {

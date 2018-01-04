@@ -141,9 +141,17 @@ echo $this->Html->script('properties.min', ['block' => true]);
         </div>
 
         <div class="box-body">
-            <?php foreach (PropertiesTable::$propertiesBills as $key => $b) { ?>
-                <?php echo $this->Form->control($key, ['label' => $b, 'type' => 'checkbox']) ?>
-            <?php } ?>
+            <div class="row">
+                <?php foreach (PropertiesTable::$propertiesBills as $key => $b) { ?>
+                    <div class="col-md-2">
+                        <?php echo $this->Form->control($key, ['label' => $b, 'type' => 'checkbox', 'data-check-bill' => $key]) ?>
+                    </div>
+
+                    <div class="col-md-3">
+                        <?php echo $this->Form->control('salary_' . $key, ['label' => false, 'class' => 'number-only', 'data-accept-bill' => $key, 'maxlength' => 2]) ?>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
     </div>
 

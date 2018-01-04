@@ -155,6 +155,16 @@ class PropertiesTable extends Table
 
         $validator->notEmpty('broker');
 
+        foreach (self::$propertiesBills as $key => $b) {
+            $validator->notEmpty("salary_$key", 'Campo Obrigatório', function ($context) use ($key) {
+                return !empty($context['data'][$key]) && $context['data'][$key] == true;
+            });
+            $validator->add("salary_$key", 'range', [
+                'rule' => ['range', 1, ContractsTable::DEFAULT_MONTH_DAYS],
+                'message' => 'Dia inválido (1 a 30)'
+            ]);
+        }
+
         return $validator;
     }
 

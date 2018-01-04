@@ -1,5 +1,6 @@
 <?php
 
+use App\Policy\BillsPolicy;
 use App\Policy\BrokersPolicy;
 use App\Policy\CompanyDataPolicy;
 use App\Policy\ConfigPolicy;
@@ -108,6 +109,41 @@ if (file_exists($file)) {
                 <a href="<?php echo $this->Url->build(["controller" => "contracts", "action" => "index"]) ?>">
                     <i class="fa fa-file-text"></i> <span>Contratos</span>
                 </a>
+            </li>
+        <?php } ?>
+
+        <?php
+        $active = '';
+
+        if ($this->request->params['controller'] == 'Bills') {
+            $active = 'active';
+        }
+        ?>
+
+        <?php if (BillsPolicy::isAuthorized('index', $loggedUser)) { ?>
+            <li class="<?php echo $active ?> treeview">
+                <a href="#">
+                    <i class="fa fa-envelope"></i> <span>Contas</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <?php if (BillsPolicy::isAuthorized('water', $loggedUser)) { ?>
+                        <?php
+                        $active = '';
+
+                        if ($this->request->params['action'] == 'water') {
+                            $active = 'active';
+                        }
+                        ?>
+
+                        <li>
+                            <a href="<?php echo $this->Url->build(['controller' => 'bills', 'action' => 'water']) ?>"
+                               class="<?php echo $active ?>">
+                                <i class="fa fa-tint"></i> Água
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
             </li>
         <?php } ?>
 

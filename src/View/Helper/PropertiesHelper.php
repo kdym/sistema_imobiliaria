@@ -83,6 +83,11 @@ class PropertiesHelper extends Helper
         return 'R$ ' . number_format($property['properties_prices'][0]['valor'], 2, ',', '.');
     }
 
+    public function formatCurrency($value)
+    {
+        return 'R$ ' . number_format($value, 2, ',', '.');
+    }
+
     public function getAdministrativeFee($property)
     {
         if ($property['properties_fees'][0]['taxa_administrativa_tipo'] == GlobalCombosHelper::COMISSION_TYPE_PERCENTAGE) {

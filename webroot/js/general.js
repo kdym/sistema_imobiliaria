@@ -17,7 +17,13 @@ $("body").bstooltip({selector: '[data-toggle=tooltip]'});
 
 $('form').submit(function () {
     var submitButton = $(this).find('button[type="submit"]');
+    var oldButtonContent = $(submitButton).html();
 
     submitButton.html('<i class="fa fa-circle-o-notch fa-spin"></i>');
     submitButton.attr('disabled', true);
+
+    if (!$(this).valid()) {
+        submitButton.html(oldButtonContent);
+        submitButton.attr('disabled', false);
+    }
 });

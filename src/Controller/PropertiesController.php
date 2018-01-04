@@ -280,7 +280,11 @@ class PropertiesController extends AppController
                     $propertyFees['parcelas_13_taxa_administrativa'] = $property['parcelas_13_taxa_administrativa'];
 
                     foreach (PropertiesTable::$propertiesBills as $key => $b) {
-                        $propertyFees[$key] = $property[$key];
+                        if ($property[$key] == true) {
+                            $propertyFees[$key] = $property["salary_$key"];
+                        } else {
+                            $propertyFees[$key] = null;
+                        }
                     }
 
                     $propertyFees['start_date'] = date('Y-m-d');

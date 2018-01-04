@@ -94,6 +94,14 @@ if ($('#locators-associations-chart').length) {
     });
 }
 
+if ($('[data-check-bill]').length) {
+    checkBills();
+}
+
+$('[data-check-bill]').click(function () {
+    checkBills();
+});
+
 if ($('#descricao').length) {
     CKEDITOR.replace('descricao');
 }
@@ -365,6 +373,16 @@ function updateLatitudeLongidute(marker) {
         },
         success: function () {
 
+        }
+    });
+}
+
+function checkBills() {
+    $('[data-accept-bill]').prop('readonly', true);
+
+    $('[data-check-bill]').each(function () {
+        if ($(this).prop('checked')) {
+            $('[data-accept-bill=' + $(this).data('check-bill') + ']').prop('readonly', false);
         }
     });
 }

@@ -18,6 +18,7 @@ class Bills
     const CUSTOM = 'custom';
     const DISCOUNT = 'discount';
     const EXTRA = 'extra';
+    const WATER = 'agua';
 
     public static $bills = [
         self::RENT => 'Aluguel',
@@ -27,6 +28,7 @@ class Bills
         self::CUSTOM => 'Personalizada',
         self::DISCOUNT => 'Desconto',
         self::EXTRA => 'Adicional',
+        self::WATER => 'Água',
     ];
 
     const PAID = 'paid';

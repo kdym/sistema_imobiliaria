@@ -249,14 +249,18 @@ $editLink = ['action' => 'form', $property['id']];
             <div class="box-body">
                 <div class="icon-view-list">
                     <?php foreach (PropertiesTable::$propertiesBills as $key => $b) { ?>
-                        <?php if ($property['properties_fees'][0][$key] == true) { ?>
+                        <?php if (!empty($property['properties_fees'][0][$key])) { ?>
                             <div class="item">
                                 <div class="icon">
                                     <i class="fa fa-<?php echo PropertiesTable::$propertiesBillsIcons[$key] ?>"></i>
                                 </div>
 
                                 <div class="value">
-                                    <h2><?php echo $b ?></h2>
+                                    <h1>Vencimento</h1>
+
+                                    <h2><?php echo $property['properties_fees'][0][$key] ?></h2>
+
+                                    <h3><?php echo $b ?></h3>
                                 </div>
                             </div>
                         <?php } ?>
