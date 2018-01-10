@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Table\PropertiesTable;
 use App\Policy\LocatorsAssociationsPolicy;
 
 /**
@@ -69,11 +70,14 @@ class LocatorsAssociationsController extends AppController
     {
         $property = $this->Properties->get($propertyId, [
             'contain' => [
-                'Locators.Users'
+                'Locators.Users',
+                'PropertiesFees'
             ]
         ]);
 
-        $this->set(compact('property'));
+        $referer = $this->referer();
+
+        $this->set(compact('property', 'referer'));
 
         $associations = $this->LocatorsAssociations->find()
             ->contain('Associateds.Users')

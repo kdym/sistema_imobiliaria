@@ -6,6 +6,7 @@
 
 use App\Model\Table\PropertiesCompositionsTable;
 use App\Model\Table\PropertiesTable;
+use App\Policy\CommonBillsPolicy;
 use App\Policy\LocatorsAssociationsPolicy;
 
 echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js', ['block' => true]);
@@ -218,59 +219,6 @@ $editLink = ['action' => 'form', $property['id']];
 
         <div class="box masonry-sizer-50">
             <div class="box-header with-border">
-                <h3 class="box-title">Locadores Associados</h3>
-
-                <?php if (LocatorsAssociationsPolicy::isAuthorized('form', $loggedUser)) { ?>
-                    <div class="box-tools pull-right">
-                        <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['controller' => 'locators_associations', 'action' => 'form', $property['id']], ['escape' => false]) ?>
-                    </div>
-                <?php } ?>
-            </div>
-
-            <div class="box-body">
-                <?php if (!empty($locatorsAssociationsDataset)) { ?>
-                    <canvas id="locators-associations-chart" class="graph-container"
-                            data-dataset='<?php echo json_encode($locatorsAssociationsDataset['dataset']) ?>'
-                            data-labels='<?php echo json_encode($locatorsAssociationsDataset['labels']) ?>'
-                            data-colors='<?php echo json_encode($locatorsAssociationsDataset['colors']) ?>'></canvas>
-                <?php } ?>
-            </div>
-        </div>
-
-        <div class="box masonry-sizer-50">
-            <div class="box-header with-border">
-                <h3 class="box-title">Contas</h3>
-
-                <div class="box-tools pull-right">
-                    <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
-                </div>
-            </div>
-
-            <div class="box-body">
-                <div class="icon-view-list">
-                    <?php foreach (PropertiesTable::$propertiesBills as $key => $b) { ?>
-                        <?php if (!empty($property['properties_fees'][0][$key])) { ?>
-                            <div class="item">
-                                <div class="icon">
-                                    <i class="fa fa-<?php echo PropertiesTable::$propertiesBillsIcons[$key] ?>"></i>
-                                </div>
-
-                                <div class="value">
-                                    <h1>Vencimento</h1>
-
-                                    <h2><?php echo $property['properties_fees'][0][$key] ?></h2>
-
-                                    <h3><?php echo $b ?></h3>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="box masonry-sizer-50">
-            <div class="box-header with-border">
                 <h3 class="box-title">Descrição</h3>
 
                 <div class="box-tools pull-right">
@@ -282,6 +230,119 @@ $editLink = ['action' => 'form', $property['id']];
                 <div class="small-long-text">
                     <?php echo $property['descricao'] ?>
                 </div>
+            </div>
+        </div>
+
+        <div class="box masonry-sizer-50">
+            <div class="box-header with-border">
+                <h3 class="box-title">Locadores Associados</h3>
+
+                <?php if (LocatorsAssociationsPolicy::isAuthorized('form', $loggedUser)) { ?>
+                    <div class="box-tools pull-right">
+                        <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', ['controller' => 'locators_associations', 'action' => 'form', $property['id']], ['escape' => false]) ?>
+                    </div>
+                <?php } ?>
+            </div>
+
+            <div class="box-body">
+                <canvas id="locators-associations-chart" class="graph-container"
+                        data-dataset='<?php echo json_encode($locatorsAssociationsDataset['dataset']) ?>'
+                        data-labels='<?php echo json_encode($locatorsAssociationsDataset['labels']) ?>'
+                        data-colors='<?php echo json_encode($locatorsAssociationsDataset['colors']) ?>'></canvas>
+            </div>
+        </div>
+
+        <div class="box masonry-sizer-100" id="common-bills-box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Contas</h3>
+
+                <div class="box-tools pull-right">
+                    <?php echo $this->Html->link('<i class="fa fa-pencil"></i>', $editLink, ['escape' => false]) ?>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <?php foreach (PropertiesTable::$propertiesBills as $key => $b) { ?>
+                    <?php if (!empty($property['properties_fees'][0][$key])) { ?>
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-2">
+                                <h3>Contas Comuns</h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="icon-view-list">
+                                    <div class="item">
+                                        <div class="icon">
+                                            <i class="fa fa-<?php echo PropertiesTable::$propertiesBillsIcons[$key] ?>"></i>
+                                        </div>
+
+                                        <div class="value">
+                                            <h1>Vencimento</h1>
+
+                                            <h2><?php echo $property['properties_fees'][0][$key] ?></h2>
+
+                                            <h3><?php echo $b ?></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <?php if (CommonBillsPolicy::isAuthorized('add', $loggedUser)) { ?>
+                                    <?php echo $this->Form->create() ?>
+
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <?php echo $this->Form->control('search_property_' . $key, ['label' => false, 'placeholder' => 'Adicionar Imóvel...', 'data-common-bill-type' => $key]) ?>
+                                        </div>
+                                    </div>
+
+                                    <?php echo $this->Form->end() ?>
+                                <?php } ?>
+
+                                <?php if (!empty($commonBills[$key])) { ?>
+                                    <div class="thumbs-list">
+                                        <div class="row">
+                                            <?php foreach ($commonBills[$key] as $b) { ?>
+                                                <div class="col-md-3 col-sm-6">
+                                                    <div class="item">
+                                                        <div class="item-wrapper">
+                                                            <figure>
+                                                                <a href="<?php echo $this->Url->build(['controller' => 'properties', 'action' => 'view', $b['property']['id']]) ?>">
+                                                                    <?php echo $this->Html->image($this->Properties->getMainPhoto($b['property'])) ?>
+                                                                </a>
+                                                            </figure>
+
+                                                            <h1>
+                                                                <?php echo $this->Properties->getMainAddress($b['property']) ?>
+                                                                <small><?php echo $b['property']['formatted_code'] ?></small>
+                                                            </h1>
+
+                                                            <h2>
+                                                                <?php echo $b['property']['locator']['user']['nome'] ?>
+                                                                <small><?php echo $b['property']['locator']['user']['formatted_username'] ?></small>
+                                                            </h2>
+
+                                                            <h3><?php echo $this->Properties->getStatus($b['property']) ?></h3>
+                                                        </div>
+
+                                                        <nav class="actions">
+                                                            <?php if (CommonBillsPolicy::isAuthorized('delete', $loggedUser)) { ?>
+                                                                <?php echo $this->Html->link('<i class="fa fa-trash"></i>', ['controller' => 'common_bills', 'action' => 'delete', $b['id']], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => 'Tem certeza que deseja excluir?']) ?>
+                                                            <?php } ?>
+                                                        </nav>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php } ?>
             </div>
         </div>
 
@@ -348,5 +409,24 @@ $editLink = ['action' => 'form', $property['id']];
         <input type="checkbox" class="gallery-checkbox" value="${id}"/>
 
         <img src="${photo}"/>
+    </div>
+</script>
+
+<script type="text/html" id="properties-search-template">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="${photo}" class="img-responsive img-rounded"/>
+        </div>
+
+        <div class="col-md-10">
+            <h1 class="search-h1">
+                ${address}
+                <small>${code}</small>
+            </h1>
+
+            <h2 class="search-h2">${locator}
+                <small>${locator_username}</small>
+            </h2>
+        </div>
     </div>
 </script>

@@ -79,6 +79,7 @@ if ($('#locators-associations-chart').length) {
         },
         options: {
             responsive: true,
+            cutoutPercentage: 70,
             maintainAspectRatio: false,
             tooltips: {
                 callbacks: {
@@ -210,6 +211,75 @@ $('#delete-photos').click(function () {
         }
     }
 });
+
+if ($('.common-bills-graph').length) {
+    loadCommonBillsGraphs();
+}
+
+if ($('[data-common-bill-type]').length) {
+    $('[data-common-bill-type]').each(function () {
+        var type = $(this).data('common-bill-type');
+
+        $('#search-property-' + type).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/common-bills/search-property.json",
+                    data: {
+                        name: request.term,
+                        property_id: $('#property-hidden-id').val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                if (confirm('Tem certeza que deseja adicionar esse Imóvel a essa conta?')) {
+                    startLoading($('#common-bills-box'));
+
+                    $.ajax({
+                        url: "/common-bills/add.json",
+                        data: {
+                            property_id1: ui.item.id,
+                            property_id2: $('#property-hidden-id').val(),
+                            type: type
+                        },
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (!$.isEmptyObject(data)) {
+                                var text = 'As seguintes modificações foram realizadas:\n';
+
+                                $.each(data, function () {
+                                    text += this + '\n';
+                                });
+
+                                alert(text);
+                            }
+
+                            location.reload();
+                        }
+                    });
+                }
+
+                return false;
+            }
+        }).autocomplete("instance")._renderItem = function (ul, item) {
+            var data = {
+                photo: item.main_photo,
+                address: item.full_address,
+                code: item.formatted_code,
+                locator: item.locator.user.nome,
+                locator_username: item.locator.user.formatted_username
+            };
+
+            return $('<li>')
+                .append($('#properties-search-template').tmpl(data))
+                .appendTo(ul);
+        };
+    });
+}
 
 function loadPhotos() {
     startLoading($('#photo-gallery-box'));
@@ -384,5 +454,36 @@ function checkBills() {
         if ($(this).prop('checked')) {
             $('[data-accept-bill=' + $(this).data('check-bill') + ']').prop('readonly', false);
         }
+    });
+}
+
+function loadCommonBillsGraphs() {
+    $('.common-bills-graph').each(function () {
+        new Chart($(this)[0].getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: $(this).data('dataset'),
+                    backgroundColor: $(this).data('colors')
+                }],
+                labels: $(this).data('labels')
+            },
+            options: {
+                responsive: true,
+                cutoutPercentage: 70,
+                maintainAspectRatio: false,
+                legend: false,
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItems, data) {
+                            var allData = data.datasets[tooltipItems.datasetIndex].data;
+                            var tooltipData = allData[tooltipItems.index];
+
+                            return tooltipData + '%';
+                        }
+                    }
+                }
+            }
+        });
     });
 }

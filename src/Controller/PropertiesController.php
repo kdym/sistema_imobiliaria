@@ -19,6 +19,7 @@ use Cake\Event\Event;
  * @property \App\Model\Table\PropertiesPricesTable $PropertiesPrices
  * @property \App\Model\Table\LocatorsAssociationsTable $LocatorsAssociations
  * @property \App\Model\Table\UsersTable $Users
+ * @property \App\Model\Table\CommonBillsTable $CommonBills
  *
  * @method \App\Model\Entity\Property[] paginate($object = null, array $settings = [])
  */
@@ -46,6 +47,7 @@ class PropertiesController extends AppController
         $this->loadModel('PropertiesPrices');
         $this->loadModel('LocatorsAssociations');
         $this->loadModel('Users');
+        $this->loadModel('CommonBills');
     }
 
     public function beforeRender(Event $event)
@@ -107,15 +109,50 @@ class PropertiesController extends AppController
 
         $associations = $this->LocatorsAssociations->find()
             ->contain('Associateds.Users')
-            ->where(['property_id' => $id]);
+            ->where(['locator_1' => $property['locator_id']])
+            ->where(['property_id' => $property['id']]);
+
+        $ownerPercentage = 100;
+        $sum = 0;
+
+        $locatorsColors = [];
 
         foreach ($associations as $a) {
             $locatorsAssociationsDataset['labels'][] = sprintf('%s - %s', $a['associated']['user']['formatted_username'], $a['associated']['user']['nome']);
             $locatorsAssociationsDataset['dataset'][] = $a['porcentagem'];
-            $locatorsAssociationsDataset['colors'][] = $this->GraphUtil->getRandomColor();
+
+            $locatorsColors[$a['locator_2']] = $this->GraphUtil->getRandomColor();
+
+            $locatorsAssociationsDataset['colors'][] = $locatorsColors[$a['locator_2']];
+
+            $sum += $a['porcentagem'];
         }
 
+        $locatorsAssociationsDataset['labels'][] = sprintf('%s - %s', $property['locator']['user']['formatted_username'], $property['locator']['user']['nome']);
+        $locatorsAssociationsDataset['dataset'][] = $ownerPercentage - $sum;
+
+        $locatorsColors[$property['locator_id']] = $this->GraphUtil->getRandomColor();
+
+        $locatorsAssociationsDataset['colors'][] = $locatorsColors[$property['locator_id']];
+
         $this->set(compact('locatorsAssociationsDataset'));
+
+        $commonBillsArray = [];
+
+        foreach (PropertiesTable::$propertiesBills as $key => $b) {
+            if (!empty($property['properties_fees'][0][$key])) {
+                $commonBills = $this->CommonBills->find()
+                    ->contain('Properties.Locators.Users')
+                    ->where(['CommonBills.tipo' => $key])
+                    ->where(['property_1' => $id]);
+
+                if (!$commonBills->isEmpty()) {
+                    $commonBillsArray[$key] = $commonBills;
+                }
+            }
+        }
+
+        $this->set('commonBills', $commonBillsArray);
 
         $this->set('property', $property);
         $this->set('_serialize', ['property']);

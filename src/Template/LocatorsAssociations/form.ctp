@@ -5,15 +5,20 @@
  */
 
 
+use App\Model\Table\PropertiesTable;
+
 echo $this->Html->css('AdminLTE./plugins/bootstrap-slider/slider', ['block' => true]);
 echo $this->Html->script('AdminLTE./plugins/bootstrap-slider/bootstrap-slider', ['block' => true]);
 
+echo $this->Html->css('locators-associations.min', ['block' => true]);
 echo $this->Html->script('locators-associations.min', ['block' => true]);
 
 ?>
 
 <section class="content-header">
-    <h1>Locadores Associados
+    <h1>
+        <a href="<?php echo $referer ?>"><i class="fa fa-arrow-left"></i></a>
+        Locadores Associados
         <small><?php echo $property['full_address'] ?></small>
     </h1>
 </section>
@@ -24,7 +29,7 @@ echo $this->Html->script('locators-associations.min', ['block' => true]);
             <div class="box">
                 <div class="box-body">
                     <div class="percentage-sliders">
-                        <div class="row vertical-center-row" id="main-locator"
+                        <div class="row vertical-center-row slider-container" id="main-locator"
                              data-locator-id="<?php echo $property['locator']['id'] ?>">
                             <div class="col-md-2 col-sm-12">
                                 <div class="icon">
@@ -50,7 +55,7 @@ echo $this->Html->script('locators-associations.min', ['block' => true]);
                         </div>
 
                         <?php foreach ($associations as $a) { ?>
-                            <div class="row vertical-center-row associated-locator-row"
+                            <div class="row vertical-center-row slider-container associated-locator-row"
                                  data-locator-id="<?php echo $a['locator_2'] ?>">
                                 <div class="col-md-2 col-sm-12">
                                     <div class="icon">
@@ -122,7 +127,7 @@ echo $this->Html->script('locators-associations.min', ['block' => true]);
 </script>
 
 <script type="text/html" id="locators-sliders-template">
-    <div class="row vertical-center-row associated-locator-row" data-locator-id="${id}">
+    <div class="row vertical-center-row associated-locator-row slider-container" data-locator-id="${id}">
         <div class="col-md-2 col-sm-12">
             <div class="icon">
                 <i class="fa fa-user"></i>

@@ -44,7 +44,6 @@ if (file_exists($file)) {
 
         if (
             $this->request->params['controller'] == 'Locators' ||
-            $this->request->params['controller'] == 'LocatorsAssociations' ||
             $this->request->params['controller'] == 'Extract'
         ) {
             $active = 'active';
@@ -62,7 +61,10 @@ if (file_exists($file)) {
         <?php
         $active = '';
 
-        if ($this->request->params['controller'] == 'Properties') {
+        if (
+            $this->request->params['controller'] == 'Properties' ||
+            $this->request->params['controller'] == 'LocatorsAssociations'
+        ) {
             $active = 'active';
         }
         ?>

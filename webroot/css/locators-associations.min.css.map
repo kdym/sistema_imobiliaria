@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,qCAAkB,CAChB,MAAM,CAAE,MAAM",
+"sources": ["../scss/locators-associations.scss"],
+"names": [],
+"file": "locators-associations.min.css"
+}

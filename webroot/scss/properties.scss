@@ -91,3 +91,15 @@ $photoHeight: 160px;
   width: $photoWidth;
   height: $photoHeight;
 }
+
+#common-bills-list {
+  .row {
+    .locator-indicator {
+      width: 25px;
+      height: 25px;
+      border-radius: 2px;
+      display: inline-block;
+      margin: 0 2px;
+    }
+  }
+}

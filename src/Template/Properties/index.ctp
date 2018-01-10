@@ -46,7 +46,8 @@ use App\Policy\PropertiesPolicy;
                                                 <small><?php echo $p['formatted_code'] ?></small>
                                             </h1>
 
-                                            <h2><?php echo $p['locator']['user']['nome'] ?>
+                                            <h2>
+                                                <?php echo $p['locator']['user']['nome'] ?>
                                                 <small><?php echo $p['locator']['user']['formatted_username'] ?></small>
                                             </h2>
 
