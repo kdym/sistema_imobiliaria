@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Model\Custom\Bills;
+use App\Model\Table\ParametersTable;
 use App\Model\Table\PropertiesTable;
 use App\Policy\BillsPolicy;
 use Cake\Event\Event;
@@ -18,6 +19,7 @@ use DateTime;
  * @property \App\Model\Table\ContractsValuesTable $ContractsValues
  * @property \App\Model\Table\PropertiesFeesTable $PropertiesFees
  * @property \App\Model\Table\CommonBillsTable $CommonBills
+ * @property \App\Model\Table\ParametersTable $Parameters
  */
 class BillsController extends AppController
 {
@@ -31,6 +33,7 @@ class BillsController extends AppController
         $this->loadModel('Contracts');
         $this->loadModel('ContractsValues');
         $this->loadModel('CommonBills');
+        $this->loadModel('Parameters');
     }
 
     function isAuthorized($user)
@@ -137,21 +140,67 @@ class BillsController extends AppController
             }
 
             if (empty($errors)) {
+                $buffer = explode('/', $this->request->getData('period'));
+                $period = new DateTime(sprintf('%s-%s-01', $buffer[1], $buffer[0]));
+
                 $property = $this->Properties->get($this->request->getData('property_id'), [
                     'contain' => ['Locators.Users', 'PropertiesPhotos']
                 ]);
 
                 $commonBills = $this->CommonBills->find()
-                    ->where(['tipo' => PropertiesTable::BILL_WATER])
+                    ->contain('Properties.Locators.Users')
+                    ->where(['CommonBills.tipo' => PropertiesTable::BILL_WATER])
                     ->where(['property_1' => $property['id']]);
 
+                $hasContract = [];
+                $sumNoContract = 0;
                 foreach ($commonBills as $c) {
-                    
+                    $contract = $this->Contracts->find()
+                        ->where(['property_id' => $c['property']['id']])
+                        ->where(['date_format(data_inicio, "%Y-%m") >=' => $period->format('Y-m')])
+                        ->where(['data_fim is not null'])
+                        ->first();
+
+                    if ($contract) {
+                        $hasContract[] = $c;
+                    } else {
+                        $query = $this->Parameters->find()
+                            ->where(['nome' => ParametersTable::MIN_WATER_RESIDENTIAL])
+                            ->where(['date_format(start_date, "%Y-%m") <=' => $period->format('Y-m')])
+                            ->first();
+
+                        $minWaterValue = 0;
+                        if ($query) {
+                            $minWaterValue = $query['valor'];
+                        }
+
+                        $sumNoContract += $minWaterValue;
+
+                        $values[] = [
+                            'property' => $c['property'],
+                            'value' => $minWaterValue
+                        ];
+                    }
+                }
+
+                $totalValue = $this->Properties->parseDecimal($this->request->getData('value'));
+
+                if (!empty($hasContract)) {
+                    $value = ($totalValue - $sumNoContract) / count($hasContract);
+                } else {
+                    $value = $totalValue - $sumNoContract;
+                }
+
+                foreach ($hasContract as $c) {
+                    $values[] = [
+                        'property' => $c['property'],
+                        'value' => $value
+                    ];
                 }
 
                 $values[] = [
                     'property' => $property,
-                    'value' => $this->Properties->parseDecimal($this->request->getData('value'))
+                    'value' => $value
                 ];
             }
         }
