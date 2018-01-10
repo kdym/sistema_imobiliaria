@@ -6,6 +6,7 @@
  */
 
 use App\Model\Table\ContractsValuesTable;
+use App\Model\Table\ParametersTable;
 
 ?>
 
@@ -21,13 +22,27 @@ use App\Model\Table\ContractsValuesTable;
     <div class="box">
         <div class="box-body">
             <?php foreach (ContractsValuesTable::$generalFees as $f) { ?>
-
                 <div class="row">
                     <div class="col-md-6">
                         <?php echo $this->Form->control($f->getKey(), ['label' => sprintf('%s (%s)', $f->getName(), $f->getTypeSymbol()), 'class' => 'mask-number', 'value' => $f->getFormattedValue()]) ?>
                     </div>
                 </div>
+            <?php } ?>
+        </div>
+    </div>
 
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Valor Mínimo Água</h3>
+        </div>
+
+        <div class="box-body">
+            <?php foreach (ParametersTable::$waterMinValues as $key => $v) { ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $this->Form->control($key, ['label' => "$v (R$)", 'class' => 'mask-number']) ?>
+                    </div>
+                </div>
             <?php } ?>
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Model\Table\ContractsValuesTable;
+use App\Model\Table\ParametersTable;
 use App\Policy\ConfigPolicy;
 
 /**
@@ -39,10 +40,24 @@ class ConfigController extends AppController
         $companyData = $this->CompanyData->find()->first();
 
         $this->set(compact('companyData'));
+
+        $minWaterValues = [];
+
+        foreach (ParametersTable::$waterMinValues as $key => $v) {
+            $minWaterValues[$key] = $this->Parameters->getParameter($key);
+        }
+
+        $this->set(compact('minWaterValues'));
     }
 
     public function general()
     {
+        if ($this->request->is('get')) {
+            foreach (ParametersTable::$waterMinValues as $key => $v) {
+                $this->request->data[$key] = $this->Parameters->formatCurrency($this->Parameters->getParameter($key));
+            }
+        }
+
         if ($this->request->is('post')) {
             foreach (ContractsValuesTable::$generalFees as $f) {
                 $parameter = $this->Parameters->newEntity();
@@ -52,6 +67,10 @@ class ConfigController extends AppController
                 $parameter['start_date'] = date('Y-m-d');
 
                 $this->Parameters->save($parameter);
+            }
+
+            foreach (ParametersTable::$waterMinValues as $key => $v) {
+                $this->Parameters->setParameter($key, $this->Parameters->parseDecimal($this->request->getData($key)));
             }
 
             $this->Flash->success('Salvo com sucesso');

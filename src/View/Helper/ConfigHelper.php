@@ -31,4 +31,9 @@ class ConfigHelper extends Helper
         return ($parameter) ? $parameter['valor'] : 0;
     }
 
+    public function formatCurrency($value)
+    {
+        return 'R$ ' . number_format($value, 2, ',', '.');
+    }
+
 }

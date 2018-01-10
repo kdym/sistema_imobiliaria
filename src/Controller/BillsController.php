@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Model\Custom\Bills;
+use App\Model\Table\PropertiesTable;
 use App\Policy\BillsPolicy;
 use Cake\Event\Event;
 use DateTime;
@@ -16,6 +17,7 @@ use DateTime;
  * @property \App\Model\Table\ContractsTable $Contracts
  * @property \App\Model\Table\ContractsValuesTable $ContractsValues
  * @property \App\Model\Table\PropertiesFeesTable $PropertiesFees
+ * @property \App\Model\Table\CommonBillsTable $CommonBills
  */
 class BillsController extends AppController
 {
@@ -28,6 +30,7 @@ class BillsController extends AppController
         $this->loadModel('CustomBills');
         $this->loadModel('Contracts');
         $this->loadModel('ContractsValues');
+        $this->loadModel('CommonBills');
     }
 
     function isAuthorized($user)
@@ -137,6 +140,14 @@ class BillsController extends AppController
                 $property = $this->Properties->get($this->request->getData('property_id'), [
                     'contain' => ['Locators.Users', 'PropertiesPhotos']
                 ]);
+
+                $commonBills = $this->CommonBills->find()
+                    ->where(['tipo' => PropertiesTable::BILL_WATER])
+                    ->where(['property_1' => $property['id']]);
+
+                foreach ($commonBills as $c) {
+                    
+                }
 
                 $values[] = [
                     'property' => $property,

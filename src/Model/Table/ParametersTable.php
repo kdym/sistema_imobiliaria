@@ -21,6 +21,14 @@ use Cake\Validation\Validator;
 class ParametersTable extends Table
 {
 
+    const MIN_WATER_RESIDENTIAL = 'min_water_residential';
+    const MIN_WATER_NON_RESIDENTIAL = 'min_water_non_residential';
+
+    public static $waterMinValues = [
+        self::MIN_WATER_RESIDENTIAL => 'Residencial',
+        self::MIN_WATER_NON_RESIDENTIAL => 'Não Residencial',
+    ];
+
     /**
      * Initialize method
      *
@@ -36,6 +44,7 @@ class ParametersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Parser');
+        $this->addBehavior('Formatter');
     }
 
     /**
@@ -63,5 +72,27 @@ class ParametersTable extends Table
             ->allowEmpty('start_date');
 
         return $validator;
+    }
+
+    public function getParameter($name)
+    {
+        $parameter = $this->find()->where(['nome' => $name])->last();
+
+        if ($parameter) {
+            return $parameter['valor'];
+        } else {
+            return null;
+        }
+    }
+
+    public function setParameter($name, $value)
+    {
+        $parameter = $this->newEntity();
+
+        $parameter['nome'] = $name;
+        $parameter['valor'] = $value;
+        $parameter['start_date'] = date('Y-m-d');
+
+        $this->save($parameter);
     }
 }
