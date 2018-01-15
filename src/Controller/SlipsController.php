@@ -10,9 +10,11 @@ use App\Model\Custom\Slip;
 use App\Model\Custom\SlipValue;
 use App\Model\Table\ContractsTable;
 use App\Model\Table\ContractsValuesTable;
+use App\Model\Table\CustomBillsTable;
 use App\Model\Table\ExtractsTable;
 use App\Model\Table\PaidSlipsTable;
 use App\Model\Table\PropertiesFeesTable;
+use App\Model\Table\PropertiesTable;
 use App\Model\Table\SlipsCustomsValuesTable;
 use App\Model\Table\SlipsRecursiveTable;
 use App\Policy\SlipsPolicy;
@@ -637,6 +639,34 @@ class SlipsController extends AppController
 
                     $bills[] = $bill;
                 }
+            }
+        }
+
+        //Contas do Imóvel
+        foreach (PropertiesTable::$propertiesBills as $key => $b) {
+            $customBill = $this->CustomBills->find()
+                ->where(['categoria' => $key])
+                ->where(['pagante' => Bills::PAYER_RECEIVER_TENANT])
+                ->where(['reference_id' => $contract['id']]);
+
+            foreach ($customBill as $c) {
+                $bill = new ContractBill();
+
+                if (!empty($c['descricao'])) {
+                    $bill->setName(sprintf('%s (%s)', $c['descricao'], $b));
+                } else {
+                    $bill->setName($b);
+                }
+
+                $recursivity = new Recursivity($c);
+
+                $bill->setRecursivity($recursivity->toString());
+
+                $bill->setValue($c['valor']);
+                $bill->setDeletable(true);
+                $bill->setCustomBillId($c['id']);
+
+                $bills[] = $bill;
             }
         }
 

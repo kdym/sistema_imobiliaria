@@ -163,6 +163,14 @@ $('input[name="pay_multiple_choice"]').click(function () {
     checkPayMultipleSlipsInputs();
 });
 
+$('#contract-bills-list').DataTable({
+    order: [[0, 'asc']],
+    columnDefs: [
+        {orderable: false, targets: [3]}
+    ],
+    responsive: true
+});
+
 function addFee() {
     $('#new-fee-template').tmpl().appendTo('#fees-container');
 

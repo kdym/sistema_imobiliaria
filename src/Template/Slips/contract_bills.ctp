@@ -236,7 +236,7 @@ echo $this->Html->script('slips.min', ['block' => true]);
 
     <div class="box">
         <div class="box-body">
-            <table class="table table-hover">
+            <table class="table table-hover" id="contract-bills-list">
                 <thead>
                 <tr>
                     <th>Descrição</th>
