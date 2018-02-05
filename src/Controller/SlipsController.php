@@ -670,6 +670,30 @@ class SlipsController extends AppController
             }
         }
 
+        //Diferenças do Imóvel
+        foreach (PropertiesTable::$diferenceBills as $key => $b) {
+            $customBill = $this->CustomBills->find()
+                ->where(['categoria' => $key])
+                ->where(['pagante' => Bills::PAYER_RECEIVER_TENANT])
+                ->where(['reference_id' => $contract['id']]);
+
+            foreach ($customBill as $c) {
+                $bill = new ContractBill();
+
+                $bill->setName(sprintf('Diferença Mês Anterior (%s)', $b));
+
+                $recursivity = new Recursivity($c);
+
+                $bill->setRecursivity($recursivity->toString());
+
+                $bill->setValue($c['valor']);
+                $bill->setDeletable(true);
+                $bill->setCustomBillId($c['id']);
+
+                $bills[] = $bill;
+            }
+        }
+
         usort($bills, [$this, 'cmpContractBills']);
 
         $this->set(compact('fixedBills', 'bills', 'jsonBills'));

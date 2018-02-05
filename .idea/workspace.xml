@@ -2,13 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2efe6039-6659-41b6-99c0-8ecbe00eb18c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/unilar_intranet.iml" afterPath="$PROJECT_DIR$/.idea/unilar_intranet.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/BillsController.php" afterPath="$PROJECT_DIR$/src/Controller/BillsController.php" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SlipsController.php" afterPath="$PROJECT_DIR$/src/Controller/SlipsController.php" />
       <change beforePath="$PROJECT_DIR$/src/Model/Custom/Slip.php" afterPath="$PROJECT_DIR$/src/Model/Custom/Slip.php" />
-      <change beforePath="$PROJECT_DIR$/src/Template/Slips/contract_bills.ctp" afterPath="$PROJECT_DIR$/src/Template/Slips/contract_bills.ctp" />
-      <change beforePath="$PROJECT_DIR$/webroot/index.php" afterPath="$PROJECT_DIR$/webroot/index.php" />
-      <change beforePath="$PROJECT_DIR$/webroot/js/slips.js" afterPath="$PROJECT_DIR$/webroot/js/slips.js" />
-      <change beforePath="$PROJECT_DIR$/webroot/js/slips.min.js" afterPath="$PROJECT_DIR$/webroot/js/slips.min.js" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" afterPath="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" />
+      <change beforePath="$PROJECT_DIR$/src/Template/Bills/water.ctp" afterPath="$PROJECT_DIR$/src/Template/Bills/water.ctp" />
+      <change beforePath="$PROJECT_DIR$/webroot/css/app.min.css" afterPath="$PROJECT_DIR$/webroot/css/app.min.css" />
+      <change beforePath="$PROJECT_DIR$/webroot/css/app.min.css.map" afterPath="$PROJECT_DIR$/webroot/css/app.min.css.map" />
+      <change beforePath="$PROJECT_DIR$/webroot/scss/app.scss" afterPath="$PROJECT_DIR$/webroot/scss/app.scss" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,22 +24,72 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Slip.php" pinned="false" current-in-tab="true">
+    <leaf>
+      <file leaf-file-name="Slip.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/Custom/Slip.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="284" column="87" lean-forward="false" selection-start-line="284" selection-start-column="87" selection-end-line="284" selection-end-column="87" />
+            <state relative-caret-position="312">
+              <caret line="362" column="0" lean-forward="false" selection-start-line="362" selection-start-column="0" selection-end-line="362" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParametersTable.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Table/ParametersTable.php">
+      <file leaf-file-name="SlipsController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Controller/SlipsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="78" column="69" lean-forward="false" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="69" />
+            <state relative-caret-position="465">
+              <caret line="684" column="51" lean-forward="true" selection-start-line="684" selection-start-column="51" selection-end-line="684" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BillsController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/BillsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="483">
+              <caret line="130" column="26" lean-forward="false" selection-start-line="130" selection-start-column="26" selection-end-line="130" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="water.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Template/Bills/water.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="332">
+              <caret line="70" column="103" lean-forward="false" selection-start-line="70" selection-start-column="91" selection-end-line="70" selection-end-column="103" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webroot/scss/app.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Template/Slips/index.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="561">
+              <caret line="210" column="85" lean-forward="false" selection-start-line="209" selection-start-column="64" selection-end-line="210" selection-end-column="85" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PropertiesTable.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/Table/PropertiesTable.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="576">
+              <caret line="75" column="39" lean-forward="false" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -53,7 +106,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>grid-sizer</find>
       <find>masonry-sizer-50</find>
       <find>$user</find>
       <find>HtmlUtil</find>
@@ -83,6 +135,7 @@
       <find>center-</find>
       <find>contas com</find>
       <find>imó</find>
+      <find>.thumbs-list</find>
     </findStrings>
     <replaceStrings>
       <replace>Form</replace>
@@ -127,14 +180,11 @@
         <option value="$PROJECT_DIR$/src/Policy/BillsPolicy.php" />
         <option value="$PROJECT_DIR$/config/Migrations/20180104110629_ChangeAguaInPropertiesFees.php" />
         <option value="$PROJECT_DIR$/src/Template/Properties/form.ctp" />
-        <option value="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" />
-        <option value="$PROJECT_DIR$/src/Template/Bills/water.ctp" />
         <option value="$PROJECT_DIR$/webroot/scss/locators-associations.scss" />
         <option value="$PROJECT_DIR$/src/Template/Plugin/AdminLTE/Element/aside/sidebar-menu.ctp" />
         <option value="$PROJECT_DIR$/config/Migrations/20180104164944_AddAguaToLocatorsAssociations.php" />
         <option value="$PROJECT_DIR$/webroot/scss/properties.scss" />
         <option value="$PROJECT_DIR$/src/Controller/LocatorsAssociationsController.php" />
-        <option value="$PROJECT_DIR$/webroot/scss/app.scss" />
         <option value="$PROJECT_DIR$/webroot/js/locators-associations.js" />
         <option value="$PROJECT_DIR$/src/Template/LocatorsAssociations/form.ctp" />
         <option value="$PROJECT_DIR$/config/Migrations/20180110110541_CreateCommonBills.php" />
@@ -151,12 +201,15 @@
         <option value="$PROJECT_DIR$/src/Model/Table/ParametersTable.php" />
         <option value="$PROJECT_DIR$/src/Controller/ConfigController.php" />
         <option value="$PROJECT_DIR$/src/Template/Config/index.ctp" />
-        <option value="$PROJECT_DIR$/src/Controller/BillsController.php" />
         <option value="$PROJECT_DIR$/webroot/index.php" />
-        <option value="$PROJECT_DIR$/src/Controller/SlipsController.php" />
         <option value="$PROJECT_DIR$/src/Template/Slips/contract_bills.ctp" />
         <option value="$PROJECT_DIR$/webroot/js/slips.js" />
+        <option value="$PROJECT_DIR$/src/Model/Table/PropertiesTable.php" />
         <option value="$PROJECT_DIR$/src/Model/Custom/Slip.php" />
+        <option value="$PROJECT_DIR$/src/Template/Bills/water.ctp" />
+        <option value="$PROJECT_DIR$/webroot/scss/app.scss" />
+        <option value="$PROJECT_DIR$/src/Controller/BillsController.php" />
+        <option value="$PROJECT_DIR$/src/Controller/SlipsController.php" />
       </list>
     </option>
   </component>
@@ -253,8 +306,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -726,12 +779,17 @@
       <workItem from="1515675074904" duration="2072000" />
       <workItem from="1515757275023" duration="117000" />
       <workItem from="1515775096285" duration="11000" />
-      <workItem from="1516016765624" duration="3272000" />
+      <workItem from="1516016765624" duration="4013000" />
+      <workItem from="1516710841544" duration="29000" />
+      <workItem from="1516710963375" duration="82000" />
+      <workItem from="1517331147157" duration="20000" />
+      <workItem from="1517335767069" duration="20000" />
+      <workItem from="1517848735957" duration="8680000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="457444000" />
+    <option name="totallyTimeSpent" value="467016000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -746,14 +804,14 @@
     <frame x="1432" y="-132" width="1296" height="1000" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.225" sideWeight="0.38444194" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.225" sideWeight="0.361894" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38218716" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.225" sideWeight="0.6155581" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.225" sideWeight="0.638106" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24239008" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -782,13 +840,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/webroot/js/general.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="50" lean-forward="false" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webroot/js/initializers/jquery-validate.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -859,13 +910,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Template/Bills/water.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="96" column="88" lean-forward="false" selection-start-line="96" selection-start-column="88" selection-end-line="96" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webroot/scss/locators-associations.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -929,13 +973,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webroot/scss/app.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="227" column="21" lean-forward="false" selection-start-line="227" selection-start-column="14" selection-end-line="227" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Template/Contracts/form.ctp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
@@ -954,13 +991,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="607">
           <caret line="60" column="22" lean-forward="true" selection-start-line="50" selection-start-column="4" selection-end-line="60" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Table/PropertiesTable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
-          <caret line="62" column="20" lean-forward="false" selection-start-line="62" selection-start-column="10" selection-end-line="62" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -1083,21 +1113,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/BillsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="91" column="82" lean-forward="false" selection-start-line="91" selection-start-column="54" selection-end-line="91" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/SlipsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10778">
-          <caret line="653" column="0" lean-forward="false" selection-start-line="653" selection-start-column="0" selection-end-line="653" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webroot/js/brokers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1109,7 +1124,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2805">
           <caret line="165" column="23" lean-forward="false" selection-start-line="165" selection-start-column="23" selection-end-line="165" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1117,6 +1131,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
           <caret line="246" column="24" lean-forward="false" selection-start-line="246" selection-start-column="24" selection-end-line="246" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Table/ParametersTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="78" column="69" lean-forward="false" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="69" />
           <folding />
         </state>
       </provider>
@@ -1129,18 +1150,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Table/ParametersTable.php">
+    <entry file="file://$PROJECT_DIR$/src/Model/Table/PropertiesTable.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="78" column="69" lean-forward="false" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="69" />
+        <state relative-caret-position="576">
+          <caret line="75" column="39" lean-forward="false" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Slips/index.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="210" column="85" lean-forward="false" selection-start-line="209" selection-start-column="64" selection-end-line="210" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Template/Bills/water.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="70" column="103" lean-forward="false" selection-start-line="70" selection-start-column="91" selection-end-line="70" selection-end-column="103" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webroot/scss/app.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/BillsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="130" column="26" lean-forward="false" selection-start-line="130" selection-start-column="26" selection-end-line="130" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Custom/Slip.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="284" column="87" lean-forward="false" selection-start-line="284" selection-start-column="87" selection-end-line="284" selection-end-column="87" />
+        <state relative-caret-position="312">
+          <caret line="362" column="0" lean-forward="false" selection-start-line="362" selection-start-column="0" selection-end-line="362" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/SlipsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="684" column="51" lean-forward="true" selection-start-line="684" selection-start-column="51" selection-end-line="684" selection-end-column="51" />
           <folding />
         </state>
       </provider>

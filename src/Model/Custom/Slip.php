@@ -153,6 +153,10 @@ class Slip
             $categoryPropertiesBills[] = $key;
         }
 
+        foreach (PropertiesTable::$diferenceBills as $key => $b) {
+            $categoryPropertiesBills[] = $key;
+        }
+
         //Taxas Custom
         $customBill = $customBillsTable->find()
             ->where(['reference_id' => $contract['id']])
@@ -249,7 +253,6 @@ class Slip
 
             $slipValue = new SlipValue();
 
-            $slipValue->setName(sprintf('Conta de %s', $b));
             $slipValue->setType($key);
 
             $isPosted = $customBillsTable->find()
@@ -263,6 +266,7 @@ class Slip
             if ($isPosted) {
                 $slipValue->setValue($isPosted['valor']);
                 $slipValue->setStatus(Bills::OPEN);
+                $slipValue->setName(sprintf('%s (%s)', $isPosted['descricao'], $b));
 
                 if ($billTransaction = $this->checkIfPaid($key, $contract['id'])) {
                     $slipValue->setValue($billTransaction['valor']);
@@ -295,8 +299,12 @@ class Slip
                         ->first();
 
                     $slipValue->setStatus(Bills::OPEN);
+                    $slipValue->setName(sprintf('%s (%s)', $isPosted['descricao'], $b));
 
-                    if ($diff->invert == true) {
+                    if (
+                        $diff->invert == true &&
+                        $today->format('Y-m-d') <> $this->getSalary()->format('Y-m-d')
+                    ) {
                         $slipValue->setStatus(Bills::LATE);
                     }
 
@@ -324,12 +332,50 @@ class Slip
                         }
 
                         $slipValue->setValue($minValue);
+                        $slipValue->setName(sprintf('Conta do Imóvel (%s)', $b));
 
                         $this->values[] = $slipValue;
 
                         $sum += $slipValue->getValue();
                     }
                 }
+            }
+        }
+
+        //Diferenças de Contas
+        foreach (PropertiesTable::$diferenceBills as $key => $b) {
+            $slipValue = new SlipValue();
+
+            $slipValue->setType($key);
+
+            $isPosted = $customBillsTable->find()
+                ->where(['reference_id' => $contract['id']])
+                ->where(['pagante' => Bills::PAYER_RECEIVER_TENANT])
+                ->where(['categoria' => $key])
+                ->where(['date_format(data_inicio, "%Y-%m") = :date'])
+                ->bind(':date', $date->format('Y-m'))
+                ->first();
+
+            if ($isPosted) {
+                $slipValue->setValue($isPosted['valor']);
+                $slipValue->setStatus(Bills::OPEN);
+                $slipValue->setName(sprintf('Diferença Mês Anterior (%s)', $b));
+
+                if ($billTransaction = $this->checkIfPaid($key, $contract['id'])) {
+                    $slipValue->setValue($billTransaction['valor']);
+                    $slipValue->setStatus(Bills::PAID);
+                    $slipValue->setTransactionId($billTransaction['id']);
+
+                    $this->paidDate = new DateTime($billTransaction['data_pago']->format('Y-m-d'));
+                } else {
+                    if ($today->format('Y-m-d') > $this->getSalary()->format('Y-m-d')) {
+                        $slipValue->setStatus(Bills::LATE);
+                    }
+                }
+
+                $this->values[] = $slipValue;
+
+                $sum += $slipValue->getValue();
             }
         }
 

@@ -267,6 +267,14 @@ table {
 
       figure {
         margin: -5px;
+        position: relative;
+
+        .icon-warning {
+          position: absolute;
+          left: 10px;
+          top: 10px;
+          color: $dangerColor;
+        }
 
         img {
           width: 100%;

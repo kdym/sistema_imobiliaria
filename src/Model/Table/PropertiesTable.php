@@ -70,6 +70,12 @@ class PropertiesTable extends Table
         self::BILL_WATER => 'tint'
     ];
 
+    const DIFFERENCE_WATER = 'diferenca_agua';
+
+    public static $diferenceBills = [
+        self::DIFFERENCE_WATER => 'Água'
+    ];
+
     /**
      * Initialize method
      *

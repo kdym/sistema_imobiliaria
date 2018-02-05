@@ -67,6 +67,12 @@ echo $this->Html->script('bills.min', ['block' => true]);
                                 <div class="item">
                                     <div class="item-wrapper">
                                         <figure>
+                                            <?php if (!empty($v['warning'])) { ?>
+                                                <i class="fa fa-exclamation-triangle fa-2x icon-warning"
+                                                   title="<?php echo $v['warning'] ?>"
+                                                   data-toggle="tooltip"></i>
+                                            <?php } ?>
+
                                             <?php echo $this->Html->image($this->Properties->getMainPhoto($v['property'])) ?>
                                         </figure>
 

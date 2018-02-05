@@ -20,6 +20,7 @@ use DateTime;
  * @property \App\Model\Table\PropertiesFeesTable $PropertiesFees
  * @property \App\Model\Table\CommonBillsTable $CommonBills
  * @property \App\Model\Table\ParametersTable $Parameters
+ * @property \App\Model\Table\BillsTransactionsTable $BillsTransactions
  */
 class BillsController extends AppController
 {
@@ -34,6 +35,7 @@ class BillsController extends AppController
         $this->loadModel('ContractsValues');
         $this->loadModel('CommonBills');
         $this->loadModel('Parameters');
+        $this->loadModel('BillsTransactions');
     }
 
     function isAuthorized($user)
@@ -66,9 +68,15 @@ class BillsController extends AppController
 
             $hasContract = false;
             $salary = null;
+            $value = $this->Properties->parseDecimal($v);
+            $description = 'Conta do Imóvel';
+            $category = $this->request->getData('categoria');
 
             if ($contract) {
                 $hasContract = true;
+
+                $isLocked = false;
+                $isPaid = false;
 
                 $contractValues = $this->ContractsValues->find()
                     ->where(['date_format(start_date, "%Y-%m") <=' => $period->format('Y-m')])
@@ -76,6 +84,32 @@ class BillsController extends AppController
                     ->last();
 
                 $salary = new DateTime(sprintf("%s-%s", $period->format('Y-m'), $contractValues['vencimento_boleto']));
+
+                $paidSlips = $this->BillsTransactions->find()
+                    ->where(['categoria' => $this->request->getData('categoria')])
+                    ->where(['reference_id' => $contract['id']])
+                    ->where(['date_format(data_vencimento, "%Y-%m") = :date'])
+                    ->bind(':date', $period->format('Y-m'))
+                    ->where(['data_pago is not null'])
+                    ->first();
+
+                if ($paidSlips) {
+                    $isPaid = true;
+
+                    $value -= $paidSlips['valor'];
+                    $description = 'Diferença Mês Anterior';
+                }
+
+                if ($isPaid || $isLocked) {
+                    $salary->modify('+1 month');
+
+                    switch ($this->request->getData('categoria')) {
+                        case PropertiesTable::BILL_WATER:
+                            $category = PropertiesTable::DIFFERENCE_WATER;
+
+                            break;
+                    }
+                }
             } else {
                 $propertyFees = $this->PropertiesFees->find()
                     ->where(['date_format(start_date, "%Y-%m") <=' => $period->format('Y-m')])
@@ -85,10 +119,23 @@ class BillsController extends AppController
                 $salary = new DateTime(sprintf("%s-%s", $period->format('Y-m'), $propertyFees[$this->request->getData('categoria')]));
             }
 
-            $customBill = $this->CustomBills->newEntity();
+            $reference = ($hasContract) ? $contract['id'] : $id;
 
-            $customBill['categoria'] = $this->request->getData('categoria');
-            $customBill['descricao'] = 'Conta do Imóvel';
+            $buffer = $this->CustomBills->find()
+                ->where(['categoria' => $category])
+                ->where(['repeat_year' => $salary->format('Y')])
+                ->where(['repeat_month' => $salary->format('m')])
+                ->where(['reference_id' => $reference])
+                ->first();
+
+            if ($buffer) {
+                $customBill = $buffer;
+            } else {
+                $customBill = $this->CustomBills->newEntity();
+            }
+
+            $customBill['categoria'] = $category;
+            $customBill['descricao'] = $description;
             $customBill['pagante'] = ($hasContract) ? Bills::PAYER_RECEIVER_TENANT : Bills::PAYER_RECEIVER_LOCATOR;
             $customBill['recebedor'] = Bills::PAYER_RECEIVER_REAL_ESTATE;
             $customBill['repeat_year'] = $salary->format('Y');
@@ -96,8 +143,8 @@ class BillsController extends AppController
             $customBill['repeat_day'] = $salary->format('d');
             $customBill['data_inicio'] = $salary->format('Y-m-d');
             $customBill['data_fim'] = $salary->format('Y-m-d');
-            $customBill['valor'] = $this->Properties->parseDecimal($v);
-            $customBill['reference_id'] = ($hasContract) ? $contract['id'] : $id;
+            $customBill['valor'] = $value;
+            $customBill['reference_id'] = $reference;
 
             $this->CustomBills->save($customBill);
         }
@@ -155,18 +202,13 @@ class BillsController extends AppController
                 $hasContract = [];
                 $sumNoContract = 0;
                 foreach ($commonBills as $c) {
-                    $contract = $this->Contracts->find()
-                        ->where(['property_id' => $c['property']['id']])
-                        ->where(['date_format(data_inicio, "%Y-%m") >=' => $period->format('Y-m')])
-                        ->where(['data_fim is not null'])
-                        ->first();
-
-                    if ($contract) {
-                        $hasContract[] = $c;
+                    if ($contract = $this->hasActiveContract($c['property'], $period)) {
+                        $hasContract[] = $contract;
                     } else {
                         $query = $this->Parameters->find()
                             ->where(['nome' => ParametersTable::MIN_WATER_RESIDENTIAL])
-                            ->where(['date_format(start_date, "%Y-%m") <=' => $period->format('Y-m')])
+                            ->where(['date_format(start_date, "%Y-%m") <= :date'])
+                            ->bind(':date', $period->format('Y-m'))
                             ->first();
 
                         $minWaterValue = 0;
@@ -192,15 +234,35 @@ class BillsController extends AppController
                 }
 
                 foreach ($hasContract as $c) {
+                    $warning = '';
+
+                    $isValidSlip = $this->isValidSlip($period, $c);
+
+                    if ($isValidSlip['paid'] == true || $isValidSlip['locked'] == true) {
+                        $warning = 'Boleto Fechado';
+                    }
+
                     $values[] = [
                         'property' => $c['property'],
-                        'value' => $value
+                        'value' => $value,
+                        'warning' => $warning
                     ];
+                }
+
+                if ($contract = $this->hasActiveContract($property, $period)) {
+                    $warning = '';
+
+                    $isValidSlip = $this->isValidSlip($period, $contract);
+
+                    if ($isValidSlip['paid'] == true || $isValidSlip['locked'] == true) {
+                        $warning = 'Boleto Fechado';
+                    }
                 }
 
                 $values[] = [
                     'property' => $property,
-                    'value' => $value
+                    'value' => $value,
+                    'warning' => $warning
                 ];
             }
         }
@@ -233,5 +295,37 @@ class BillsController extends AppController
             ->limit(10);
 
         $this->response->body(json_encode($properties));
+    }
+
+    public function isValidSlip($period, $contract)
+    {
+        $result = [
+            'paid' => false,
+            'locked' => false,
+        ];
+
+        $paidSlips = $this->BillsTransactions->find()
+            ->where(['reference_id' => $contract['id']])
+            ->where(['date_format(data_vencimento, "%Y-%m") = :date'])
+            ->bind(':date', $period->format('Y-m'))
+            ->where(['data_pago is not null']);
+
+        if (!$paidSlips->isEmpty()) {
+            $result['paid'] = true;
+        }
+
+        return $result;
+    }
+
+    public function hasActiveContract($property, $period)
+    {
+        $contract = $this->Contracts->find()
+            ->where(['property_id' => $property['id']])
+            ->where(['date_format(data_inicio, "%Y-%m") <= :date'])
+            ->bind(':date', $period->format('Y-m'))
+            ->where(['data_fim is null'])
+            ->first();
+
+        return $contract;
     }
 }
