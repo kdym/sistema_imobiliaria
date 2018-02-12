@@ -48,6 +48,12 @@ class ConfigController extends AppController
         }
 
         $this->set(compact('minWaterValues'));
+
+        $parameters = [];
+
+        $parameters[ParametersTable::SLIP_LOCK] = $this->Parameters->getParameter(ParametersTable::SLIP_LOCK);
+
+        $this->set(compact('parameters'));
     }
 
     public function general()
@@ -56,6 +62,8 @@ class ConfigController extends AppController
             foreach (ParametersTable::$waterMinValues as $key => $v) {
                 $this->request->data[$key] = $this->Parameters->formatCurrency($this->Parameters->getParameter($key));
             }
+
+            $this->request->data[ParametersTable::SLIP_LOCK] = $this->Parameters->getParameter(ParametersTable::SLIP_LOCK);
         }
 
         if ($this->request->is('post')) {
@@ -72,6 +80,8 @@ class ConfigController extends AppController
             foreach (ParametersTable::$waterMinValues as $key => $v) {
                 $this->Parameters->setParameter($key, $this->Parameters->parseDecimal($this->request->getData($key)));
             }
+
+            $this->Parameters->setParameter(ParametersTable::SLIP_LOCK, $this->request->getData(ParametersTable::SLIP_LOCK));
 
             $this->Flash->success('Salvo com sucesso');
 

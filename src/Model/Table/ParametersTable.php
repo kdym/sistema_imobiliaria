@@ -29,6 +29,12 @@ class ParametersTable extends Table
         self::MIN_WATER_NON_RESIDENTIAL => 'Não Residencial',
     ];
 
+    const SLIP_LOCK = 'slip_lock';
+
+    public static $parameters = [
+        self::SLIP_LOCK => 'Trava do Boleto (dia)',
+    ];
+
     /**
      * Initialize method
      *

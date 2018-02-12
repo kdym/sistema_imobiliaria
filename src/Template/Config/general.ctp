@@ -8,6 +8,8 @@
 use App\Model\Table\ContractsValuesTable;
 use App\Model\Table\ParametersTable;
 
+echo $this->Html->script('config.min', ['block' => true]);
+
 ?>
 
 <section class="content-header">
@@ -17,7 +19,7 @@ use App\Model\Table\ParametersTable;
 </section>
 
 <section class="content">
-    <?php echo $this->Form->create() ?>
+    <?php echo $this->Form->create(null, ['id' => 'parameters-form']) ?>
 
     <div class="box">
         <div class="box-body">
@@ -28,6 +30,12 @@ use App\Model\Table\ParametersTable;
                     </div>
                 </div>
             <?php } ?>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->Form->control(ParametersTable::SLIP_LOCK, ['label' => ParametersTable::$parameters[ParametersTable::SLIP_LOCK], 'class' => 'number-only', 'maxlength' => 2]) ?>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -55,6 +55,8 @@ class BillsController extends AppController
 
     public function saveValues()
     {
+        $today = new DateTime('now');
+
         foreach ($this->request->getData('value') as $id => $v) {
             $buffer = explode('/', $this->request->getData('period'));
 
@@ -98,10 +100,73 @@ class BillsController extends AppController
 
                     $value -= $paidSlips['valor'];
                     $description = 'Diferença Mês Anterior';
+                } else {
+                    $slipLock = $this->Parameters->find()
+                        ->where(['nome' => ParametersTable::SLIP_LOCK])
+                        ->where(['date_format(start_date, "%Y-%m") <= :date'])
+                        ->bind(':date', $period->format('Y-m'))
+                        ->last();
+
+                    if ($slipLock) {
+                        $lockDay = new DateTime(sprintf('%s-%s', $period->format('Y-m'), $slipLock['valor']));
+
+                        if ($today->format('Y-m-d') >= $lockDay->format('Y-m-d')) {
+                            $isLocked = true;
+
+                            $lastMonth = new DateTime($salary->format('Y-m-d'));
+                            $lastMonth->modify('-1 month');
+
+                            $isPosted = $this->CustomBills->find()
+                                ->where(['reference_id' => $contract['id']])
+                                ->where(['pagante' => Bills::PAYER_RECEIVER_TENANT])
+                                ->where(['categoria' => $this->request->getData('categoria')])
+                                ->where(['date_format(data_inicio, "%Y-%m") = :date'])
+                                ->bind(':date', $lastMonth->format('Y-m'))
+                                ->first();
+
+                            if ($isPosted) {
+                                $value -= $isPosted['valor'];
+                                $description = 'Diferença Mês Anterior';
+                            } else {
+                                $minValue = 0;
+                                $parameter = null;
+
+                                switch ($this->request->getData('categoria')) {
+                                    case PropertiesTable::BILL_WATER:
+                                        $parameter = ParametersTable::MIN_WATER_RESIDENTIAL;
+
+                                        break;
+                                }
+
+                                $query = $this->Parameters->find()
+                                    ->where(['nome' => $parameter])
+                                    ->where(['date_format(start_date, "%Y-%m") <= :date'])
+                                    ->bind(':date', $period->format('Y-m'))
+                                    ->last();
+
+                                if ($query) {
+                                    $minValue = $query['valor'];
+                                }
+
+                                $value -= $minValue;
+                                $description = 'Diferença Mês Anterior';
+                            }
+                        }
+                    }
                 }
 
                 if ($isPaid || $isLocked) {
-                    $salary->modify('+1 month');
+                    if ($isLocked) {
+                        $newLockDay = new DateTime(sprintf('%s-%s', $period->format('Y-m'), $slipLock['valor']));
+
+                        while ($today->format('Y-m-d') >= $newLockDay->format('Y-m-d')) {
+                            $newLockDay->modify('+1 month');
+
+                            $salary = $newLockDay;
+                        }
+                    } else {
+                        $salary->modify('+1 month');
+                    }
 
                     switch ($this->request->getData('categoria')) {
                         case PropertiesTable::BILL_WATER:
@@ -312,6 +377,22 @@ class BillsController extends AppController
 
         if (!$paidSlips->isEmpty()) {
             $result['paid'] = true;
+        }
+
+        $today = new DateTime('now');
+
+        $slipLock = $this->Parameters->find()
+            ->where(['nome' => ParametersTable::SLIP_LOCK])
+            ->where(['date_format(start_date, "%Y-%m") <= :date'])
+            ->bind(':date', $period->format('Y-m'))
+            ->last();
+
+        if ($slipLock) {
+            $lockDay = new DateTime(sprintf('%s-%s', $period->format('Y-m'), $slipLock['valor']));
+
+            if ($today->format('Y-m-d') >= $lockDay->format('Y-m-d')) {
+                $result['locked'] = true;
+            }
         }
 
         return $result;

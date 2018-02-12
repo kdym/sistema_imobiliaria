@@ -180,6 +180,18 @@ use App\Model\Table\ParametersTable;
                             </div>
                         </div>
                     <?php } ?>
+
+                    <div class="item">
+                        <div class="icon">
+                            <i class="fa fa-barcode"></i>
+                        </div>
+
+                        <div class="value">
+                            <h1>Trava do Boleto (dia)</h1>
+
+                            <h2><?php echo $parameters[ParametersTable::SLIP_LOCK] ?></h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
