@@ -76,6 +76,14 @@ class PropertiesTable extends Table
         self::DIFFERENCE_WATER => 'Água'
     ];
 
+    const TYPE_RESIDENTIAL = 1;
+    const TYPE_NON_RESIDENTIAL = 2;
+
+    public static $propertyCategories = [
+        self::TYPE_RESIDENTIAL => 'Residencial',
+        self::TYPE_NON_RESIDENTIAL => 'Não Residencial',
+    ];
+
     /**
      * Initialize method
      *
@@ -148,6 +156,8 @@ class PropertiesTable extends Table
         $validator->notEmpty('uf');
 
         $validator->notEmpty('tipo');
+
+        $validator->notEmpty('category');
 
         $validator->notEmpty('valor');
 

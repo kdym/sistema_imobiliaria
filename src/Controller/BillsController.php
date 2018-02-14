@@ -131,9 +131,25 @@ class BillsController extends AppController
                                 $minValue = 0;
                                 $parameter = null;
 
+                                $propertyFees = $this->PropertiesFees->find()
+                                    ->where(['property_id' => $id])
+                                    ->where(['date_format(start_date, "%Y-%m") <= :date'])
+                                    ->bind(':date', $period->format('Y-m'))
+                                    ->last();
+
                                 switch ($this->request->getData('categoria')) {
                                     case PropertiesTable::BILL_WATER:
-                                        $parameter = ParametersTable::MIN_WATER_RESIDENTIAL;
+                                        switch ($propertyFees['imovel_tipo']) {
+                                            case PropertiesTable::TYPE_RESIDENTIAL:
+                                                $parameter = ParametersTable::MIN_WATER_RESIDENTIAL;
+
+                                                break;
+
+                                            case PropertiesTable::TYPE_NON_RESIDENTIAL:
+                                                $parameter = ParametersTable::MIN_WATER_NON_RESIDENTIAL;
+
+                                                break;
+                                        }
 
                                         break;
                                 }
@@ -270,8 +286,26 @@ class BillsController extends AppController
                     if ($contract = $this->hasActiveContract($c['property'], $period)) {
                         $hasContract[] = $contract;
                     } else {
+                        $propertyFees = $this->PropertiesFees->find()
+                            ->where(['property_id' => $c['property']['id']])
+                            ->where(['date_format(start_date, "%Y-%m") <= :date'])
+                            ->bind(':date', $period->format('Y-m'))
+                            ->last();
+
+                        switch ($propertyFees['imovel_tipo']) {
+                            case PropertiesTable::TYPE_RESIDENTIAL:
+                                $parameter = ParametersTable::MIN_WATER_RESIDENTIAL;
+
+                                break;
+
+                            case PropertiesTable::TYPE_NON_RESIDENTIAL:
+                                $parameter = ParametersTable::MIN_WATER_NON_RESIDENTIAL;
+
+                                break;
+                        }
+
                         $query = $this->Parameters->find()
-                            ->where(['nome' => ParametersTable::MIN_WATER_RESIDENTIAL])
+                            ->where(['nome' => $parameter])
                             ->where(['date_format(start_date, "%Y-%m") <= :date'])
                             ->bind(':date', $period->format('Y-m'))
                             ->first();

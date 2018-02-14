@@ -64,6 +64,7 @@ echo $this->Html->script('properties.min', ['block' => true]);
             <div class="box">
                 <div class="box-body">
                     <?php echo $this->Form->control('tipo', ['options' => PropertiesTable::$propertyTypes, 'empty' => true]) ?>
+                    <?php echo $this->Form->control('category', ['options' => PropertiesTable::$propertyCategories, 'empty' => true, 'label' => 'Categoria']) ?>
 
                     <div class="row">
                         <?php foreach (PropertiesCompositionsTable::$propertiesItems as $i) { ?>

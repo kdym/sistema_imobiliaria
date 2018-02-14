@@ -77,6 +77,8 @@ $editLink = ['action' => 'form', $property['id']];
                             <h1>Tipo</h1>
 
                             <h2><?php echo $this->Properties->getType($property) ?></h2>
+
+                            <h3><?php echo PropertiesTable::$propertyCategories[$property['properties_fees'][0]['imovel_tipo']] ?></h3>
                         </div>
                     </div>
 

@@ -320,7 +320,17 @@ class Slip
 
                         switch ($key) {
                             case PropertiesTable::BILL_WATER:
-                                $parameter = ParametersTable::MIN_WATER_RESIDENTIAL;
+                                switch ($propertyFees['imovel_tipo']) {
+                                    case PropertiesTable::TYPE_RESIDENTIAL:
+                                        $parameter = ParametersTable::MIN_WATER_RESIDENTIAL;
+
+                                        break;
+
+                                    case PropertiesTable::TYPE_NON_RESIDENTIAL:
+                                        $parameter = ParametersTable::MIN_WATER_NON_RESIDENTIAL;
+
+                                        break;
+                                }
 
                                 break;
                         }
