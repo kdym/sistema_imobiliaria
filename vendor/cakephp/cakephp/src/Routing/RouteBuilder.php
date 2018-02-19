@@ -743,7 +743,9 @@ class RouteBuilder
             }
 
             $route = str_replace('//', '/', $this->_path . $route);
-            $route = $route === '/' ? $route : rtrim($route, '/');
+            if ($route !== '/') {
+                $route = rtrim($route, '/');
+            }
 
             foreach ($this->_params as $param => $val) {
                 if (isset($defaults[$param]) && $param !== 'prefix' && $defaults[$param] !== $val) {
@@ -758,8 +760,7 @@ class RouteBuilder
                     ));
                 }
             }
-            $defaults += $this->_params;
-            $defaults += ['plugin' => null];
+            $defaults += $this->_params + ['plugin' => null];
 
             $route = new $routeClass($route, $defaults, $options);
         }
@@ -798,7 +799,7 @@ class RouteBuilder
      *
      * - `status` Sets the HTTP status (default 301)
      * - `persist` Passes the params to the redirected route, if it can. This is useful with greedy routes,
-     *   routes that end in `*` are greedy. As you can remap URLs and not loose any passed args.
+     *   routes that end in `*` are greedy. As you can remap URLs and not lose any passed args.
      *
      * @param string $route A string describing the template of the route
      * @param array|string $url A URL to redirect to. Can be a string or a Cake array-based URL
@@ -809,7 +810,9 @@ class RouteBuilder
      */
     public function redirect($route, $url, array $options = [])
     {
-        $options['routeClass'] = 'Cake\Routing\Route\RedirectRoute';
+        if (!isset($options['routeClass'])) {
+            $options['routeClass'] = 'Cake\Routing\Route\RedirectRoute';
+        }
         if (is_string($url)) {
             $url = ['redirect' => $url];
         }
@@ -968,7 +971,7 @@ class RouteBuilder
      * scope or any child scopes that share the same RouteCollection.
      *
      * @param string $name The name of the middleware. Used when applying middleware to a scope.
-     * @param callable $middleware The middleware object to register.
+     * @param callable|string $middleware The middleware callable or class name to register.
      * @return $this
      * @see \Cake\Routing\RouteCollection
      */

@@ -20,6 +20,7 @@ use Cake\Http\Client\CookieCollection;
 use Cake\Http\Client\Request;
 use Cake\Http\Cookie\CookieInterface;
 use Cake\Utility\Hash;
+use InvalidArgumentException;
 use Zend\Diactoros\Uri;
 
 /**
@@ -27,7 +28,7 @@ use Zend\Diactoros\Uri;
  *
  * ### Scoped clients
  *
- * If you're doing multiple requests to the same hostname its often convenient
+ * If you're doing multiple requests to the same hostname it's often convenient
  * to use the constructor arguments to create a scoped client. This allows you
  * to keep your code DRY and not repeat hostnames, authentication, and other options.
  *
@@ -86,10 +87,11 @@ use Zend\Diactoros\Uri;
  * ### Using proxies
  *
  * By using the `proxy` key you can set authentication credentials for
- * a proxy if you need to use one.. The type sub option can be used to
+ * a proxy if you need to use one. The type sub option can be used to
  * specify which authentication strategy you want to use.
  * CakePHP comes with built-in support for basic authentication.
  *
+ * @mixin \Cake\Core\InstanceConfigTrait
  */
 class Client
 {
@@ -147,7 +149,7 @@ class Client
      *   Defaults to true.
      * - ssl_verify_peer_name - Whether or not peer names should be validated.
      *   Defaults to true.
-     * - ssl_verify_depth - The maximum certificate chain depth to travers.
+     * - ssl_verify_depth - The maximum certificate chain depth to traverse.
      *   Defaults to 5.
      * - ssl_verify_host - Verify that the certificate and hostname match.
      *   Defaults to true.
@@ -192,6 +194,9 @@ class Client
      */
     public function addCookie(CookieInterface $cookie)
     {
+        if (!$cookie->getDomain() || !$cookie->getPath()) {
+            throw new InvalidArgumentException('Cookie must have a domain and a path set.');
+        }
         $this->_cookies = $this->_cookies->add($cookie);
 
         return $this;
@@ -202,7 +207,7 @@ class Client
      *
      * The $data argument supports a special `_content` key
      * for providing a request body in a GET request. This is
-     * generally not used but services like ElasticSearch use
+     * generally not used, but services like ElasticSearch use
      * this feature.
      *
      * @param string $url The url or path you want to request.
@@ -346,7 +351,7 @@ class Client
      * @param string $method HTTP method.
      * @param string $url URL to request.
      * @param mixed $data The request body.
-     * @param array $options The options to use. Contains auth, proxy etc.
+     * @param array $options The options to use. Contains auth, proxy, etc.
      * @return \Cake\Http\Client\Response
      */
     protected function _doRequest($method, $url, $data, $options)
@@ -402,7 +407,8 @@ class Client
                 $locationUrl = $this->buildUrl($location, [], [
                     'host' => $url->getHost(),
                     'port' => $url->getPort(),
-                    'scheme' => $url->getScheme()
+                    'scheme' => $url->getScheme(),
+                    'protocolRelative' => true
                 ]);
 
                 $request = $request->withUri(new Uri($locationUrl));
@@ -436,7 +442,7 @@ class Client
      * @param string $url Either a full URL or just the path.
      * @param string|array $query The query data for the URL.
      * @param array $options The config options stored with Client::config()
-     * @return string A complete url with scheme, port, host, path.
+     * @return string A complete url with scheme, port, host, and path.
      */
     public function buildUrl($url, $query = [], $options = [])
     {
@@ -448,15 +454,21 @@ class Client
             $url .= $q;
             $url .= is_string($query) ? $query : http_build_query($query);
         }
-        if (preg_match('#^https?://#', $url)) {
-            return $url;
-        }
         $defaults = [
             'host' => null,
             'port' => null,
             'scheme' => 'http',
+            'protocolRelative' => false
         ];
         $options += $defaults;
+
+        if ($options['protocolRelative'] && preg_match('#^//#', $url)) {
+            $url = $options['scheme'] . ':' . $url;
+        }
+        if (preg_match('#^https?://#', $url)) {
+            return $url;
+        }
+
         $defaultPorts = [
             'http' => 80,
             'https' => 443
@@ -476,7 +488,7 @@ class Client
      * @param string $method HTTP method name.
      * @param string $url The url including query string.
      * @param mixed $data The request body.
-     * @param array $options The options to use. Contains auth, proxy etc.
+     * @param array $options The options to use. Contains auth, proxy, etc.
      * @return \Cake\Http\Client\Request
      */
     protected function _createRequest($method, $url, $data, $options)
@@ -491,6 +503,7 @@ class Client
 
         $request = new Request($url, $method, $headers, $data);
         $cookies = isset($options['cookies']) ? $options['cookies'] : [];
+        /** @var \Cake\Http\Client\Request $request */
         $request = $this->_cookies->addToRequest($request, $cookies);
         if (isset($options['auth'])) {
             $request = $this->_addAuthentication($request, $options);

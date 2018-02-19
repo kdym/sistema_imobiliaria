@@ -5,6 +5,9 @@
       <sourceFolder url="file://$MODULE_DIR$/vendor/cakephp/cakephp/tests" isTestSource="true" packagePrefix="Cake\Test\" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Test\" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ajgl/breakpoint-twig-extension" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aptoma/twig-markdown" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/asm89/twig-cache-extension" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/aura/intl" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp-brasil/twitter-bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/bake" />
@@ -19,6 +22,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dompdf/dompdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-color" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jakub-onderka/php-console-highlighter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jasny/twig-extensions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jdorn/sql-formatter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/josegonzalez/dotenv" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
@@ -48,6 +52,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-dumper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/twig/twig" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/umpirsky/twig-php-function" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/wyrihaximus/twig-view" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-diactoros" />
     </content>
     <orderEntry type="inheritedJdk" />

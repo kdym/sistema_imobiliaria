@@ -26,9 +26,14 @@ class ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0
         array (
             'XdgBaseDir\\' => 11,
         ),
+        'W' => 
+        array (
+            'WyriHaximus\\TwigView\\' => 21,
+        ),
         'T' => 
         array (
             'TwitterBootstrap\\' => 17,
+            'Twig\\' => 5,
         ),
         'S' => 
         array (
@@ -63,6 +68,7 @@ class ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0
         'J' => 
         array (
             'JsonSchema\\' => 11,
+            'Jasny\\Twig\\' => 11,
         ),
         'F' => 
         array (
@@ -95,6 +101,7 @@ class ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0
             'Aura\\Intl\\' => 10,
             'App\\Test\\' => 9,
             'App\\' => 4,
+            'Ajgl\\Twig\\Extension\\' => 20,
             'AdminLTE\\' => 9,
         ),
     );
@@ -108,9 +115,17 @@ class ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0
         array (
             0 => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src',
         ),
+        'WyriHaximus\\TwigView\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wyrihaximus/twig-view/src',
+        ),
         'TwitterBootstrap\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp-brasil/twitter-bootstrap/src',
+        ),
+        'Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/twig/src',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
@@ -200,6 +215,10 @@ class ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
         ),
+        'Jasny\\Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jasny/twig-extensions/src',
+        ),
         'FontLib\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
@@ -268,10 +287,18 @@ class ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
+        'Ajgl\\Twig\\Extension\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ajgl/breakpoint-twig-extension/src',
+        ),
         'AdminLTE\\' => 
         array (
             0 => __DIR__ . '/..' . '/maiconpinto/cakephp-adminlte-theme/src',
         ),
+    );
+
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/..' . '/asm89/twig-cache-extension/lib',
     );
 
     public static $prefixesPsr0 = array (
@@ -281,6 +308,20 @@ class ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0
             array (
                 0 => __DIR__ . '/..' . '/josegonzalez/dotenv/src',
                 1 => __DIR__ . '/..' . '/josegonzalez/dotenv/tests',
+            ),
+        ),
+        'U' => 
+        array (
+            'Umpirsky\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/umpirsky/twig-php-function/src',
+            ),
+        ),
+        'T' => 
+        array (
+            'Twig_' => 
+            array (
+                0 => __DIR__ . '/..' . '/twig/twig/lib',
             ),
         ),
         'S' => 
@@ -312,6 +353,13 @@ class ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0
                 0 => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/namespaced',
             ),
         ),
+        'A' => 
+        array (
+            'Aptoma' => 
+            array (
+                0 => __DIR__ . '/..' . '/aptoma/twig-markdown/src',
+            ),
+        ),
     );
 
     public static $classMap = array (
@@ -330,6 +378,7 @@ class ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit58dfc6a71e5cb22fdc1632bf763bb2d0::$classMap;
 

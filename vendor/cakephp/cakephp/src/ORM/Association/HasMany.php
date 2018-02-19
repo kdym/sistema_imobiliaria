@@ -19,6 +19,7 @@ use Cake\Collection\Collection;
 use Cake\Database\Expression\FieldInterface;
 use Cake\Database\Expression\QueryExpression;
 use Cake\Datasource\EntityInterface;
+use Cake\Datasource\QueryInterface;
 use Cake\ORM\Association;
 use Cake\ORM\Association\DependentDeleteHelper;
 use Cake\ORM\Association\Loader\SelectLoader;
@@ -47,7 +48,7 @@ class HasMany extends Association
      *
      * @var string
      */
-    protected $_joinType = 'INNER';
+    protected $_joinType = QueryInterface::JOIN_TYPE_INNER;
 
     /**
      * The strategy name to be used to fetch associated records.
@@ -154,8 +155,7 @@ class HasMany extends Association
      * `$options`
      *
      * @param \Cake\Datasource\EntityInterface $entity an entity from the source table
-     * @param array|\ArrayObject $options options to be passed to the save method in
-     * the target table
+     * @param array $options options to be passed to the save method in the target table
      * @return bool|\Cake\Datasource\EntityInterface false if $entity could not be saved, otherwise it returns
      * the saved entity
      * @see \Cake\ORM\Table::save()
@@ -668,7 +668,7 @@ class HasMany extends Association
     /**
      * {@inheritDoc}
      *
-     * @return callable
+     * @return \Closure
      */
     public function eagerLoader(array $options)
     {

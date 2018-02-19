@@ -168,7 +168,7 @@ class I18n
      * ```
      *
      * @param string $name The domain of the translation messages.
-     * @param callable|null $loader A callback function or callable class responsible for
+     * @param callable $loader A callback function or callable class responsible for
      *   constructing a translations package instance.
      * @param string|null $locale The locale for the translator.
      * @return void
@@ -289,6 +289,7 @@ class I18n
      */
     public static function setLocale($locale)
     {
+        static::getDefaultLocale();
         Locale::setDefault($locale);
         if (isset(static::$_collection)) {
             static::translators()->setLocale($locale);

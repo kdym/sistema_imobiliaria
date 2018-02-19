@@ -383,6 +383,7 @@ class FileEngine extends CacheEngine
         if (!is_dir($dir)) {
             mkdir($dir, 0775, true);
         }
+
         $path = new SplFileInfo($dir . $key);
 
         if (!$createKey && !$path->isFile()) {

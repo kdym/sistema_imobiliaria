@@ -18,7 +18,6 @@ use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;
 use Cake\Http\Runner;
 use Cake\Routing\Exception\RedirectException;
-use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -48,7 +47,7 @@ class RoutingMiddleware
     }
 
     /**
-     * Trigger the application's routes() hook if the application exists.
+     * Trigger the application's routes() hook if the application exists and Router isn't initialized.
      *
      * If the middleware is created without an Application, routes will be
      * loaded via the automatic route loading that pre-dates the routes() hook.
@@ -60,8 +59,6 @@ class RoutingMiddleware
         if ($this->app) {
             $builder = Router::createRouteBuilder('/');
             $this->app->routes($builder);
-            // Prevent routes from being loaded again
-            Router::$initialized = true;
         }
     }
 

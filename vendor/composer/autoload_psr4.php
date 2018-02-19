@@ -8,7 +8,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'Zend\\Diactoros\\' => array($vendorDir . '/zendframework/zend-diactoros/src'),
     'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
+    'WyriHaximus\\TwigView\\' => array($vendorDir . '/wyrihaximus/twig-view/src'),
     'TwitterBootstrap\\' => array($vendorDir . '/cakephp-brasil/twitter-bootstrap/src'),
+    'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
@@ -31,6 +33,7 @@ return array(
     'Migrations\\' => array($vendorDir . '/cakephp/migrations/src'),
     'M1\\Env\\' => array($vendorDir . '/m1/env/src'),
     'JsonSchema\\' => array($vendorDir . '/justinrainbow/json-schema/src/JsonSchema'),
+    'Jasny\\Twig\\' => array($vendorDir . '/jasny/twig-extensions/src'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
     'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),
     'DebugKit\\Test\\Fixture\\' => array($vendorDir . '/cakephp/debug_kit/tests/Fixture'),
@@ -48,5 +51,7 @@ return array(
     'Aura\\Intl\\' => array($vendorDir . '/aura/intl/src'),
     'App\\Test\\' => array($baseDir . '/tests'),
     'App\\' => array($baseDir . '/src'),
+    'Ajgl\\Twig\\Extension\\' => array($vendorDir . '/ajgl/breakpoint-twig-extension/src'),
     'AdminLTE\\' => array($vendorDir . '/maiconpinto/cakephp-adminlte-theme/src'),
+    '' => array($vendorDir . '/asm89/twig-cache-extension/lib'),
 );

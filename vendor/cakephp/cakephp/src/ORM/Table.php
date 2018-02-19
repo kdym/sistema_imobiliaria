@@ -482,7 +482,7 @@ class Table implements RepositoryInterface, EventListenerInterface, EventDispatc
     /**
      * Sets the connection instance.
      *
-     * @param \Cake\Datasource\ConnectionInterface $connection The connection instance
+     * @param \Cake\Database\Connection|\Cake\Datasource\ConnectionInterface $connection The connection instance
      * @return $this
      */
     public function setConnection(ConnectionInterface $connection)
@@ -968,8 +968,9 @@ class Table implements RepositoryInterface, EventListenerInterface, EventDispatc
     {
         $options += ['sourceTable' => $this];
         $association = new BelongsTo($associated, $options);
+        $this->_associations->add($association->getName(), $association);
 
-        return $this->_associations->add($association->getName(), $association);
+        return $association;
     }
 
     /**
@@ -1012,8 +1013,9 @@ class Table implements RepositoryInterface, EventListenerInterface, EventDispatc
     {
         $options += ['sourceTable' => $this];
         $association = new HasOne($associated, $options);
+        $this->_associations->add($association->getName(), $association);
 
-        return $this->_associations->add($association->getName(), $association);
+        return $association;
     }
 
     /**
@@ -1062,8 +1064,9 @@ class Table implements RepositoryInterface, EventListenerInterface, EventDispatc
     {
         $options += ['sourceTable' => $this];
         $association = new HasMany($associated, $options);
+        $this->_associations->add($association->getName(), $association);
 
-        return $this->_associations->add($association->getName(), $association);
+        return $association;
     }
 
     /**
@@ -1114,8 +1117,9 @@ class Table implements RepositoryInterface, EventListenerInterface, EventDispatc
     {
         $options += ['sourceTable' => $this];
         $association = new BelongsToMany($associated, $options);
+        $this->_associations->add($association->getName(), $association);
 
-        return $this->_associations->add($association->getName(), $association);
+        return $association;
     }
 
     /**
@@ -1289,6 +1293,7 @@ class Table implements RepositoryInterface, EventListenerInterface, EventDispatc
         );
 
         return $query->formatResults(function ($results) use ($options) {
+            /** @var \Cake\Collection\CollectionInterface $results */
             return $results->combine(
                 $options['keyField'],
                 $options['valueField'],
@@ -1338,6 +1343,7 @@ class Table implements RepositoryInterface, EventListenerInterface, EventDispatc
         $options = $this->_setFieldMatchers($options, ['keyField', 'parentField']);
 
         return $query->formatResults(function ($results) use ($options) {
+            /** @var \Cake\Collection\CollectionInterface $results */
             return $results->nest($options['keyField'], $options['parentField'], $options['nestingKey']);
         });
     }
@@ -2490,6 +2496,11 @@ class Table implements RepositoryInterface, EventListenerInterface, EventDispatc
      *
      * You can use the `Model.beforeMarshal` event to modify request data
      * before it is converted into entities.
+     *
+     * When patching scalar values (null/booleans/string/integer/float), if the property
+     * presently has an identical value, the setter will not be called, and the
+     * property will not be marked as dirty. This is an optimization to prevent unnecessary field
+     * updates when persisting entities.
      */
     public function patchEntity(EntityInterface $entity, array $data, array $options = [])
     {

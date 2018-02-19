@@ -65,6 +65,7 @@ use RuntimeException;
  *   with the first rows of the query and each of the items, then the second rows and so on.
  * @method \Cake\Collection\CollectionInterface chunk($size) Groups the results in arrays of $size rows each.
  * @method bool isEmpty() Returns true if this query found no results.
+ * @mixin \Cake\Datasource\QueryTrait
  */
 class Query extends DatabaseQuery implements JsonSerializable, QueryInterface
 {
@@ -573,7 +574,7 @@ class Query extends DatabaseQuery implements JsonSerializable, QueryInterface
     {
         $result = $this->getEagerLoader()
             ->setMatching($assoc, $builder, [
-                'joinType' => 'LEFT',
+                'joinType' => QueryInterface::JOIN_TYPE_LEFT,
                 'fields' => false
             ])
             ->getMatching();
@@ -622,7 +623,7 @@ class Query extends DatabaseQuery implements JsonSerializable, QueryInterface
     {
         $result = $this->getEagerLoader()
             ->setMatching($assoc, $builder, [
-                'joinType' => 'INNER',
+                'joinType' => QueryInterface::JOIN_TYPE_INNER,
                 'fields' => false
             ])
             ->getMatching();
@@ -686,7 +687,7 @@ class Query extends DatabaseQuery implements JsonSerializable, QueryInterface
     {
         $result = $this->getEagerLoader()
             ->setMatching($assoc, $builder, [
-                'joinType' => 'LEFT',
+                'joinType' => QueryInterface::JOIN_TYPE_LEFT,
                 'fields' => false,
                 'negateMatch' => true
             ])
@@ -998,6 +999,7 @@ class Query extends DatabaseQuery implements JsonSerializable, QueryInterface
         if (!$this->_beforeFindFired && $this->_type === 'select') {
             $table = $this->repository();
             $this->_beforeFindFired = true;
+            /* @var \Cake\Event\EventDispatcherInterface $table */
             $table->dispatchEvent('Model.beforeFind', [
                 $this,
                 new ArrayObject($this->_options),
