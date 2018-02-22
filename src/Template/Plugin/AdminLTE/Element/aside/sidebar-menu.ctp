@@ -1,5 +1,6 @@
 <?php
 
+use App\Controller\BillsController;
 use App\Policy\BillsPolicy;
 use App\Policy\BrokersPolicy;
 use App\Policy\CompanyDataPolicy;
@@ -126,7 +127,11 @@ if (file_exists($file)) {
             <li class="<?php echo $active ?> treeview">
                 <a href="#">
                     <i class="fa fa-envelope"></i> <span>Contas</span>
-                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+
+                        <small class="label pull-right bg-blue" id="total-bills-notification"></small>
+                    </span>
                 </a>
                 <ul class="treeview-menu">
                     <?php if (BillsPolicy::isAuthorized('water', $loggedUser)) { ?>
@@ -142,6 +147,44 @@ if (file_exists($file)) {
                             <a href="<?php echo $this->Url->build(['controller' => 'bills', 'action' => 'water']) ?>"
                                class="<?php echo $active ?>">
                                 <i class="fa fa-tint"></i> Água
+                            </a>
+                        </li>
+                    <?php } ?>
+
+                    <?php if (BillsPolicy::isAuthorized('absent', $loggedUser)) { ?>
+                        <?php
+                        $active = '';
+
+                        if ($this->request->params['action'] == 'absent') {
+                            $active = 'active';
+                        }
+                        ?>
+
+                        <li>
+                            <a href="<?php echo $this->Url->build(['controller' => 'bills', 'action' => 'absent']) ?>"
+                               class="<?php echo $active ?>">
+                                <i class="fa fa-times"></i> Ausentes
+
+                                <span class="pull-right-container">
+                                    <small class="label pull-right bg-yellow" id="absent-bills-notification"></small>
+                                </span>
+                            </a>
+                        </li>
+                    <?php } ?>
+
+                    <?php if (BillsPolicy::isAuthorized('toPay', $loggedUser)) { ?>
+                        <?php
+                        $active = '';
+
+                        if ($this->request->params['action'] == 'toPay') {
+                            $active = 'active';
+                        }
+                        ?>
+
+                        <li>
+                            <a href="<?php echo $this->Url->build(['controller' => 'bills', 'action' => 'to_pay']) ?>"
+                               class="<?php echo $active ?>">
+                                <i class="fa fa-usd"></i> A Pagar
                             </a>
                         </li>
                     <?php } ?>

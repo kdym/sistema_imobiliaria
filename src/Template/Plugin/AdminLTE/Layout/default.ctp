@@ -125,6 +125,7 @@
 
 <?php echo $this->Html->script('https://maps.googleapis.com/maps/api/js?key=' . \App\View\Helper\GoogleMapsHelper::API_KEY); ?>
 
+<?php echo $this->Html->script('notifications.min') ?>
 <?php echo $this->Html->script('general.min') ?>
 
 <!-- AdminLTE App -->

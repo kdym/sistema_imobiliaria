@@ -20,6 +20,8 @@ class BillsPolicy
             case 'water':
             case 'fetchPropertiesWater':
             case 'propertyHasWater':
+            case 'toPay':
+            case 'absent':
                 return $user['role'] == UsersTable::ROLE_ADMIN;
         }
     }

@@ -23,6 +23,7 @@ class PropertiesPolicy
             case 'updateLatitudeLongitude':
                 return $user['role'] == UsersTable::ROLE_ADMIN || $user['role'] == UsersTable::ROLE_BROKER;
             case 'delete':
+            case 'billEntries':
                 return $user['role'] == UsersTable::ROLE_ADMIN;
         }
     }

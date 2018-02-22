@@ -414,4 +414,9 @@ class PropertiesController extends AppController
 
         $this->autoRender = false;
     }
+
+    public function billEntries($type)
+    {
+
+    }
 }

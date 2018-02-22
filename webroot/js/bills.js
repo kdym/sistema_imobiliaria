@@ -30,3 +30,8 @@ $('#property').autocomplete({
         .append($('#properties-search-template').tmpl(data))
         .appendTo(ul);
 };
+
+$('#bills-to-pay-list').DataTable({
+    order: [[0, 'desc']],
+    responsive: true
+});

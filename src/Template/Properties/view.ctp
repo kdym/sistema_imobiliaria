@@ -8,6 +8,7 @@ use App\Model\Table\PropertiesCompositionsTable;
 use App\Model\Table\PropertiesTable;
 use App\Policy\CommonBillsPolicy;
 use App\Policy\LocatorsAssociationsPolicy;
+use App\Policy\PropertiesPolicy;
 
 echo $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js', ['block' => true]);
 
@@ -277,7 +278,13 @@ $editLink = ['action' => 'form', $property['id']];
                                 <div class="icon-view-list">
                                     <div class="item">
                                         <div class="icon">
-                                            <i class="fa fa-<?php echo PropertiesTable::$propertiesBillsIcons[$key] ?>"></i>
+                                            <?php if (PropertiesPolicy::isAuthorized('billEntries', $loggedUser)) { ?>
+                                                <a href="<?php echo $this->Url->build(['action' => 'bill_entries', $key]) ?>">
+                                                    <i class="fa fa-<?php echo PropertiesTable::$propertiesBillsIcons[$key] ?>"></i>
+                                                </a>
+                                            <?php } else { ?>
+                                                <i class="fa fa-<?php echo PropertiesTable::$propertiesBillsIcons[$key] ?>"></i>
+                                            <?php } ?>
                                         </div>
 
                                         <div class="value">

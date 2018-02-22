@@ -335,7 +335,11 @@ class Slip
                                 break;
                         }
 
-                        $query = $parametersTable->find()->where(['nome' => $parameter])->last();
+                        $query = $parametersTable->find()
+                            ->where(['nome' => $parameter])
+                            ->where(['date_format(start_date, "%Y-%m") = :date'])
+                            ->bind(':date', $this->getSalary()->format('Y-m'))
+                            ->last();
 
                         if ($query) {
                             $minValue = $query['valor'];
